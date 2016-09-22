@@ -1,0 +1,6 @@
+{
+    "name": "music",
+    "dependencies": {
+        "materialize": "^0.97.7"
+    }
+}

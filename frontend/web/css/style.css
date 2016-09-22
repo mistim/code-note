@@ -1,0 +1,33 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.input-field .prefix {
+    bottom: 25px;
+}
+
+.pl-head {
+    width: 85%;
+}
+
+.range-field {
+    width: 100px;
+}
+
+.pl-head .progress {
+    margin-top: 30px;
+}
+
+.has-error, .has-error label {
+    color: #e53935;
+}
+
+.has-error input[type=text] {
+    border-bottom: 1px solid #e53935;
+}
