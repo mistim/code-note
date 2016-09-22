@@ -9,6 +9,7 @@ class m160922_094427_create_table_tag extends Migration
         $this->createTable('{{%tag}}', [
             'id'     => $this->primaryKey(),
             'title'  => $this->string()->notNull(),
+            'alias'  => $this->string()->notNull(),
             'status' => $this->boolean()->notNull(),
         ]);
     }

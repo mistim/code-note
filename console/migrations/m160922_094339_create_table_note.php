@@ -9,6 +9,7 @@ class m160922_094339_create_table_note extends Migration
         $this->createTable('{{%note}}', [
             'id'          => $this->primaryKey(),
             'title'       => $this->string()->notNull(),
+            'alias'       => $this->string()->notNull(),
             'teaser'      => $this->string()->null(),
             'content'     => $this->text()->notNull(),
             'status'      => $this->boolean()->notNull(),

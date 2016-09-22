@@ -9,6 +9,7 @@ class m160922_094318_create_table_post extends Migration
         $this->createTable('{{%post}}', [
             'id'          => $this->primaryKey(),
             'title'       => $this->string()->notNull(),
+            'alias'       => $this->string()->notNull(),
             'teaser'      => $this->string()->null(),
             'content'     => $this->text()->notNull(),
             'image'       => $this->string()->null(),
