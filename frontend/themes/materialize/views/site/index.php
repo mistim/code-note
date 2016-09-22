@@ -1,25 +1,30 @@
+<?php
 
-<h1>Express</h1>
+use yii\widgets\ListView;
+
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+?>
+
+<h1>Posts</h1>
 
 <p>Welcome to Express</p>
 
-<div id="example"></div>
-<!--.row--><!--  form(method='GET', action='/search', class='col s12')--><!--    .row-->
-<!--      .input-field.col.s10--><!--        i.material-icons.prefix search-->
-<!--        input(type='text', name='q', id='query_search')-->
-<!--        label(for='query_search') Enter the name of an artist or song--><!--      .input-field.col.s2-->
-<!--        button(type='submit', class='waves-effect waves-light btn') Search-->
-<div class="row">
-	<form method="GET" action="/yamusic" class="col s12">
-		<div class="row">
-			<div class="input-field col s10">
-				<i class="material-icons prefix">search</i>
-				<input type="text" name="q" id="q_search">
-				<label for="q_search">Enter the name of song</label>
-			</div>
-			<div class="input-field col s2">
-				<button type="submit" class="waves-effect waves-light btn">Search</button>
-			</div>
-		</div>
-	</form>
+<div id="list-post">
+	<?= ListView::widget([
+		'dataProvider' => $dataProvider,
+		'itemView' => '_view',
+		'pager' => [
+			//'firstPageLabel' => 'first',
+			//'lastPageLabel' => 'last',
+			'prevPageLabel' => '<i class="material-icons">chevron_left</i>',
+			'nextPageLabel' => '<i class="material-icons">chevron_right</i>',
+			'activePageCssClass' => 'active teal darken-2',
+			'options' => [
+				'tag' => 'div',
+				'class' => 'pagination center-align',
+				'id' => 'pager-container',
+			],
+		],
+	]); ?>
 </div>

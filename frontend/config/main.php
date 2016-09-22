@@ -8,8 +8,8 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
-    'language'  => 'en',
-    'sourceLanguage' => 'en_GB',
+    'language'  => 'ru',
+    'sourceLanguage' => 'en_US',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -51,20 +51,13 @@ return [
         'assetManager' => [
             'bundles' => [
                 'yii\bootstrap\BootstrapPluginAsset' => [
+                    'css' => [],
                     'js' => [],
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
-                    'css' => []
+                    'css' => [],
+                    'js' => [],
                 ]
-            ],
-        ],
-        'i18n' => [
-            'translations' => [
-                'app*' => [
-                    'class' => 'yii\i18n\DbMessageSource',
-                    'sourceLanguage' => 'en-US',
-                    'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation']
-                ],
             ],
         ],
         'view' => [

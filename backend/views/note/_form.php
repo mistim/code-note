@@ -2,19 +2,20 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use dosamigos\tinymce\TinyMce;
 use yii\helpers\Url;
 use backend\widgets\imperavi\Widget;
+use common\models\Category;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Category */
+/* @var $model common\models\Note */
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
 
-<div class="category-form">
+<div class="note-form">
 
     <?php $form = ActiveForm::begin([
-        'id' => 'category-form',
+        'id' => 'note-form',
         'layout' => 'horizontal',
     ]); ?>
 
@@ -27,14 +28,35 @@ use backend\widgets\imperavi\Widget;
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
-    <?= '';//$form->field($model, 'teaser')->textarea(['maxlength' => true]) ?>
+    <?= $form->field($model, 'posted_at')->textInput() ?>
 
-    <?= '';//$form->field($model, 'teaser')->widget(TinyMce::className()) ?>
+    <?= $form->field($model, 'category_id')->dropDownList(
+        ArrayHelper::map(Category::getAllActive(), 'id', 'title'),
+        ['prompt' => 'Choice category']
+    ) ?>
 
     <?= $form->field($model, 'teaser')->widget(Widget::className(), [
         'settings' => [
             'lang'             => 'ru',
             'minHeight'        => 210,
+            'imageManagerJson' => Url::to(['uploader/image-get']),
+            'imageUpload'      => Url::to(['uploader/image-upload']),
+            'fileManagerJson'  => Url::to(['uploader/file-get']),
+            'fileUpload'       => Url::to(['uploader/file-upload']),
+            'plugins'          => [
+                'fullscreen',
+                'clips',
+                'table',
+                'imagemanager',
+                'filemanager'
+            ]
+        ]
+    ])->textarea(['class' => 'redactor']) ?>
+
+    <?= $form->field($model, 'content')->widget(Widget::className(), [
+        'settings' => [
+            'lang'             => 'ru',
+            'minHeight'        => 400,
             'imageManagerJson' => Url::to(['uploader/image-get']),
             'imageUpload'      => Url::to(['uploader/image-upload']),
             'fileManagerJson'  => Url::to(['uploader/file-get']),

@@ -4,17 +4,17 @@ use yii\helpers\Html;
 use backend\widgets\Box;
 use backend\widgets\grid\ActionColumn;
 use yii\grid\GridView;
-use common\models\Category;
+use common\models\Note;
 use backend\helpers\ToolsHelper;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\search\CategorySearch */
+/* @var $searchModel common\models\search\NoteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('admin', 'Categories');
+$this->title = Yii::t('admin', 'Notes');
 $this->params['breadcrumbs'][] = $this->title;
 
-$gridId = 'category-grid';
+$gridId = 'note-grid';
 $gridConfig = [
     'id' => $gridId,
     'dataProvider' => $dataProvider,
@@ -22,36 +22,40 @@ $gridConfig = [
     'columns' => [
         'id',
         'title',
+        'alias',
         //'teaser',
+        //'content:ntext',
         [
             'attribute' => 'status',
             'format' => 'html',
-            'value' => function(Category $model) {
+            'value' => function(Note $model) {
                 return ToolsHelper::getStatusStr($model->status);
             },
             'filter' => ToolsHelper::getStatusStr()
         ],
-        'creator.username',
-        // 'editor.username',
+         'posted_at:datetime',
+        // 'category_id',
+         'creator.username',
+        // 'editor_id',
          'created_at:datetime',
-        // 'updated_at:datetime',
+        // 'updated_at',
     ],
 ];
 
 $showActions = true;
 $actions = [];
 
-if (Yii::$app->user->can('/category/view')) {
+if (Yii::$app->user->can('/note/view')) {
     $actions[] = '{view}';
     $showActions = $showActions || true;
 }
 
-if (Yii::$app->user->can('/category/update')) {
+if (Yii::$app->user->can('/note/update')) {
     $actions[] = '{update}';
     $showActions = $showActions || true;
 }
 
-if (Yii::$app->user->can('/category/delete')) {
+if (Yii::$app->user->can('/note/delete')) {
     $actions[] = '{delete}';
     $showActions = $showActions || true;
 }
@@ -68,7 +72,7 @@ if ($showActions === true) {
 }
 ?>
 
-<div class="category-index">
+<div class="note-index">
 
     <p>
         <?= Html::a(Yii::t('admin', 'Create'), ['create'], ['class' => 'btn btn-flat btn-success']) ?>

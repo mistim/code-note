@@ -4,17 +4,17 @@ use yii\helpers\Html;
 use backend\widgets\Box;
 use backend\widgets\grid\ActionColumn;
 use yii\grid\GridView;
-use common\models\Category;
+use common\models\Tag;
 use backend\helpers\ToolsHelper;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\search\CategorySearch */
+/* @var $searchModel common\models\search\TagSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('admin', 'Categories');
+$this->title = Yii::t('admin', 'Tags');
 $this->params['breadcrumbs'][] = $this->title;
 
-$gridId = 'category-grid';
+$gridId = 'tag-grid';
 $gridConfig = [
     'id' => $gridId,
     'dataProvider' => $dataProvider,
@@ -22,36 +22,32 @@ $gridConfig = [
     'columns' => [
         'id',
         'title',
-        //'teaser',
+        'alias',
         [
             'attribute' => 'status',
             'format' => 'html',
-            'value' => function(Category $model) {
+            'value' => function(Tag $model) {
                 return ToolsHelper::getStatusStr($model->status);
             },
             'filter' => ToolsHelper::getStatusStr()
         ],
-        'creator.username',
-        // 'editor.username',
-         'created_at:datetime',
-        // 'updated_at:datetime',
     ],
 ];
 
 $showActions = true;
 $actions = [];
 
-if (Yii::$app->user->can('/category/view')) {
+if (Yii::$app->user->can('/tag/view')) {
     $actions[] = '{view}';
     $showActions = $showActions || true;
 }
 
-if (Yii::$app->user->can('/category/update')) {
+if (Yii::$app->user->can('/tag/update')) {
     $actions[] = '{update}';
     $showActions = $showActions || true;
 }
 
-if (Yii::$app->user->can('/category/delete')) {
+if (Yii::$app->user->can('/tag/delete')) {
     $actions[] = '{delete}';
     $showActions = $showActions || true;
 }
@@ -68,7 +64,7 @@ if ($showActions === true) {
 }
 ?>
 
-<div class="category-index">
+<div class="tag-index">
 
     <p>
         <?= Html::a(Yii::t('admin', 'Create'), ['create'], ['class' => 'btn btn-flat btn-success']) ?>

@@ -153,3 +153,19 @@ input[type="checkbox"] {
     text-align: center;
     margin-left: 13px;
 }
+
+/*** Redactor ***/
+.redactor-box {
+    border: 1px solid #e0e0e0;
+}
+
+.redactor-toolbar li a:hover {
+    background: #607d8b;
+}
+
+/*** Badge ***/
+.new.badge {
+    font-weight: 300;
+    font-size: 1.4rem;
+    border-radius: 2px;
+}

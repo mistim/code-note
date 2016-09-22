@@ -6,13 +6,13 @@ use backend\widgets\Box;
 use backend\helpers\ToolsHelper;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Category */
+/* @var $model common\models\Tag */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Categories'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Tags'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="category-view">
+<div class="tag-view">
 
     <p>
         <?= Html::a(Yii::t('admin', 'Back to list'), ['index'], ['class' => 'btn btn-flat btn-info']) ?>
@@ -41,16 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'id',
                     'title',
-                    'teaser',
+                    'alias',
                     [
                         'attribute' => 'status',
                         'format' => 'html',
                         'value' => ToolsHelper::getStatusStr($model->status)
                     ],
-                    'creator.username',
-                    'editor.username',
-                    'created_at:datetime',
-                    'updated_at:datetime',
                 ],
             ]) ?>
             <?php Box::end(); ?>

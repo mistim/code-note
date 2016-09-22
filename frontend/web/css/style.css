@@ -31,3 +31,30 @@ main {
 .has-error input[type=text] {
     border-bottom: 1px solid #e53935;
 }
+
+/*** Card ***/
+.card .card-image {
+    overflow: hidden;
+    height: 300px;
+}
+
+.waves.card-action {
+    display: block;
+    padding: 0;
+}
+
+.card .waves.card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+    padding: 20px;
+    display: inline-block;
+    margin-right: 0;
+}
+
+/*** Nav Logo ***/
+nav .brand-logo {
+    padding: 0 10px;
+}
+
+/*** Form ***/
+.help-block-error, .has-error p {
+    margin-top: 0;
+}

@@ -21,7 +21,8 @@
         "bower-asset/bootbox": "~4.3",
         "almasaeed2010/adminlte": "~2.0",
         "FortAwesome/Font-Awesome": "*",
-        "rubaxa/fileapi": "~0.4.11"
+        "rubaxa/fileapi": "~0.4.11",
+        "2amigos/yii2-tinymce-widget": "~1.1"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

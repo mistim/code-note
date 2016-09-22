@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use backend\models\User;
 use Yii;
 
 /**
@@ -17,8 +18,8 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Admin $creator
- * @property Admin $editor
+ * @property User $creator
+ * @property User $editor
  * @property Note[] $notes
  * @property Post[] $posts
  */
@@ -44,7 +45,7 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'status', 'created_at', 'alias'], 'required'],
+            [['title', 'status', 'alias'], 'required'],
             [['status', 'creator_id', 'editor_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['title', 'alias', 'teaser'], 'string', 'max' => 255],
@@ -82,7 +83,8 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getCreator()
     {
-        return $this->hasOne(Admin::className(), ['id' => 'creator_id']);
+        return $this->hasOne(User::className(), ['id' => 'creator_id'])
+            ->from(['creator' => User::tableName()]);
     }
 
     /**
@@ -90,7 +92,8 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getEditor()
     {
-        return $this->hasOne(Admin::className(), ['id' => 'editor_id']);
+        return $this->hasOne(User::className(), ['id' => 'editor_id'])
+            ->from(['editor' => User::tableName()]);
     }
 
     /**

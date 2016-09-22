@@ -19,13 +19,13 @@ return [
                 NumberFormatter::MIN_FRACTION_DIGITS => 0,
                 NumberFormatter::MAX_FRACTION_DIGITS => 0,
             ],
-            //'nullDisplay'            => '',
+            'nullDisplay'            => '',
         ],
         'cacheFrontend' => [
             'class' => 'yii\caching\FileCache',
             'cachePath' => Yii::getAlias('@frontend') . '/runtime/cache'
         ],
-        /*'i18n' => [
+        'i18n' => [
             'translations' => [
                 'app*' => [
                     'class' => 'yii\i18n\DbMessageSource',
@@ -38,6 +38,6 @@ return [
                     'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation']
                 ],
             ],
-        ],*/
+        ],
     ],
 ];

@@ -27,7 +27,7 @@ Assets\AppAsset::register($this);
 	<nav class="cyan darken-2">
 		<div class="nav-wrapper container">
 			<div class="col s12">
-				<a href="/" id="logo-container" class="brand-logo">
+				<a href="/" id="logo-container" class="waves-effect brand-logo">
 					&lt;Code/&gt; Note <span class="logo-ln">_</span>
 				</a>
 
@@ -35,9 +35,13 @@ Assets\AppAsset::register($this);
 					'options' => [
 						'class' => 'right hide-on-med-and-down'
 					],
+					'itemOptions' => [
+						'class' => 'waves-effect'
+					],
 					'items' => [
-						['label' => 'Posts', 'url' => ['site/index']],
+						['label' => 'Posts', 'url' => ['/']],
 						['label' => 'Notes', 'url' => ['product/index']],
+						['label' => 'Contacts', 'url' => ['site/contact']],
 					],
 				]); ?>
 

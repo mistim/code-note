@@ -5,12 +5,12 @@ namespace common\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Category;
+use common\models\Post;
 
 /**
- * CategorySearch represents the model behind the search form about `common\models\Category`.
+ * PostSearch represents the model behind the search form about `common\models\Post`.
  */
-class CategorySearch extends Category
+class PostSearch extends Post
 {
     /**
      * @inheritdoc
@@ -18,8 +18,14 @@ class CategorySearch extends Category
     public function rules()
     {
         return [
-            [['id', 'status', 'creator_id', 'editor_id'], 'integer'],
-            [['title', 'alias', 'teaser', 'created_at', 'updated_at', 'creator.username', 'editor.username'], 'safe'],
+            [['id', 'status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
+            [
+                [
+                    'title', 'alias', 'teaser', 'content', 'image', 'posted_at', 'created_at', 'updated_at',
+                    'creator.username', 'editor.username', 'category.title'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -32,6 +38,7 @@ class CategorySearch extends Category
         return array_merge(parent::attributes(), [
             'creator.username',
             'editor.username',
+            'category.title',
         ]);
     }
 
@@ -53,7 +60,7 @@ class CategorySearch extends Category
      */
     public function search($params)
     {
-        $query = Category::find();
+        $query = Post::find();
 
         // add conditions that should always apply here
 
@@ -61,7 +68,7 @@ class CategorySearch extends Category
             'query' => $query,
         ]);
 
-        $query->joinWith(['creator', 'editor']);
+        $query->joinWith(['creator', 'editor', 'category']);
 
         $dataProvider->sort->attributes['creator.username'] = [
             'asc'  => ['creator.username' => SORT_ASC],
@@ -71,6 +78,11 @@ class CategorySearch extends Category
         $dataProvider->sort->attributes['editor.username'] = [
             'asc'  => ['editor.username' => SORT_ASC],
             'desc' => ['editor.username' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['category.title'] = [
+            'asc'  => ['category.title' => SORT_ASC],
+            'desc' => ['category.title' => SORT_DESC],
         ];
 
         $this->load($params);
@@ -85,6 +97,8 @@ class CategorySearch extends Category
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
+            'posted_at' => $this->posted_at,
+            'category_id' => $this->category_id,
             'creator_id' => $this->creator_id,
             'editor_id' => $this->editor_id,
             'created_at' => $this->created_at,
@@ -92,8 +106,10 @@ class CategorySearch extends Category
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['alias', 'teaser', $this->alias])
+            ->andFilterWhere(['like', 'alias', $this->alias])
             ->andFilterWhere(['like', 'teaser', $this->teaser])
+            ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'creator.username', $this->getAttribute('creator.username')])
             ->andFilterWhere(['like', 'editor.username', $this->getAttribute('editor.username')]);
 

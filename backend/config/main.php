@@ -78,15 +78,6 @@ return [
                 ],*/
             ],
         ],
-        'i18n' => [
-            'translations' => [
-                'admin*' => [
-                    'class' => 'yii\i18n\DbMessageSource',
-                    'sourceLanguage' => 'en-US',
-                    'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation']
-                ],
-            ],
-        ],
     ],
     'params' => $params,
 ];
