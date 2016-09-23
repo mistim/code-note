@@ -42,8 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id',
                     'title',
                     'alias',
-                    'teaser',
-                    'content:ntext',
                     'image',
                     [
                         'attribute' => 'status',
@@ -56,6 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'editor.username',
                     'created_at:datetime',
                     'updated_at:datetime',
+                    'teaser:html',
+                    'content:html',
                 ],
             ]) ?>
             <?php Box::end(); ?>

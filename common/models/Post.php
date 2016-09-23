@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use backend\widgets\fileapi\behaviors\UploadBehavior;
 use Yii;
 use backend\models\User;
 
@@ -36,6 +37,29 @@ class Post extends \yii\db\ActiveRecord
     const CACHE_KEY      = 'modelPost_';
     const CACHE_DURATION = 0;
 
+    const IMAGE_PATH = '@statics/web/uploads/post';
+    const IMAGE_TMP = '@statics/web/uploads/post/temp';
+    const IMAGE_URL = '@statics_url/uploads/post';
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'uploadBehavior' => [
+                'class' => UploadBehavior::className(),
+                'attributes' => [
+                    'image' => [
+                        'path'     => self::IMAGE_PATH,
+                        'tempPath' => self::IMAGE_TMP,
+                        'url'      => Yii::getAlias(self::IMAGE_URL),
+                    ]
+                ]
+            ]
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -50,7 +74,7 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'alias', 'content', 'status'], 'required'],
+            [['title', 'alias', 'content', 'status', 'category_id'  ], 'required'],
             [['content'], 'string'],
             [['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
             [['posted_at', 'created_at', 'updated_at'], 'safe'],
@@ -167,6 +191,27 @@ class Post extends \yii\db\ActiveRecord
             foreach ($model as $item) {
                 $data[$item->getPrimaryKey()] = $item;
             }
+
+            Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $alias
+     * @return null|static
+     */
+    public static function getActiveByAlias($alias)
+    {
+        $keyCache = self::CACHE_KEY . $alias;
+        $data = Yii::$app->cacheFrontend->get($keyCache);
+
+        if (!$data) {
+            $data = self::findOne([
+                'status' => self::STATUS_ACTIVE,
+                'alias'  => $alias,
+            ]);
 
             Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
         }

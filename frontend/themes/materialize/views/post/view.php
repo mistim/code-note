@@ -1,11 +1,13 @@
 <?php
 
+use yii\helpers\Html;
+
 /** @var $this \yii\web\View */
-/** @var $model \common\models\Note */
+/** @var $model \common\models\Post */
 
 ?>
 
-<div class="note-view">
+<div class="post-view">
 	<div class="card hoverable card-view">
 		<div class="card-head col-block">
 			<h1><?= $model->title ?></h1>
@@ -27,6 +29,9 @@
 					<span class="post-info-text">7</span>
 				</span>
 			</div>
+		</div>
+		<div class="card-image">
+			<?= Html::img($model->urlAttribute('image')) ?>
 		</div>
 		<div class="card-content">
 			<?= $model->content ?>

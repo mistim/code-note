@@ -29,18 +29,18 @@ use yii\helpers\Html;
                     ) ?>
                 </h4>
             </div>
-            <div class="data-link">
+            <!--<div class="data-link">
                 <h4>
-                    <?= Html::a(
+                    <?php/*= Html::a(
                         Html::tag('i', null, ['class' => 'fa fa-trash']) . Yii::t('admin', 'Clear Twig cache'),
                         ['delete-twig-cache'],
                         [
                             'class'       => 'btn btn-block btn-flat btn-warning btn-lg anti-dc',
                             'data-method' => 'post'
                         ]
-                    ) ?>
+                    ) */?>
                 </h4>
-            </div>
+            </div>-->
             <div class="data-link">
                 <h4>
                     <?= Html::a(

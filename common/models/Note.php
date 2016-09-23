@@ -48,7 +48,7 @@ class Note extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'alias', 'content', 'status'], 'required'],
+            [['title', 'alias', 'content', 'status', 'category_id'], 'required'],
             [['content'], 'string'],
             [['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
             [['posted_at', 'created_at', 'updated_at'], 'safe'],

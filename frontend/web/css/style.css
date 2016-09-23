@@ -173,11 +173,10 @@ span.badge.badge-block {
 
 .card-head {
     padding: 0 40px;
-    border-bottom: 1px solid rgba(160,160,160,0.2);
 }
 
 .card-head h1 {
-    margin-bottom: 0;
+    /*margin-bottom: 0;*/
 }
 
 .card-head .post-info {
@@ -195,4 +194,23 @@ span.badge.badge-block {
 
 [class*="-view"] .card-content p {
     margin-bottom: 10px;
+}
+
+.card-view.card .card-image img, .card-view.card .card-content {
+    border-radius: 0;
+}
+
+.post-info-block {
+    margin: 0 -40px;
+    padding: 0 20px;
+    border-top: 1px solid rgba(160,160,160,0.2);
+}
+
+.card-panel h1 {
+    margin: 0;
+}
+
+.card-panel .card-content {
+    padding: 20px;
+    text-align: justify;
 }

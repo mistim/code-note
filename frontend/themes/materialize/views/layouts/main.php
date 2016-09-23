@@ -34,7 +34,7 @@ $controller = Yii::$app->controller;
 				</a>
 
 				<?php $menu_items = [
-					['label' => 'Posts', 'url' => ['/'], 'active' => $controller->id === 'site',],
+					['label' => 'Posts', 'url' => ['/post'], 'active' => $controller->id === 'post',],
 					['label' => 'Notes', 'url' => ['/note'], 'active' => $controller->id === 'note',],
 					//['label' => 'Contacts', 'url' => ['site/contact']],
 				]; ?>

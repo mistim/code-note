@@ -14,10 +14,10 @@ $this->registerJs($js);
 
 <div class="row">
 	<div class="col s12">
-		<div class="card hoverable">
+		<div class="card hoverable card-view">
 			<div class="card-content">
 				<span class="card-title"><?= $model->title ?></span>
-				<p><?= $model->teaser ?></p>
+				<?= $model->teaser ?>
 			</div>
 			<div class="waves card-action col-block">
 				<div class="col s9 left-align">

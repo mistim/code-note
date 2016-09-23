@@ -2,15 +2,15 @@
 
 namespace frontend\controllers;
 
-use common\models\Note;
+use common\models\Post;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 
 /**
- * Class NoteController
+ * Class PostController
  * @package frontend\controllers
  */
-class NoteController extends BaseController
+class PostController extends BaseController
 {
 	/**
 	 * @return string
@@ -18,7 +18,7 @@ class NoteController extends BaseController
 	public function actionIndex()
 	{
 		$dataProvider = new ActiveDataProvider([
-			'query' => Note::find(),
+			'query' => Post::find(),
 			'pagination' => [
 				'pageSize' => 5,
 			],
@@ -36,7 +36,7 @@ class NoteController extends BaseController
 	 * @throws NotFoundHttpException
 	 */
 	public function actionView($alias) {
-		if (($model = Note::getActiveByAlias($alias)) !== null) {
+		if (($model = Post::getActiveByAlias($alias)) !== null) {
 			return $this->render('view', [
 				'model' => $model,
 			]);

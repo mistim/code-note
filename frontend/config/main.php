@@ -46,7 +46,8 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                'note/<alias:\w+>' => 'note/view'
+                'note/<alias:\w+>' => 'note/view',
+                'post/<alias:\w+>' => 'post/view'
             ],
         ],
         'assetManager' => [

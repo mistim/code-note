@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\widgets\fileapi\actions\UploadAction;
 use Yii;
 use common\models\Post;
 use common\models\search\PostSearch;
@@ -14,6 +15,19 @@ use yii\filters\VerbFilter;
  */
 class PostController extends BaseController
 {
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'fileapi-upload' => [
+                'class' => UploadAction::className(),
+                'path'  => Post::IMAGE_TMP,
+            ],
+        ];
+    }
+
     /**
      * Lists all Post models.
      * @return mixed
