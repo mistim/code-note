@@ -31,6 +31,12 @@ Assets\AppAsset::register($this);
 					&lt;Code/&gt; Note <span class="logo-ln">_</span>
 				</a>
 
+				<?php $menu_items = [
+					['label' => 'Posts', 'url' => ['/']],
+					['label' => 'Notes', 'url' => ['product/index']],
+					//['label' => 'Contacts', 'url' => ['site/contact']],
+				]; ?>
+
 				<?= Menu::widget([
 					'options' => [
 						'class' => 'right hide-on-med-and-down'
@@ -38,11 +44,18 @@ Assets\AppAsset::register($this);
 					'itemOptions' => [
 						'class' => 'waves-effect'
 					],
-					'items' => [
-						['label' => 'Posts', 'url' => ['/']],
-						['label' => 'Notes', 'url' => ['product/index']],
-						['label' => 'Contacts', 'url' => ['site/contact']],
+					'items' => $menu_items,
+				]); ?>
+
+				<?= Menu::widget([
+					'options' => [
+						'id' => 'nav-mobile',
+						'class' => 'side-nav'
 					],
+					'itemOptions' => [
+						'class' => 'waves-effect col-block'
+					],
+					'items' => $menu_items,
 				]); ?>
 
 
@@ -62,7 +75,7 @@ Assets\AppAsset::register($this);
 					<?= $content ?>
 				</div>
 			</div>
-			<div class="col hide-on-small-only l3">
+			<div class="col hide-on-med-and-down l3">
 				<?= $this->render('sidebar') ?>
 			</div>
 		</div>
@@ -79,6 +92,13 @@ Assets\AppAsset::register($this);
 		</div>
 	</div>
 </footer>
+
+<div class="go-up fixed-action-btn">
+	<a class="btn-floating btn-large deep-orange darken-1">
+		<i class="large material-icons">keyboard_arrow_up
+		</i>
+	</a>
+</div>
 
 <?php $this->endBody() ?>
 </body>

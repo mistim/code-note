@@ -83,6 +83,49 @@ nav .brand-logo {
     margin-top: 25px;
 }
 
+.widget .card-title {
+    font-size: 16px;
+    font-weight: bold;
+    /*padding-bottom: 10px;*/
+    border-bottom: 2px solid #ecedee;
+    margin-bottom: 20px;
+    line-height: 28px;
+    position: relative;
+}
+
+.widget .card-title:before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 32px;
+    background-color: #2f3c4e;
+    bottom: -2px;
+    left: 0;
+}
+
+span.badge.badge-block {
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: #fff;
+    background-color: #26a69a;
+    border-radius: 2px;
+}
+
+.badge-icon {
+    font-size: 22px;
+}
+
+.badge-block {
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 30px;
+    line-height: 40px;
+    padding: 0 5px;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
 /*** Contact Form ***/
 .site-contact form {
     padding: 25px 120px;
@@ -91,4 +134,13 @@ nav .brand-logo {
 .col-block {
     display: inline-block;
     width: 100%;
+}
+
+.go-up {
+    right: -60px;
+    bottom: 100px;
+}
+
+.hide-op {
+    opacity: 0;
 }

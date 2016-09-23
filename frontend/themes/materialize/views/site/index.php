@@ -17,7 +17,7 @@ use yii\widgets\ListView;
 			'lastPageLabel' => '<i class="material-icons">last_page</i>',
 			'prevPageLabel' => '<i class="material-icons">chevron_left</i>',
 			'nextPageLabel' => '<i class="material-icons">chevron_right</i>',
-			'activePageCssClass' => 'active teal darken-2',
+			'activePageCssClass' => 'active cyan darken-2',
 			'options' => [
 				'tag' => 'div',
 				'class' => 'pagination center-align',
