@@ -46,6 +46,7 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
+                'note/<alias:\w+>' => 'note/view'
             ],
         ],
         'assetManager' => [

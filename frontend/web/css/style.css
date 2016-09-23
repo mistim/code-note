@@ -39,8 +39,8 @@ main {
 }
 
 .waves.card-action {
-    display: block;
-    padding: 0;
+    display: inline-block;
+    padding: 5px 0 0;
 }
 
 .card .waves.card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
@@ -126,6 +126,10 @@ span.badge.badge-block {
     vertical-align: middle;
 }
 
+.widget .card-title .badge-block {
+    margin-right: 10px;
+}
+
 /*** Contact Form ***/
 .site-contact form {
     padding: 25px 120px;
@@ -143,4 +147,52 @@ span.badge.badge-block {
 
 .hide-op {
     opacity: 0;
+}
+
+.post-info {
+    line-height: 60px;
+    padding: 21px;
+}
+
+.post-info .material-icons {
+    position: relative;
+    top: 7px;
+}
+
+.post-info-text {
+    margin-left: 10px;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+    color: #f4511e;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {
+    color: #ff8a65;
+}
+
+.card-head {
+    padding: 0 40px;
+    border-bottom: 1px solid rgba(160,160,160,0.2);
+}
+
+.card-head h1 {
+    margin-bottom: 0;
+}
+
+.card-head .post-info {
+    font-size: 14px;
+}
+
+.card-title {
+    border-radius: 0 0 2px 2px;
+}
+
+[class*="-view"] .card-content {
+    padding: 30px 40px;
+    text-align: justify;
+}
+
+[class*="-view"] .card-content p {
+    margin-bottom: 10px;
 }

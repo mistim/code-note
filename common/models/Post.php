@@ -55,6 +55,7 @@ class Post extends \yii\db\ActiveRecord
             [['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
             [['posted_at', 'created_at', 'updated_at'], 'safe'],
             [['title', 'alias', 'teaser', 'image'], 'string', 'max' => 255],
+            ['alias', 'unique'],
             [['editor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Admin::className(), 'targetAttribute' => ['editor_id' => 'id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => Admin::className(), 'targetAttribute' => ['creator_id' => 'id']],

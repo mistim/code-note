@@ -53,6 +53,7 @@ class Note extends \yii\db\ActiveRecord
             [['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
             [['posted_at', 'created_at', 'updated_at'], 'safe'],
             [['title', 'alias', 'teaser'], 'string', 'max' => 255],
+            ['alias', 'unique'],
             [['editor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Admin::className(), 'targetAttribute' => ['editor_id' => 'id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => Admin::className(), 'targetAttribute' => ['creator_id' => 'id']],
@@ -163,6 +164,27 @@ class Note extends \yii\db\ActiveRecord
             foreach ($model as $item) {
                 $data[$item->getPrimaryKey()] = $item;
             }
+
+            Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $alias
+     * @return null|static
+     */
+    public static function getActiveByAlias($alias)
+    {
+        $keyCache = self::CACHE_KEY . $alias;
+        $data = Yii::$app->cacheFrontend->get($keyCache);
+
+        if (!$data) {
+            $data = self::findOne([
+                'status' => self::STATUS_ACTIVE,
+                'alias'  => $alias,
+            ]);
 
             Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
         }

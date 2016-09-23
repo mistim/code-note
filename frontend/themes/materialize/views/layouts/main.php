@@ -9,6 +9,8 @@ use yii\widgets\Menu;
 
 Assets\MaterializeAsset::register($this);
 Assets\AppAsset::register($this);
+
+$controller = Yii::$app->controller;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -32,8 +34,8 @@ Assets\AppAsset::register($this);
 				</a>
 
 				<?php $menu_items = [
-					['label' => 'Posts', 'url' => ['/']],
-					['label' => 'Notes', 'url' => ['product/index']],
+					['label' => 'Posts', 'url' => ['/'], 'active' => $controller->id === 'site',],
+					['label' => 'Notes', 'url' => ['/note'], 'active' => $controller->id === 'note',],
 					//['label' => 'Contacts', 'url' => ['site/contact']],
 				]; ?>
 
@@ -94,7 +96,7 @@ Assets\AppAsset::register($this);
 </footer>
 
 <div class="go-up fixed-action-btn">
-	<a class="btn-floating btn-large deep-orange darken-1">
+	<a class="btn-floating btn-large deep-orange darken-1 waves-effect">
 		<i class="large material-icons">keyboard_arrow_up
 		</i>
 	</a>
