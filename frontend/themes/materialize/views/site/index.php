@@ -6,17 +6,15 @@ use yii\widgets\ListView;
 
 ?>
 
-<h1>Posts</h1>
-
-<p>Welcome to Express</p>
+<h1 class="center-align">Posts</h1>
 
 <div id="list-post">
 	<?= ListView::widget([
 		'dataProvider' => $dataProvider,
-		'itemView' => '_view',
+		'itemView' => '_note',
 		'pager' => [
-			//'firstPageLabel' => 'first',
-			//'lastPageLabel' => 'last',
+			'firstPageLabel' => '<i class="material-icons">first_page</i>',
+			'lastPageLabel' => '<i class="material-icons">last_page</i>',
 			'prevPageLabel' => '<i class="material-icons">chevron_left</i>',
 			'nextPageLabel' => '<i class="material-icons">chevron_right</i>',
 			'activePageCssClass' => 'active teal darken-2',

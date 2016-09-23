@@ -49,6 +49,14 @@ main {
     margin-right: 0;
 }
 
+.card .card-image .parallax {
+    z-index: 0;
+}
+
+.card-parallax img {
+
+}
+
 /*** Nav Logo ***/
 nav .brand-logo {
     padding: 0 10px;
@@ -57,4 +65,30 @@ nav .brand-logo {
 /*** Form ***/
 .help-block-error, .has-error p {
     margin-top: 0;
+}
+
+/*** Icon ***/
+.disabled .material-icons {
+    opacity: 0.5;
+}
+
+/*** MAin Content ***/
+.main-content {
+    margin-top: 25px;
+}
+
+/*** Sidebar ***/
+.sidebar {
+    position: relative;
+    margin-top: 25px;
+}
+
+/*** Contact Form ***/
+.site-contact form {
+    padding: 25px 120px;
+}
+
+.col-block {
+    display: inline-block;
+    width: 100%;
 }

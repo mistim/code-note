@@ -20,7 +20,7 @@ Assets\AppAsset::register($this);
 	<title><?= Html::encode($this->title) ?></title>
 	<?php $this->head() ?>
 </head>
-<body>
+<body class="blue-grey lighten-5">
 <?php $this->beginBody() ?>
 
 <header class="navbar-fixed">
@@ -56,9 +56,16 @@ Assets\AppAsset::register($this);
 
 <main>
 	<div class="container">
-
-		<?= $content ?>
-
+		<div class="row">
+			<div class="col s12 l9">
+				<div class="main-content">
+					<?= $content ?>
+				</div>
+			</div>
+			<div class="col hide-on-small-only l3">
+				<?= $this->render('sidebar') ?>
+			</div>
+		</div>
 	</div>
 </main>
 
