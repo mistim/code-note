@@ -4,40 +4,26 @@ use yii\helpers\Html;
 use backend\widgets\Box;
 use backend\widgets\grid\ActionColumn;
 use yii\grid\GridView;
-use common\models\Post;
-use backend\helpers\ToolsHelper;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\search\PostSearch */
+/* @var $searchModel common\models\search\TextBlockSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('admin', 'Posts');
+$this->title = Yii::t('admin', 'Text-blocks');
 $this->params['breadcrumbs'][] = $this->title;
 
-$gridId = 'post-grid';
+$gridId = 'text-block-grid';
 $gridConfig = [
     'id' => $gridId,
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
         'id',
-        'title',
+        'title:raw',
         'alias',
-        //'teaser',
-        //'text:ntext',
-        // 'image',
-        [
-            'attribute' => 'status',
-            'format' => 'html',
-            'value' => function(Post $model) {
-                return ToolsHelper::getStatusStr($model->status);
-            },
-            'filter' => ToolsHelper::getStatusStr()
-        ],
-         'posted_at:datetime',
-        // 'category_id',
-         'creator.username',
-        // 'editor_id',
+        'status',
+        'creator.username',
+        //'editor_id',
          'created_at:datetime',
         // 'updated_at',
     ],
@@ -46,17 +32,17 @@ $gridConfig = [
 $showActions = true;
 $actions = [];
 
-if (Yii::$app->user->can('/post/view')) {
+if (Yii::$app->user->can('/text-block/view')) {
     $actions[] = '{view}';
     $showActions = $showActions || true;
 }
 
-if (Yii::$app->user->can('/post/update')) {
+if (Yii::$app->user->can('/text-block/update')) {
     $actions[] = '{update}';
     $showActions = $showActions || true;
 }
 
-if (Yii::$app->user->can('/post/delete')) {
+if (Yii::$app->user->can('/text-block/delete')) {
     $actions[] = '{delete}';
     $showActions = $showActions || true;
 }
@@ -73,10 +59,10 @@ if ($showActions === true) {
 }
 ?>
 
-<div class="post-index">
+<div class="text-block-index">
 
     <p>
-        <?= Html::a(Yii::t('admin', 'Create'), ['create'], ['class' => 'btn btn-flat btn-success']) ?>
+        <?= Html::a(Yii::t('admin', 'Create'), ['create'], ['class' => 'btn flat btn-success']) ?>
     </p>
 
 

@@ -2,41 +2,74 @@
 
 namespace common\models;
 
+use backend\widgets\fileapi\behaviors\UploadBehavior;
 use backend\models\User;
 use Yii;
 
 /**
- * This is the model class for table "category".
+ * This is the model class for table "text_block".
  *
- * @property integer $id
- * @property string  $title
+ * @property string  $id
  * @property string  $alias
- * @property string  $teaser
  * @property integer $status
  * @property integer $creator_id
  * @property integer $editor_id
  * @property string  $created_at
  * @property string  $updated_at
+ * @property string  $title
+ * @property string  $text
+ * @property string  $image
  *
- * @property User    $creator
  * @property User    $editor
- * @property Note[]  $notes
- * @property Post[]  $posts
+ * @property User    $creator
  */
-class Category extends \yii\db\ActiveRecord
+class TextBlock extends \yii\db\ActiveRecord
 {
 	const STATUS_IN_ACTIVE = 0;
 	const STATUS_ACTIVE    = 1;
 
-	const CACHE_KEY      = 'modelCategory_';
+	const BLOCK_ID_ABOUT_US = 1;
+	const BLOCK_ID_GAS      = 2;
+	const BLOCK_ID_OIL      = 3;
+
+	const CACHE_KEY      = 'modelTextBlock_';
 	const CACHE_DURATION = 0;
+
+	const IMAGE_PATH = '@statics/web/uploads/text-block';
+	const IMAGE_TMP  = '@statics/web/uploads/text-block/temp';
+	const IMAGE_URL  = '@statics_url/uploads/text-block';
+
+	const IMAGE_WIDTH_MIN  = 525;
+	const IMAGE_HEIGHT_MIN = 315;
+
+	const BANNER_WIDTH_MIN  = 1440;
+	const BANNER_HEIGHT_MIN = 460;
+
+	/**
+	 * @return array
+	 */
+	public function behaviors()
+	{
+		return [
+			'uploadBehavior' => [
+				'class'      => UploadBehavior::className(),
+				'attributes' => [
+					'image' => [
+						'path'     => self::IMAGE_PATH,
+						'tempPath' => self::IMAGE_TMP,
+						'url'      => Yii::getAlias(self::IMAGE_URL),
+					],
+				],
+			],
+		];
+	}
 
 	/**
 	 * @inheritdoc
 	 */
 	public static function tableName()
 	{
-		return 'category';
+		return 'text_block';
 	}
 
 	/**
@@ -45,17 +78,19 @@ class Category extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['title', 'status', 'alias'], 'required'],
+			[['alias', 'title', 'text'], 'required'],
 			[['status', 'creator_id', 'editor_id'], 'integer'],
-			[['created_at', 'updated_at'], 'safe'],
-			[['title', 'alias', 'teaser'], 'string', 'max' => 255],
+			[['created_at', 'updated_at', 'text'], 'safe'],
+			[['alias'], 'string', 'max' => 50],
+			[['title'], 'string', 'max' => 255],
+
+			// проверяет, что "image" - это изображение в формате PNG, JPG или JPEG, GIF, BMP
+			// размер файла должен быть меньше 1MB
 			[
-				['creator_id'], 'exist', 'skipOnError'     => true, 'targetClass' => Admin::className(),
-				                         'targetAttribute' => ['creator_id' => 'id'],
-			],
-			[
-				['editor_id'], 'exist', 'skipOnError'     => true, 'targetClass' => Admin::className(),
-				                        'targetAttribute' => ['editor_id' => 'id'],
+				['image'], 'file', 'skipOnEmpty'            => true,
+				                   'extensions'             => ['png', 'jpg', 'gif', 'bmp', 'jpeg'],
+				                   'maxSize'                => 1024 * 1024,
+				                   'enableClientValidation' => false,
 			],
 		];
 	}
@@ -67,24 +102,16 @@ class Category extends \yii\db\ActiveRecord
 	{
 		return [
 			'id'         => Yii::t('admin', 'ID'),
-			'title'      => Yii::t('admin', 'Title'),
 			'alias'      => Yii::t('admin', 'Alias'),
-			'teaser'     => Yii::t('admin', 'Teaser'),
 			'status'     => Yii::t('admin', 'Status'),
 			'creator_id' => Yii::t('admin', 'Creator'),
 			'editor_id'  => Yii::t('admin', 'Editor'),
 			'created_at' => Yii::t('admin', 'Date created'),
 			'updated_at' => Yii::t('admin', 'Date updated'),
+			'image'      => Yii::t('admin', 'Image'),
+			'title'      => Yii::t('admin', 'Title'),
+			'text'       => Yii::t('admin', 'Text'),
 		];
-	}
-
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getCreator()
-	{
-		return $this->hasOne(User::className(), ['id' => 'creator_id'])
-			->from(['creator' => User::tableName()]);
 	}
 
 	/**
@@ -99,17 +126,10 @@ class Category extends \yii\db\ActiveRecord
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getNotes()
+	public function getCreator()
 	{
-		return $this->hasMany(Note::className(), ['category_id' => 'id']);
-	}
-
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getPosts()
-	{
-		return $this->hasMany(Post::className(), ['category_id' => 'id']);
+		return $this->hasOne(User::className(), ['id' => 'creator_id'])
+			->from(['creator' => User::tableName()]);
 	}
 
 	/**
@@ -145,7 +165,6 @@ class Category extends \yii\db\ActiveRecord
 		parent::afterSave($insert, $changedAttributes);
 
 		$this->clearCacheModel('all');
-		$this->clearCacheModel($this->alias);
 	}
 
 	/**
@@ -159,7 +178,7 @@ class Category extends \yii\db\ActiveRecord
 		if (!$data) {
 			$model = self::findAll(['status' => self::STATUS_ACTIVE]);
 
-			/** @var Category $item */
+			/** @var TextBlock $item */
 			foreach ($model as $item) {
 				$data[$item->getPrimaryKey()] = $item;
 			}

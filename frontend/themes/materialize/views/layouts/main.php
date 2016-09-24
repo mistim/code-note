@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
-/* @var $content string */
+/* @var $text string */
 
 use yii\helpers\Html;
 use frontend\assets as Assets;

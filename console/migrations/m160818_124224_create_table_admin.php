@@ -57,7 +57,7 @@ class m160818_124224_create_table_admin extends Migration
         $password_hash = Yii::$app->security->generatePasswordHash('123');
         $auth_key = Yii::$app->security->generateRandomString();
         $token = Yii::$app->security->generateRandomString();
-        return "INSERT INTO {{%admin}} (username, email, password_hash, auth_key, password_reset_token, status, created_at, updated_at, last_enter) VALUES ('admin', 'admin@miritec.com', '$password_hash', '$auth_key', '$token', 1, $time, $time, null)";
+        return "INSERT INTO {{%admin}} (username, email, password_hash, auth_key, password_reset_token, status, created_at, updated_at, last_enter) VALUES ('admin', 'admin@local.loc', '$password_hash', '$auth_key', '$token', 1, $time, $time, null)";
     }
 
     /**

@@ -5,12 +5,12 @@ namespace common\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Note;
+use common\models\TextBlock;
 
 /**
- * NoteSearch represents the model behind the search form about `common\models\Note`.
+ * TextBlockSearch represents the model behind the search form about `common\models\TextBlock`.
  */
-class NoteSearch extends Note
+class TextBlockSearch extends TextBlock
 {
 	/**
 	 * @inheritdoc
@@ -18,14 +18,8 @@ class NoteSearch extends Note
 	public function rules()
 	{
 		return [
-			[['id', 'status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
-			[
-				[
-					'title', 'alias', 'teaser', 'text', 'posted_at', 'category.title',
-					'created_at', 'updated_at', 'creator.username', 'editor.username',
-				],
-				'safe',
-			],
+			[['id', 'status', 'creator_id', 'editor_id'], 'integer'],
+			[['alias', 'created_at', 'updated_at', 'creator.username', 'editor.username', 'title'], 'safe'],
 		];
 	}
 
@@ -38,7 +32,6 @@ class NoteSearch extends Note
 		return array_merge(parent::attributes(), [
 			'creator.username',
 			'editor.username',
-			'category.title',
 		]);
 	}
 
@@ -60,7 +53,7 @@ class NoteSearch extends Note
 	 */
 	public function search($params)
 	{
-		$query = Note::find();
+		$query = TextBlock::find();
 
 		// add conditions that should always apply here
 
@@ -68,7 +61,7 @@ class NoteSearch extends Note
 			'query' => $query,
 		]);
 
-		$query->joinWith(['creator', 'editor', 'category']);
+		$query->joinWith(['creator', 'editor']);
 
 		$dataProvider->sort->attributes['creator.username'] = [
 			'asc'  => ['creator.username' => SORT_ASC],
@@ -78,11 +71,6 @@ class NoteSearch extends Note
 		$dataProvider->sort->attributes['editor.username'] = [
 			'asc'  => ['editor.username' => SORT_ASC],
 			'desc' => ['editor.username' => SORT_DESC],
-		];
-
-		$dataProvider->sort->attributes['category.title'] = [
-			'asc'  => ['category.title' => SORT_ASC],
-			'desc' => ['category.title' => SORT_DESC],
 		];
 
 		$this->load($params);
@@ -95,23 +83,18 @@ class NoteSearch extends Note
 
 		// grid filtering conditions
 		$query->andFilterWhere([
-			'id'          => $this->id,
-			'status'      => $this->status,
-			'posted_at'   => $this->posted_at,
-			'category_id' => $this->category_id,
-			'creator_id'  => $this->creator_id,
-			'editor_id'   => $this->editor_id,
-			'created_at'  => $this->created_at,
-			'updated_at'  => $this->updated_at,
+			'id'         => $this->id,
+			'status'     => $this->status,
+			'creator_id' => $this->creator_id,
+			'editor_id'  => $this->editor_id,
+			'created_at' => $this->created_at,
+			'updated_at' => $this->updated_at,
 		]);
 
-		$query->andFilterWhere(['like', 'title', $this->title])
-			->andFilterWhere(['like', 'alias', $this->alias])
-			->andFilterWhere(['like', 'teaser', $this->teaser])
-			->andFilterWhere(['like', 'text', $this->text])
+		$query->andFilterWhere(['like', 'alias', $this->alias])
+			->andFilterWhere(['like', 'title', $this->title])
 			->andFilterWhere(['like', 'creator.username', $this->getAttribute('creator.username')])
-			->andFilterWhere(['like', 'editor.username', $this->getAttribute('editor.username')])
-			->andFilterWhere(['like', 'category.title', $this->getAttribute('category.title')]);
+			->andFilterWhere(['like', 'editor.username', $this->getAttribute('editor.username')]);
 
 		return $dataProvider;
 	}

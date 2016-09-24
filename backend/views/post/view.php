@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'created_at:datetime',
                     'updated_at:datetime',
                     'teaser:html',
-                    'content:html',
+                    'text:html',
                 ],
             ]) ?>
             <?php Box::end(); ?>

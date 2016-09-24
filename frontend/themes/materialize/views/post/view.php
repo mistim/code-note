@@ -34,7 +34,7 @@ use yii\helpers\Html;
 			<?= Html::img($model->urlAttribute('image')) ?>
 		</div>
 		<div class="card-content">
-			<?= $model->content ?>
+			<?= $model->text ?>
 		</div>
 	</div>
 </div>

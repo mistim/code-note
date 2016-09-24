@@ -73,7 +73,7 @@ use yii\helpers\ArrayHelper;
         ]
     ])->textarea(['class' => 'redactor']) ?>
 
-    <?= $form->field($model, 'content')->widget(Widget::className(), [
+    <?= $form->field($model, 'text')->widget(Widget::className(), [
         'settings' => [
             'lang'             => 'ru',
             'minHeight'        => 400,

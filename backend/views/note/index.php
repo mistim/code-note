@@ -24,7 +24,7 @@ $gridConfig = [
         'title',
         'alias',
         //'teaser',
-        //'content:ntext',
+        //'text:ntext',
         [
             'attribute' => 'status',
             'format' => 'html',

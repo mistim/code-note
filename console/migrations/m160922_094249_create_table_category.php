@@ -10,7 +10,7 @@ class m160922_094249_create_table_category extends Migration
             'id'          => $this->primaryKey(),
             'title'       => $this->string()->notNull(),
             'alias'       => $this->string()->notNull(),
-            'teaser'      => $this->string()->null(),
+            'teaser'      => $this->string(1000)->null(),
             'status'      => $this->boolean()->notNull(),
             'creator_id'  => $this->integer(),
             'editor_id'   => $this->integer(),

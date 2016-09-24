@@ -61,6 +61,12 @@ echo Menu::widget(
                         'visible' => Yii::$app->user->can('/tag/index'),
                     ],
                     [
+                        'label' => Yii::t('admin', 'Text block'),
+                        'url' => ['/text-block'],
+                        'active' => $controller->id === 'text-block',
+                        'visible' => Yii::$app->user->can('/text-block/index'),
+                    ],
+                    [
                         'label' => Yii::t('admin', 'SEO'),
                         'url' => ['/seo'],
                         'active' => $controller->id === 'seo',
