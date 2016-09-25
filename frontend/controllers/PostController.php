@@ -22,6 +22,11 @@ class PostController extends BaseController
 			'pagination' => [
 				'pageSize' => 5,
 			],
+			'sort' => [
+				'defaultOrder' => [
+					'posted_at' => SORT_DESC
+				]
+			]
 		]);
 
 		return $this->render('index', [
