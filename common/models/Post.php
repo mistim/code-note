@@ -270,7 +270,7 @@ class Post extends \yii\db\ActiveRecord
 	/**
 	 * @param $alias
 	 *
-	 * @return null|static
+	 * @return null|Post
 	 */
 	public static function getActiveByAlias($alias)
 	{

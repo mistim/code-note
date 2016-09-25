@@ -11,7 +11,7 @@ echo DetailView::widget([
 	'attributes' => [
 		'id',
 		'title',
-		'key',
+		'keyword',
 		'description',
 	],
 ]);

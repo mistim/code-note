@@ -18,7 +18,7 @@ $template = "{label}\n{beginWrapper}\n{input}\n<div>"
 
 <?= $form->field($meta_tag, 'title')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($meta_tag, 'key', [
+<?= $form->field($meta_tag, 'keyword', [
 	'template' => $template,
 ])->textarea(['maxlength' => true, 'rows' => 3, 'class' => 'form-control char_counter']) ?>
 

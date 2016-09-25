@@ -11,8 +11,9 @@ class m160925_125702_create_table_meta_tag extends Migration
             'entity'      => $this->string()->notNull(),
             'status'      => $this->boolean()->notNull(),
             'title'       => $this->string()->notNull(),
-            'key'         => $this->string()->notNull(),
+            'keyword'     => $this->string()->notNull(),
             'description' => $this->string()->notNull(),
+            'link'        => $this->string()->notNull(),
         ]);
     }
 

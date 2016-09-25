@@ -168,8 +168,7 @@ class Note extends \yii\db\ActiveRecord
 	{
 		parent::afterSave($insert, $changedAttributes);
 
-		$this->clearCacheModel('all');
-		$this->clearCacheModel($this->alias);
+		$this->clearCacheModel();
 	}
 
 	/**
@@ -235,7 +234,7 @@ class Note extends \yii\db\ActiveRecord
 	/**
 	 * @param $alias
 	 *
-	 * @return null|static
+	 * @return null|Note
 	 */
 	public static function getActiveByAlias($alias)
 	{

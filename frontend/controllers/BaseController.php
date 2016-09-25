@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\MetaTag;
 use common\models\Seo;
 use common\models\Setting;
 use yii\web\Controller;
@@ -46,7 +47,7 @@ class BaseController extends Controller
             }
         }
 
-        //$this->setMetaTags();
+        $this->setMetaTags();
     }
 
     /**
@@ -68,14 +69,16 @@ class BaseController extends Controller
      */
     private function setMetaTags($title = null, $keywords = null, $description = null)
     {
+        // TODO Если нез данных для SEO, забить данными по умолчанию или не выводить метатеги
+
         $route = str_replace(Yii::$app->urlManager->getHostInfo() . '/' . Yii::$app->language, '', Yii::$app->request->absoluteUrl);
         $route = $route ?: '/';
 
-        $model = Seo::getActiveByLink($route);
+        $model = MetaTag::getActiveByLink($route);
 
         if ($model) {
             $this->getView()->params['title'] = $model->{'title_' . Yii::$app->language};
-            $this->getView()->params['keywords'] = $model->{'keywords_' . Yii::$app->language};
+            $this->getView()->params['keywords'] = $model->{'keyword_' . Yii::$app->language};
             $this->getView()->params['description'] = $model->{'description_' . Yii::$app->language};
         } else {
             $this->getView()->params['title'] = isset($this->getView()->params['title']) && $this->getView()->params['title']

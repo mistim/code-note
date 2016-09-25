@@ -50,6 +50,13 @@ class PostController extends BaseController
 	 */
 	public function actionView($alias) {
 		if (($model = Post::getActiveByAlias($alias)) !== null) {
+
+			$model->meta_tag->status && $this->setSeo(
+				$model->meta_tag->title,
+				$model->meta_tag->keyword,
+				$model->meta_tag->description
+			);
+
 			return $this->render('view', [
 				'model' => $model,
 			]);
