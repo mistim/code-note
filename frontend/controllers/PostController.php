@@ -18,7 +18,15 @@ class PostController extends BaseController
 	public function actionIndex()
 	{
 		$dataProvider = new ActiveDataProvider([
-			'query' => Post::find(),
+			'query' => Post::find()->where([
+				'AND',
+				['status' => Post::STATUS_ACTIVE],
+				[
+					'OR',
+					['<', 'posted_at', date('Y-m-d 00:00:00')],
+					['posted_at' => date('Y-m-d 00:00:00')]
+				]
+			]),
 			'pagination' => [
 				'pageSize' => 5,
 			],

@@ -18,7 +18,15 @@ class NoteController extends BaseController
 	public function actionIndex()
 	{
 		$dataProvider = new ActiveDataProvider([
-			'query' => Note::find(),
+			'query' => Note::find()->where([
+				'AND',
+				['status' => Note::STATUS_ACTIVE],
+				[
+					'OR',
+					['<', 'posted_at', date('Y-m-d 00:00:00')],
+					['posted_at' => date('Y-m-d 00:00:00')]
+				]
+			]),
 			'pagination' => [
 				'pageSize' => 5,
 			],
