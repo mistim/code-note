@@ -43,6 +43,7 @@ class MetaTag extends \yii\db\ActiveRecord
 		return [
 			[['entity', 'status'], 'required'],
 			[['status'], 'integer'],
+			['link', 'unique'],
 			[['entity', 'title', 'keyword', 'description'], 'string', 'max' => 255],
 		];
 	}
@@ -119,7 +120,7 @@ class MetaTag extends \yii\db\ActiveRecord
 	/**
 	 * @param $link
 	 *
-	 * @return null|static
+	 * @return null|MetaTag
 	 */
 	public static function getActiveByLink($link)
 	{

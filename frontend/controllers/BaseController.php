@@ -71,15 +71,15 @@ class BaseController extends Controller
     {
         // TODO Если нез данных для SEO, забить данными по умолчанию или не выводить метатеги
 
-        $route = str_replace(Yii::$app->urlManager->getHostInfo() . '/' . Yii::$app->language, '', Yii::$app->request->absoluteUrl);
+        $route = str_replace(Yii::$app->urlManager->getHostInfo(), '', Yii::$app->request->absoluteUrl);
         $route = $route ?: '/';
 
         $model = MetaTag::getActiveByLink($route);
 
         if ($model) {
-            $this->getView()->params['title'] = $model->{'title_' . Yii::$app->language};
-            $this->getView()->params['keywords'] = $model->{'keyword_' . Yii::$app->language};
-            $this->getView()->params['description'] = $model->{'description_' . Yii::$app->language};
+            $this->getView()->params['title'] = $model->title;
+            $this->getView()->params['keywords'] = $model->keyword;
+            $this->getView()->params['description'] = $model->description;
         } else {
             $this->getView()->params['title'] = isset($this->getView()->params['title']) && $this->getView()->params['title']
                 ? $this->getView()->params['title']

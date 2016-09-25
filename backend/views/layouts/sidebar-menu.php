@@ -33,7 +33,7 @@ echo Menu::widget(
                 'visible' => (
                     Yii::$app->user->can('/post/index') || Yii::$app->user->can('/note/index') ||
                     Yii::$app->user->can('/category/index') || Yii::$app->user->can('/tag/index') ||
-                    Yii::$app->user->can('/seo/index')
+                    Yii::$app->user->can('/meta-tag/index')
                 ),
                 'items' => [
                     [
@@ -68,9 +68,9 @@ echo Menu::widget(
                     ],
                     [
                         'label' => Yii::t('admin', 'SEO'),
-                        'url' => ['/seo'],
-                        'active' => $controller->id === 'seo',
-                        'visible' => Yii::$app->user->can('/seo/index'),
+                        'url' => ['/meta-tag'],
+                        'active' => $controller->id === 'meta-tag',
+                        'visible' => Yii::$app->user->can('/meta-tag/index'),
                     ],
                 ]
             ],
