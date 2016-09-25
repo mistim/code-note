@@ -1,12 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
-use backend\widgets\Box;
-use backend\helpers\ToolsHelper;
+use yii\bootstrap\Tabs;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Category */
+/* @var $meta_tag common\models\MetaTag */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Categories'), 'url' => ['index']];
@@ -26,35 +25,24 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <?php Box::begin(
+    <div class="nav-tabs-custom">
+        <?= Tabs::widget([
+            'items' => [
                 [
-                    //'options'     => ['class' => 'box-success'],
-                    'bodyOptions' => [
-                        'class' => 'table-responsive'
-                    ],
-                ]
-            ); ?>
-            <?= DetailView::widget([
-                'model' => $model,
-                'attributes' => [
-                    'id',
-                    'title',
-                    'teaser',
-                    [
-                        'attribute' => 'status',
-                        'format' => 'html',
-                        'value' => ToolsHelper::getStatusStr($model->status)
-                    ],
-                    'creator.username',
-                    'editor.username',
-                    'created_at:datetime',
-                    'updated_at:datetime',
+                    'label'   => Yii::t('admin', 'Content'),
+                    'content' => $this->render('_view_model', [
+                        'model' => $model,
+                    ]),
+                    'active'  => true,
                 ],
-            ]) ?>
-            <?php Box::end(); ?>
-        </div>
+                [
+                    'label'   => Yii::t('admin', 'Meta tags'),
+                    'content' => $this->render('_view_meta_tag', [
+                        'meta_tag' => $model->meta_tag,
+                    ]),
+                ],
+            ],
+        ]); ?>
     </div>
 
 </div>

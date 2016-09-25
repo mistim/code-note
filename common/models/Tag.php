@@ -11,9 +11,11 @@ use Yii;
  * @property string    $title
  * @property string    $alias
  * @property integer   $status
+ * @property integer   $meta_tag_id
  *
  * @property NoteTag[] $noteTags
  * @property PostTag[] $postTags
+ * @property MetaTag   $meta_tag
  */
 class Tag extends \yii\db\ActiveRecord
 {
@@ -55,6 +57,14 @@ class Tag extends \yii\db\ActiveRecord
 			'alias'  => Yii::t('admin', 'Alias'),
 			'status' => Yii::t('admin', 'Status'),
 		];
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getMeta_tag()
+	{
+		return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
 	}
 
 	/**
@@ -105,8 +115,7 @@ class Tag extends \yii\db\ActiveRecord
 	{
 		parent::afterSave($insert, $changedAttributes);
 
-		$this->clearCacheModel('all');
-		$this->clearCacheModel($this->alias);
+		$this->clearCacheModel();
 	}
 
 	/**

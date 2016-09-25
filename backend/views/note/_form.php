@@ -2,14 +2,14 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Url;
-use backend\widgets\imperavi\Widget;
-use common\models\Category;
-use yii\helpers\ArrayHelper;
+use yii\bootstrap\Tabs;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Note */
+/* @var $meta_tag common\models\MetaTag */
 /* @var $form yii\bootstrap\ActiveForm */
+
+$this->registerJsFile('@web/js/char_counter.js', ['depends' => 'yii\web\JqueryAsset']);
 ?>
 
 <div class="note-form">
@@ -19,65 +19,39 @@ use yii\helpers\ArrayHelper;
         'layout' => 'horizontal',
     ]); ?>
 
-    <?= $form->field($model, 'status')->checkbox([
-        'template' => "{label}<div class='col-sm-6'>\n{input}\n{error}\n{hint}</div>"
-    ])
-        ->label(null, ['class' => 'control-label col-sm-3']) ?>
+    <div class="nav-tabs-custom">
+        <?= Tabs::widget([
+            'items' => [
+                [
+                    'label'   => Yii::t('admin', 'Content'),
+                    'content' => $this->render('_form_model', [
+                        'form'  => $form,
+                        'model' => $model,
+                    ]),
+                    'active'  => true,
+                ],
+                [
+                    'label'   => Yii::t('admin', 'Meta tags'),
+                    'content' => $this->render('_form_meta_tag', [
+                        'form'     => $form,
+                        'meta_tag' => $meta_tag,
+                    ]),
+                ],
+            ],
+        ]); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'posted_at')->textInput() ?>
-
-    <?= $form->field($model, 'category_id')->dropDownList(
-        ArrayHelper::map(Category::getAllActive(), 'id', 'title'),
-        ['prompt' => 'Choice category']
-    ) ?>
-
-    <?= $form->field($model, 'teaser')->widget(Widget::className(), [
-        'settings' => [
-            'lang'             => 'ru',
-            'minHeight'        => 210,
-            'imageManagerJson' => Url::to(['uploader/image-get']),
-            'imageUpload'      => Url::to(['uploader/image-upload']),
-            'fileManagerJson'  => Url::to(['uploader/file-get']),
-            'fileUpload'       => Url::to(['uploader/file-upload']),
-            'plugins'          => [
-                'fullscreen',
-                'clips',
-                'table',
-                'imagemanager',
-                'filemanager'
-            ]
-        ]
-    ])->textarea(['class' => 'redactor']) ?>
-
-    <?= $form->field($model, 'text')->widget(Widget::className(), [
-        'settings' => [
-            'lang'             => 'ru',
-            'minHeight'        => 400,
-            'imageManagerJson' => Url::to(['uploader/image-get']),
-            'imageUpload'      => Url::to(['uploader/image-upload']),
-            'fileManagerJson'  => Url::to(['uploader/file-get']),
-            'fileUpload'       => Url::to(['uploader/file-upload']),
-            'plugins'          => [
-                'fullscreen',
-                'clips',
-                'table',
-                'imagemanager',
-                'filemanager'
-            ]
-        ]
-    ])->textarea(['class' => 'redactor']) ?>
-
-    <div class="col-sm-6 col-sm-offset-3">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('admin', 'Create') : Yii::t('admin', 'Update'), [
-            'class' => $model->isNewRecord ? 'btn btn-flat btn-success' : 'btn btn-flat btn-primary'
-        ]) ?>
-        <?php if ($model->isNewRecord): ?>
-            <?= Html::resetButton(Yii::t('admin', 'Reset'), ['class' => 'btn btn-flat btn-warning']) ?>
-        <?php endif; ?>
+        <div class="tab-footer">
+            <div class="form-group">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <?= Html::submitButton($model->isNewRecord ? Yii::t('admin', 'Create') : Yii::t('admin', 'Update'), [
+                        'class' => $model->isNewRecord ? 'btn btn-flat btn-success' : 'btn btn-flat btn-primary',
+                    ]) ?>
+                    <?php if ($model->isNewRecord): ?>
+                        <?= Html::resetButton(Yii::t('admin', 'Reset'), ['class' => 'btn btn-flat btn-warning']) ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

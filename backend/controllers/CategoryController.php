@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\MetaTag;
 use Yii;
 use common\models\Category;
 use common\models\search\CategorySearch;
@@ -48,9 +49,17 @@ class CategoryController extends BaseController
      */
     public function actionCreate()
     {
+        /** @var Category $model */
         $model = new Category();
+        /** @var MetaTag $meta_tag */
+        $meta_tag = new MetaTag();
+        $meta_tag->entity = Category::className();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if (
+            $model->load(Yii::$app->request->post()) &&
+            $meta_tag->load(Yii::$app->request->post()) &&
+            $model->saveWithMetaKay($meta_tag)
+        )
         {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
 
@@ -60,6 +69,7 @@ class CategoryController extends BaseController
         {
             return $this->render('create', [
                 'model' => $model,
+                'meta_tag' => $meta_tag
             ]);
         }
     }
@@ -72,9 +82,16 @@ class CategoryController extends BaseController
      */
     public function actionUpdate($id)
     {
+        /** @var Category $model */
         $model = $this->findModel($id);
+        /** @var MetaTag $meta_tag */
+        $meta_tag = $model->getMeta_tag()->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if (
+            $model->load(Yii::$app->request->post()) &&
+            $meta_tag->load(Yii::$app->request->post()) &&
+            $model->saveWithMetaKay($meta_tag)
+        )
         {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
 
@@ -84,6 +101,7 @@ class CategoryController extends BaseController
         {
             return $this->render('update', [
                 'model' => $model,
+                'meta_tag' => $meta_tag
             ]);
         }
     }

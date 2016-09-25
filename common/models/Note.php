@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use backend\models\User;
+use yii\caching\TagDependency;
 
 /**
  * This is the model class for table "note".
@@ -20,11 +21,13 @@ use backend\models\User;
  * @property integer   $editor_id
  * @property string    $created_at
  * @property string    $updated_at
+ * @property integer   $meta_tag_id
  *
  * @property User      $editor
  * @property Category  $category
  * @property User      $creator
  * @property NoteTag[] $noteTags
+ * @property MetaTag   $meta_tag
  */
 class Note extends \yii\db\ActiveRecord
 {
@@ -52,7 +55,8 @@ class Note extends \yii\db\ActiveRecord
 			[['text'], 'string'],
 			[['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
 			[['posted_at', 'created_at', 'updated_at'], 'safe'],
-			[['title', 'alias', 'teaser'], 'string', 'max' => 255],
+			[['title', 'alias'], 'string', 'max' => 255],
+			['teaser', 'string', 'max' => 1000],
 			['alias', 'unique'],
 			[
 				['editor_id'], 'exist', 'skipOnError'     => true, 'targetClass' => Admin::className(),
@@ -88,6 +92,14 @@ class Note extends \yii\db\ActiveRecord
 			'created_at'  => Yii::t('admin', 'Date created'),
 			'updated_at'  => Yii::t('admin', 'Date updated'),
 		];
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getMeta_tag()
+	{
+		return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
 	}
 
 	/**
@@ -161,6 +173,39 @@ class Note extends \yii\db\ActiveRecord
 	}
 
 	/**
+	 * @param MetaTag $meta_tag
+	 *
+	 * @return bool
+	 * @throws \Exception
+	 * @throws \yii\db\Exception
+	 */
+	public function saveWithMetaKay(MetaTag $meta_tag)
+	{
+		$transaction = self::getDb()->beginTransaction();
+
+		try {
+			self::save();
+
+			if ($this->isNewRecord || !$meta_tag) {
+				$meta_tag = new MetaTag();
+			}
+
+			$meta_tag->entity = self::className();
+			$meta_tag->save();
+
+			$this->meta_tag_id = $meta_tag->getPrimaryKey();
+			self::update();
+
+			$transaction->commit();
+
+			return true;
+		} catch (\Exception $e) {
+			$transaction->rollBack();
+			throw $e;
+		}
+	}
+
+	/**
 	 * @return mixed|static[]
 	 */
 	public static function getAllActive()
@@ -171,15 +216,20 @@ class Note extends \yii\db\ActiveRecord
 		if (!$data) {
 			$model = self::findAll(['status' => self::STATUS_ACTIVE]);
 
-			/** @var Category $item */
-			foreach ($model as $item) {
-				$data[$item->getPrimaryKey()] = $item;
-			}
+			if ($model) {
+				/** @var Category $item */
+				foreach ($model as $item) {
+					$data[$item->getPrimaryKey()] = $item;
+				}
 
-			Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+				Yii::$app->cacheFrontend->set(
+					$keyCache, $data, self::CACHE_DURATION,
+					new TagDependency(['tags' => self::CACHE_KEY])
+				);
+			}
 		}
 
-		return $data;
+		return $data ? $data : [];
 	}
 
 	/**
@@ -205,18 +255,20 @@ class Note extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @param string|integer $subKey
-	 *
-	 * @return bool
+	 * @param null|string|integer $subKey
 	 *
 	 * delete all: $subKey = "all"
 	 * delete default: $subKey = "default"
 	 * delete one: $subKey = $model->getPrimaryKey
 	 */
-	public static function clearCacheModel($subKey)
+	public static function clearCacheModel($subKey = null)
 	{
-		$keyCache = self::CACHE_KEY . $subKey;
+		if ($subKey) {
+			$keyCache = self::CACHE_KEY . $subKey;
 
-		return Yii::$app->cacheFrontend->delete($keyCache);
+			Yii::$app->cacheFrontend->delete($keyCache);
+		} else {
+			TagDependency::invalidate(Yii::$app->cache, self::CACHE_KEY);
+		}
 	}
 }

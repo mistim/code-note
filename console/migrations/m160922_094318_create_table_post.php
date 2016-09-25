@@ -20,11 +20,13 @@ class m160922_094318_create_table_post extends Migration
             'editor_id'   => $this->integer(),
             'created_at'  => $this->dateTime()->notNull(),
             'updated_at'  => $this->dateTime()->null(),
+            'meta_tag'    => $this->integer()->null(),
         ]);
 
         $this->addForeignKey('fk_post_to_categoryID', '{{%post}}', ['category_id'], '{{%category}}', ['id'], 'RESTRICT', 'RESTRICT');
         $this->addForeignKey('fk_post_to_creatorID', '{{%post}}', ['creator_id'], '{{%admin}}', ['id'], 'RESTRICT', 'RESTRICT');
         $this->addForeignKey('fk_post_to_editorID', '{{%post}}', ['editor_id'], '{{%admin}}', ['id'], 'RESTRICT', 'RESTRICT');
+        $this->addForeignKey('fk_post_to_meta_tagID', '{{%post}}', ['meta_tag_id'], '{{%meta_tag}}', ['id'], 'RESTRICT', 'RESTRICT');
     }
 
     public function down()

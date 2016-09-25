@@ -5,6 +5,7 @@ namespace common\models;
 use backend\widgets\fileapi\behaviors\UploadBehavior;
 use Yii;
 use backend\models\User;
+use yii\caching\TagDependency;
 
 /**
  * This is the model class for table "post".
@@ -22,11 +23,13 @@ use backend\models\User;
  * @property integer   $editor_id
  * @property string    $created_at
  * @property string    $updated_at
+ * @property integer   $meta_tag_id
  *
  * @property User      $editor
  * @property Category  $category
  * @property User      $creator
  * @property PostTag[] $postTags
+ * @property MetaTag   $meta_tag
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -78,19 +81,29 @@ class Post extends \yii\db\ActiveRecord
 			[['text'], 'string'],
 			[['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
 			[['posted_at', 'created_at', 'updated_at'], 'safe'],
-			[['title', 'alias', 'teaser', 'image'], 'string', 'max' => 255],
+			[['title', 'alias', 'image'], 'string', 'max' => 255],
+			['teaser', 'string', 'max' => 1000],
 			['alias', 'unique'],
 			[
-				['editor_id'], 'exist', 'skipOnError'     => true, 'targetClass' => Admin::className(),
+				['editor_id'], 'exist', 'skipOnError'     => true,
+				                        'targetClass'     => Admin::className(),
 				                        'targetAttribute' => ['editor_id' => 'id'],
 			],
 			[
-				['category_id'], 'exist', 'skipOnError'     => true, 'targetClass' => Category::className(),
+				['category_id'], 'exist', 'skipOnError'     => true,
+				                          'targetClass'     => Category::className(),
 				                          'targetAttribute' => ['category_id' => 'id'],
 			],
 			[
-				['creator_id'], 'exist', 'skipOnError'     => true, 'targetClass' => Admin::className(),
+				['creator_id'], 'exist', 'skipOnError'     => true,
+				                         'targetClass'     => Admin::className(),
 				                         'targetAttribute' => ['creator_id' => 'id'],
+			],
+			[
+				['image'], 'file', 'skipOnEmpty'            => true,
+				                   'extensions'             => ['png', 'jpg', 'gif', 'bmp', 'jpeg'],
+				                   'maxSize'                => 1024 * 1024 * 2,
+				                   'enableClientValidation' => false,
 			],
 		];
 	}
@@ -115,6 +128,14 @@ class Post extends \yii\db\ActiveRecord
 			'created_at'  => Yii::t('admin', 'Date created'),
 			'updated_at'  => Yii::t('admin', 'Date updated'),
 		];
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getMeta_tag()
+	{
+		return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
 	}
 
 	/**
@@ -183,8 +204,40 @@ class Post extends \yii\db\ActiveRecord
 	{
 		parent::afterSave($insert, $changedAttributes);
 
-		$this->clearCacheModel('all');
-		$this->clearCacheModel($this->alias);
+		$this->clearCacheModel();
+	}
+
+	/**
+	 * @param MetaTag $meta_tag
+	 *
+	 * @return bool
+	 * @throws \Exception
+	 * @throws \yii\db\Exception
+	 */
+	public function saveWithMetaKay(MetaTag $meta_tag)
+	{
+		$transaction = self::getDb()->beginTransaction();
+
+		try {
+			self::save();
+
+			if ($this->isNewRecord || !$meta_tag) {
+				$meta_tag = new MetaTag();
+			}
+
+			$meta_tag->entity = self::className();
+			$meta_tag->save();
+
+			$this->meta_tag_id = $meta_tag->getPrimaryKey();
+			self::update();
+
+			$transaction->commit();
+
+			return true;
+		} catch (\Exception $e) {
+			$transaction->rollBack();
+			throw $e;
+		}
 	}
 
 	/**
@@ -198,15 +251,20 @@ class Post extends \yii\db\ActiveRecord
 		if (!$data) {
 			$model = self::findAll(['status' => self::STATUS_ACTIVE]);
 
-			/** @var Category $item */
-			foreach ($model as $item) {
-				$data[$item->getPrimaryKey()] = $item;
-			}
+			if ($model) {
+				/** @var Category $item */
+				foreach ($model as $item) {
+					$data[$item->getPrimaryKey()] = $item;
+				}
 
-			Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+				Yii::$app->cacheFrontend->set(
+					$keyCache, $data, self::CACHE_DURATION,
+					new TagDependency(['tags' => self::CACHE_KEY])
+				);
+			}
 		}
 
-		return $data;
+		return $data ? $data : [];
 	}
 
 	/**
@@ -232,18 +290,20 @@ class Post extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @param string|integer $subKey
-	 *
-	 * @return bool
+	 * @param null|string|integer $subKey
 	 *
 	 * delete all: $subKey = "all"
 	 * delete default: $subKey = "default"
 	 * delete one: $subKey = $model->getPrimaryKey
 	 */
-	public static function clearCacheModel($subKey)
+	public static function clearCacheModel($subKey = null)
 	{
-		$keyCache = self::CACHE_KEY . $subKey;
+		if ($subKey) {
+			$keyCache = self::CACHE_KEY . $subKey;
 
-		return Yii::$app->cacheFrontend->delete($keyCache);
+			Yii::$app->cacheFrontend->delete($keyCache);
+		} else {
+			TagDependency::invalidate(Yii::$app->cache, self::CACHE_KEY);
+		}
 	}
 }

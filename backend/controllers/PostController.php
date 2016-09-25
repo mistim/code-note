@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\widgets\fileapi\actions\UploadAction;
+use common\models\MetaTag;
 use Yii;
 use common\models\Post;
 use common\models\search\PostSearch;
@@ -62,9 +63,16 @@ class PostController extends BaseController
      */
     public function actionCreate()
     {
+        /** @var Post $model */
         $model = new Post();
+        /** @var MetaTag $meta_tag */
+        $meta_tag = new MetaTag();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if (
+            $model->load(Yii::$app->request->post()) &&
+            $meta_tag->load(Yii::$app->request->post()) &&
+            $model->saveWithMetaKay($meta_tag)
+        )
         {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
 
@@ -74,6 +82,7 @@ class PostController extends BaseController
         {
             return $this->render('create', [
                 'model' => $model,
+                'meta_tag' => $meta_tag
             ]);
         }
     }
@@ -86,9 +95,16 @@ class PostController extends BaseController
      */
     public function actionUpdate($id)
     {
+        /** @var Post $model */
         $model = $this->findModel($id);
+        /** @var MetaTag $meta_tag */
+        $meta_tag = $model->getMeta_tag()->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if (
+            $model->load(Yii::$app->request->post()) &&
+            $meta_tag->load(Yii::$app->request->post()) &&
+            $model->saveWithMetaKay($meta_tag)
+        )
         {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
 
@@ -98,6 +114,7 @@ class PostController extends BaseController
         {
             return $this->render('update', [
                 'model' => $model,
+                'meta_tag' => $meta_tag
             ]);
         }
     }

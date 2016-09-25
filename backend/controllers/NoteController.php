@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\MetaTag;
 use Yii;
 use common\models\Note;
 use common\models\search\NoteSearch;
@@ -48,9 +49,16 @@ class NoteController extends BaseController
      */
     public function actionCreate()
     {
+        /** @var Note $model */
         $model = new Note();
+        /** @var MetaTag $meta_tag */
+        $meta_tag = new MetaTag();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if (
+            $model->load(Yii::$app->request->post()) &&
+            $meta_tag->load(Yii::$app->request->post()) &&
+            $model->saveWithMetaKay($meta_tag)
+        )
         {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
 
@@ -60,6 +68,7 @@ class NoteController extends BaseController
         {
             return $this->render('create', [
                 'model' => $model,
+                'meta_tag' => $meta_tag
             ]);
         }
     }
@@ -72,9 +81,16 @@ class NoteController extends BaseController
      */
     public function actionUpdate($id)
     {
+        /** @var Note $model */
         $model = $this->findModel($id);
+        /** @var MetaTag $meta_tag */
+        $meta_tag = $model->getMeta_tag()->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if (
+            $model->load(Yii::$app->request->post()) &&
+            $meta_tag->load(Yii::$app->request->post()) &&
+            $model->saveWithMetaKay($meta_tag)
+        )
         {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
 
@@ -84,6 +100,7 @@ class NoteController extends BaseController
         {
             return $this->render('update', [
                 'model' => $model,
+                'meta_tag' => $meta_tag
             ]);
         }
     }

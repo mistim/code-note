@@ -140,6 +140,12 @@ span.badge.badge-block {
     width: 100%;
 }
 
+.col-inline {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+}
+
 .go-up {
     right: -60px;
     bottom: 100px;
@@ -213,4 +219,19 @@ span.badge.badge-block {
 .card-panel .card-content {
     padding: 20px;
     text-align: justify;
+}
+
+.collapsible-body ul {
+    margin: 0;
+    padding: 1rem;
+    color: rgba(0,0,0,0.71);
+    -webkit-font-smoothing: antialiased;
+}
+
+.without-padding.col {
+    padding: 0;
+}
+
+.tabs .indicator {
+    background-color: #607d8b;
 }

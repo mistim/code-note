@@ -16,10 +16,12 @@ class m160922_094249_create_table_category extends Migration
             'editor_id'   => $this->integer(),
             'created_at'  => $this->dateTime()->notNull(),
             'updated_at'  => $this->dateTime()->null(),
+            'meta_tag'    => $this->integer()->null(),
         ]);
 
         $this->addForeignKey('fk_category_to_creatorID', '{{%category}}', ['creator_id'], '{{%admin}}', ['id'], 'RESTRICT', 'RESTRICT');
         $this->addForeignKey('fk_category_to_editorID', '{{%category}}', ['editor_id'], '{{%admin}}', ['id'], 'RESTRICT', 'RESTRICT');
+        $this->addForeignKey('fk_category_to_meta_tagID', '{{%category}}', ['meta_tag_id'], '{{%meta_tag}}', ['id'], 'RESTRICT', 'RESTRICT');
     }
 
     public function down()

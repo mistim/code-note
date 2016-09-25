@@ -169,3 +169,30 @@ input[type="checkbox"] {
     font-size: 1.4rem;
     border-radius: 2px;
 }
+
+.nav-tabs-custom>.tab-footer {
+    background: #fff;
+    padding: 10px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    /*border-top: 1px solid #ddd;*/
+}
+
+.tab-footer .form-group {
+    /*margin-bottom: 0;*/
+}
+
+.detail-view th {
+    width: 210px;
+}
+
+@media (min-width: 768px) {
+    .modal-dialog {
+        width: 1200px;
+        margin: 30px auto;
+    }
+}
+
+.jcrop-holder {
+    margin: auto;
+}

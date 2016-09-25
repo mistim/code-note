@@ -19,11 +19,13 @@ class m160922_094339_create_table_note extends Migration
             'editor_id'   => $this->integer(),
             'created_at'  => $this->dateTime()->notNull(),
             'updated_at'  => $this->dateTime()->null(),
+            'meta_tag'    => $this->integer()->null(),
         ]);
 
         $this->addForeignKey('fk_note_to_categoryID', '{{%note}}', ['category_id'], '{{%category}}', ['id'], 'RESTRICT', 'RESTRICT');
         $this->addForeignKey('fk_note_to_creatorID', '{{%note}}', ['creator_id'], '{{%admin}}', ['id'], 'RESTRICT', 'RESTRICT');
         $this->addForeignKey('fk_note_to_editorID', '{{%note}}', ['editor_id'], '{{%admin}}', ['id'], 'RESTRICT', 'RESTRICT');
+        $this->addForeignKey('fk_note_to_meta_tagID', '{{%note}}', ['meta_tag_id'], '{{%meta_tag}}', ['id'], 'RESTRICT', 'RESTRICT');
     }
 
     public function down()

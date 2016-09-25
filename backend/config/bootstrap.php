@@ -1,5 +1,7 @@
 <?php
 
+Yii::setAlias('@web', '/admin_7a1M8O');
+
 // Конфигурация по умолчанию для виджета TinyMCE.
 /*Yii::$container->set('dosamigos\tinymce\TinyMce', [
 	'language' => 'ru',
