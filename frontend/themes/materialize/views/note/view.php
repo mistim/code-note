@@ -21,7 +21,9 @@ use yii\helpers\Html;
 				</span>
 				<span class="post-info">
 					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="category">library_books</i>
-					<span class="post-info-text"><?= $model->category->title ?></span>
+					<span class="post-info-text">
+						<?= Html::a($model->category->title, ['/note/category/' . $model->category->alias]) ?>
+					</span>
 				</span>
 				<span class="post-info">
 					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="tags">style</i>

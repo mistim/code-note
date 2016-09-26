@@ -175,7 +175,7 @@ class Tag extends \yii\db\ActiveRecord
 
 			Yii::$app->cacheFrontend->delete($keyCache);
 		} else {
-			TagDependency::invalidate(Yii::$app->cache, self::CACHE_KEY);
+			TagDependency::invalidate(Yii::$app->cacheFrontend, self::CACHE_KEY);
 		}
 	}
 }

@@ -43,12 +43,6 @@ main {
     padding: 5px 0 0;
 }
 
-.card .waves.card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
-    padding: 20px;
-    display: inline-block;
-    margin-right: 0;
-}
-
 .card .card-image .parallax {
     z-index: 0;
 }
@@ -174,7 +168,26 @@ span.badge.badge-block {
     margin-left: 10px;
 }
 
+.card .waves.card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+    padding: 0;
+    display: inherit;
+    margin-right: 0;
+    text-transform: inherit;
+}
+
+.card .waves.card-action a.waves-effect:not(.btn):not(.btn-large):not(.btn-floating) {
+    padding: 20px;
+    display: inline-block;
+    margin-right: 0;
+    text-transform: uppercase;
+}
+
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+    color: #f4511e;
+    padding: 0;
+}
+
+.card .card-action a.waves-effect:not(.btn):not(.btn-large):not(.btn-floating) {
     color: #f4511e;
 }
 

@@ -47,7 +47,9 @@ return [
             'enableStrictParsing' => false,
             'rules' => [
                 'note/<alias:\w+>' => 'note/view',
-                'post/<alias:\w+>' => 'post/view'
+                'post/<alias:\w+>' => 'post/view',
+                'note/category/<alias:\w+>' => 'note/category',
+                'post/category/<alias:\w+>' => 'post/category',
             ],
         ],
         'assetManager' => [
