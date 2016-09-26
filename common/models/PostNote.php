@@ -3,18 +3,20 @@
 namespace common\models;
 
 use backend\components\TagBehavior;
+use backend\widgets\fileapi\behaviors\UploadBehavior;
 use Yii;
 use backend\models\User;
 use yii\caching\TagDependency;
 
 /**
- * This is the model class for table "note".
+ * This is the model class for view "post_note".
  *
  * @property integer   $id
  * @property string    $title
  * @property string    $alias
  * @property string    $teaser
  * @property string    $text
+ * @property string    $image
  * @property integer   $status
  * @property string    $posted_at
  * @property integer   $category_id
@@ -23,27 +25,46 @@ use yii\caching\TagDependency;
  * @property string    $created_at
  * @property string    $updated_at
  * @property integer   $meta_tag_id
+ * @property integer   $is_post
  *
  * @property User      $editor
- * @property Category  $category
  * @property User      $creator
- * @property NoteTag[] $noteTags
+ * @property Category  $category
  * @property MetaTag   $meta_tag
  * @property Tag[]     $tags
+ * @property PostTag[] $postTags
+ * @property NoteTag[] $nateTags
  */
-class Note extends \yii\db\ActiveRecord
+class PostNote extends \yii\db\ActiveRecord
 {
+
 	const STATUS_IN_ACTIVE = 0;
 	const STATUS_ACTIVE    = 1;
 
-	const CACHE_KEY      = 'modelNote_';
+	const CACHE_KEY      = 'viewPostNote_';
 	const CACHE_DURATION = 0;
 
-	public $is_post;
+	const IMAGE_PATH = '@statics/web/uploads/post';
+	const IMAGE_TMP  = '@statics/web/uploads/post/temp';
+	const IMAGE_URL  = '@statics_url/uploads/post';
 
+
+	/**
+	 * @return array
+	 */
 	public function behaviors()
 	{
 		return [
+			'uploadBehavior' => [
+				'class'      => UploadBehavior::className(),
+				'attributes' => [
+					'image' => [
+						'path'     => self::IMAGE_PATH,
+						'tempPath' => self::IMAGE_TMP,
+						'url'      => Yii::getAlias(self::IMAGE_URL),
+					],
+				],
+			],
 			TagBehavior::className()
 		];
 	}
@@ -53,7 +74,7 @@ class Note extends \yii\db\ActiveRecord
 	 */
 	public static function tableName()
 	{
-		return 'note';
+		return 'post_note';
 	}
 
 	/**
@@ -64,22 +85,31 @@ class Note extends \yii\db\ActiveRecord
 		return [
 			[['title', 'alias', 'text', 'status', 'category_id'], 'required'],
 			[['text'], 'string'],
-			[['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
+			[['status', 'category_id', 'creator_id', 'editor_id', 'is_post'], 'integer'],
 			[['posted_at', 'created_at', 'updated_at', 'list_tag'], 'safe'],
-			[['title', 'alias'], 'string', 'max' => 255],
+			[['title', 'alias', 'image'], 'string', 'max' => 255],
 			['teaser', 'string', 'max' => 1000],
 			['alias', 'unique'],
 			[
-				['editor_id'], 'exist', 'skipOnError'     => true, 'targetClass' => Admin::className(),
+				['editor_id'], 'exist', 'skipOnError'     => true,
+				                        'targetClass'     => Admin::className(),
 				                        'targetAttribute' => ['editor_id' => 'id'],
 			],
 			[
-				['category_id'], 'exist', 'skipOnError'     => true, 'targetClass' => Category::className(),
+				['category_id'], 'exist', 'skipOnError'     => true,
+				                          'targetClass'     => Category::className(),
 				                          'targetAttribute' => ['category_id' => 'id'],
 			],
 			[
-				['creator_id'], 'exist', 'skipOnError'     => true, 'targetClass' => Admin::className(),
+				['creator_id'], 'exist', 'skipOnError'     => true,
+				                         'targetClass'     => Admin::className(),
 				                         'targetAttribute' => ['creator_id' => 'id'],
+			],
+			[
+				['image'], 'file', 'skipOnEmpty'            => true,
+				                   'extensions'             => ['png', 'jpg', 'gif', 'bmp', 'jpeg'],
+				                   'maxSize'                => 1024 * 1024 * 2,
+				                   'enableClientValidation' => false,
 			],
 		];
 	}
@@ -95,6 +125,7 @@ class Note extends \yii\db\ActiveRecord
 			'alias'       => Yii::t('admin', 'Alias'),
 			'teaser'      => Yii::t('admin', 'Teaser'),
 			'text'        => Yii::t('admin', 'Content'),
+			'image'       => Yii::t('admin', 'Image'),
 			'status'      => Yii::t('admin', 'Status'),
 			'posted_at'   => Yii::t('admin', 'Date posted'),
 			'category_id' => Yii::t('admin', 'Category'),
@@ -111,7 +142,7 @@ class Note extends \yii\db\ActiveRecord
 	public function getTags()
 	{
 		return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
-			->viaTable('note_tag', ['note_id' => 'id']);
+			->viaTable('post_tag', ['post_id' => 'id']);
 	}
 
 	/**
@@ -151,109 +182,17 @@ class Note extends \yii\db\ActiveRecord
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
+	public function getPostTags()
+	{
+		return $this->hasMany(PostTag::className(), ['post_id' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
 	public function getNoteTags()
 	{
 		return $this->hasMany(NoteTag::className(), ['note_id' => 'id']);
-	}
-
-	/**
-	 * @param bool $insert
-	 *
-	 * @return bool
-	 */
-	public function beforeSave($insert)
-	{
-		if (parent::beforeSave($insert)) {
-			if ($this->isNewRecord) {
-				$this->created_at = (new \DateTime())->format('Y-m-d H:i:s');
-				$this->creator_id = Yii::$app->user->getId();
-			} else {
-				$this->updated_at = (new \DateTime())->format('Y-m-d H:i:s');
-				$this->editor_id  = Yii::$app->user->getId();
-			}
-
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * @param bool  $insert
-	 * @param array $changedAttributes
-	 *
-	 * @throws \Exception
-	 */
-	public function afterSave($insert, $changedAttributes)
-	{
-		parent::afterSave($insert, $changedAttributes);
-
-		if ($this->list_tag) {
-			NoteTag::deleteAll([
-				'note_id' => $this->id,
-			]);
-
-			foreach ($this->list_tag as $key => $val) {
-				$tag = Tag::findOne([
-					'title' => $val
-				]);
-
-				if (!$tag) {
-					$tag         = new Tag();
-					$tag->title  = $val;
-					$tag->alias  = $val;
-					$tag->status = Tag::STATUS_ACTIVE;
-					if (!$tag->save()) {
-						var_dump($tag->getErrors());
-						exit;
-					}
-				}
-
-				$model          = new NoteTag();
-				$model->note_id = $this->id;
-				$model->tag_id  = $tag->id;
-
-				if (!$model->save()) {
-					var_dump($model->getErrors());
-					exit;
-				}
-			}
-		}
-
-		$this->clearCacheModel();
-	}
-
-	/**
-	 * @param MetaTag $meta_tag
-	 *
-	 * @return bool
-	 * @throws \Exception
-	 * @throws \yii\db\Exception
-	 */
-	public function saveWithMetaKay(MetaTag $meta_tag)
-	{
-		$transaction = self::getDb()->beginTransaction();
-
-		try {
-			self::save();
-
-			if ($this->isNewRecord || !$meta_tag) {
-				$meta_tag = new MetaTag();
-			}
-
-			$meta_tag->entity = self::className();
-			$meta_tag->save();
-
-			$this->meta_tag_id = $meta_tag->getPrimaryKey();
-			self::update();
-
-			$transaction->commit();
-
-			return true;
-		} catch (\Exception $e) {
-			$transaction->rollBack();
-			throw $e;
-		}
 	}
 
 	/**
@@ -286,7 +225,7 @@ class Note extends \yii\db\ActiveRecord
 	/**
 	 * @param $alias
 	 *
-	 * @return null|Note
+	 * @return null|Post
 	 */
 	public static function getActiveByAlias($alias)
 	{

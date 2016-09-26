@@ -9,7 +9,7 @@ $js = <<<JS
 	$('.parallax').parallax();
 JS;
 
-$this->registerJs($js);
+//$this->registerJs($js);
 ?>
 
 <div class="row">

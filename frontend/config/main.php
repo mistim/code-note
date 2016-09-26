@@ -48,6 +48,8 @@ return [
             'rules' => [
                 'note/<alias:\w+>' => 'note/view',
                 'post/<alias:\w+>' => 'post/view',
+                'category/<alias:\w+>' => 'category/index',
+                'tag/<alias:\w+>' => 'tag/index',
                 'note/category/<alias:\w+>' => 'note/category',
                 'post/category/<alias:\w+>' => 'post/category',
                 'note/tag/<alias:\w+>' => 'note/tag',

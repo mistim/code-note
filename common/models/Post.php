@@ -35,7 +35,6 @@ use yii\caching\TagDependency;
  */
 class Post extends \yii\db\ActiveRecord
 {
-
 	const STATUS_IN_ACTIVE = 0;
 	const STATUS_ACTIVE    = 1;
 
@@ -46,6 +45,7 @@ class Post extends \yii\db\ActiveRecord
 	const IMAGE_TMP  = '@statics/web/uploads/post/temp';
 	const IMAGE_URL  = '@statics_url/uploads/post';
 
+	public $is_post;
 
 	/**
 	 * @return array
@@ -348,7 +348,7 @@ class Post extends \yii\db\ActiveRecord
 
 			Yii::$app->cacheFrontend->delete($keyCache);
 		} else {
-			TagDependency::invalidate(Yii::$app->cacheFrontend, self::CACHE_KEY);
+			TagDependency::invalidate(Yii::$app->cache, self::CACHE_KEY);
 		}
 	}
 }
