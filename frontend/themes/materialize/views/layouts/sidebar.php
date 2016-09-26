@@ -1,15 +1,18 @@
 <?php
 
 use common\models\Category;
+use common\models\Tag;
 use yii\helpers\Html;
 
 /** @var \common\models\Category $categories */
 
 $categories = Category::getAllActive();
+$tags = Tag::getAllActive();
 ?>
 
 <div class="sidebar">
 	<div class="hide-on-med-and-down bar-top">
+		<!--
 		<div class="widget card">
 			<div class="card-content">
 				<div class="card-title">
@@ -66,32 +69,31 @@ $categories = Category::getAllActive();
 				</ul>
 			</div>
 		</div>
-		<div class="widget card">
+		-->
+		<div class="card">
+			<div class="card-title">
+				Categories
+			</div>
 			<div class="card-content">
-				<div class="card-title">
-					<span class="badge-block z-depth-0 blue-grey darken-3 white-text">
-						<i class="badge-icon material-icons">library_books</i>
-					</span> Categories
-				</div>
 				<div class="col-inline">
 					<div class="col s12 without-padding">
 						<ul class="tabs">
 							<li class="tab col s3">
-								<a class="active blue-grey-text text-darken-2" href="#test1">All</a>
+								<a class="active blue-grey-text text-darken-2" href="#categoryAll">All</a>
 							</li>
 							<li class="tab col s3">
-								<a class="blue-grey-text text-darken-2" href="#test2">Posts</a>
+								<a class="blue-grey-text text-darken-2" href="#categoryPosts">Posts</a>
 							</li>
 							<li class="tab col s3">
-								<a class="blue-grey-text text-darken-2" href="#test3">Tags</a>
+								<a class="blue-grey-text text-darken-2" href="#categoryNotes">Notes</a>
 							</li>
 						</ul>
 					</div>
-					<div id="test1" class="col s12">
+					<div id="categoryAll" class="col s12">
 						<ul>
 							<?php foreach ($categories as $category): ?>
 
-								<li>
+								<li class="col-inline">
 									<span class="left"><?= Html::a($category->title, ['#']) ?></span>
 									<span class="right"><?= $category->getPosts()->count() + $category->getNotes()->count() ?></span>
 								</li>
@@ -99,11 +101,11 @@ $categories = Category::getAllActive();
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<div id="test2" class="col s12">
+					<div id="categoryPosts" class="col s12">
 						<ul>
 							<?php foreach ($categories as $category): ?>
 
-								<li>
+								<li class="col-inline">
 									<span class="left"><?= Html::a($category->title, ['#']) ?></span>
 									<span class="right"><?= $category->getPosts()->count() ?></span>
 								</li>
@@ -111,11 +113,11 @@ $categories = Category::getAllActive();
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<div id="test3" class="col s12">
+					<div id="categoryNotes" class="col s12">
 						<ul>
 							<?php foreach ($categories as $category): ?>
 
-								<li>
+								<li class="col-inline">
 									<span class="left"><?= Html::a($category->title, ['#']) ?></span>
 									<span class="right"><?= $category->getNotes()->count() ?></span>
 								</li>
@@ -126,15 +128,62 @@ $categories = Category::getAllActive();
 				</div>
 			</div>
 		</div>
-		<div class="widget card">
+		<div class="card">
+			<div class="card-title">
+				Tags
+			</div>
 			<div class="card-content">
-				<div class="card-title">
-					<span class="badge-block z-depth-0 blue-grey darken-3 white-text">
-						<i class="badge-icon material-icons">style</i>
-					</span> Tags
+				<div class="col-inline">
+					<div class="col s12 without-padding">
+						<ul class="tabs">
+							<li class="tab col s3">
+								<a class="active blue-grey-text text-darken-2" href="#tagAll">All</a>
+							</li>
+							<li class="tab col s3">
+								<a class="blue-grey-text text-darken-2" href="#tagPosts">Posts</a>
+							</li>
+							<li class="tab col s3">
+								<a class="blue-grey-text text-darken-2" href="#tagNotes">Notes</a>
+							</li>
+						</ul>
+					</div>
+					<div id="tagAll" class="col s12">
+						<ul>
+							<?php foreach ($tags as $tag): ?>
+
+								<li class="col-inline">
+									<span class="left"><?= Html::a($tag->title, ['#']) ?></span>
+									<span class="right"><?= $tag->getPosts()->count() + $tag->getNotes()->count() ?></span>
+								</li>
+
+							<?php endforeach; ?>
+						</ul>
+					</div>
+					<div id="tagPosts" class="col s12">
+						<ul>
+							<?php foreach ($tags as $tag): ?>
+
+								<li class="col-inline">
+									<span class="left"><?= Html::a($tag->title, ['#']) ?></span>
+									<span class="right"><?= $tag->getPosts()->count() ?></span>
+								</li>
+
+							<?php endforeach; ?>
+						</ul>
+					</div>
+					<div id="tagNotes" class="col s12">
+						<ul>
+							<?php foreach ($tags as $tag): ?>
+
+								<li class="col-inline">
+									<span class="left"><?= Html::a($tag->title, ['#']) ?></span>
+									<span class="right"><?= $tag->getNotes()->count() ?></span>
+								</li>
+
+							<?php endforeach; ?>
+						</ul>
+					</div>
 				</div>
-				<p>I am a very simple card. I am good at containing small bits of information.
-					I am convenient because I require little markup to use effectively.</p>
 			</div>
 		</div>
 	</div>

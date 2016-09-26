@@ -57,6 +57,11 @@ main {
 
 }
 
+.card > .card-title {
+    padding: 20px;
+    border-bottom: 1px solid rgba(160,160,160,0.2);
+}
+
 /*** Nav Logo ***/
 nav .brand-logo {
     padding: 0 10px;

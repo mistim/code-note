@@ -16,6 +16,8 @@ use yii\caching\TagDependency;
  *
  * @property NoteTag[] $noteTags
  * @property PostTag[] $postTags
+ * @property Post[]    $posts
+ * @property Note[]    $notes
  * @property MetaTag   $meta_tag
  */
 class Tag extends \yii\db\ActiveRecord
@@ -80,9 +82,27 @@ class Tag extends \yii\db\ActiveRecord
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
+	public function getNotes()
+	{
+		return $this->hasMany(Note::className(), ['id' => 'note_id'])
+			->via('noteTags');
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
 	public function getPostTags()
 	{
 		return $this->hasMany(PostTag::className(), ['tag_id' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getPosts()
+	{
+		return $this->hasMany(Post::className(), ['id' => 'post_id'])
+			->via('postTags');
 	}
 
 	/**
