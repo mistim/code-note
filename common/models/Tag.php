@@ -162,6 +162,28 @@ class Tag extends \yii\db\ActiveRecord
 	}
 
 	/**
+	 * @param $alias
+	 *
+	 * @return null|Category
+	 */
+	public static function getActiveByAlias($alias)
+	{
+		$keyCache = self::CACHE_KEY . $alias;
+		$data     = Yii::$app->cacheFrontend->get($keyCache);
+
+		if (!$data) {
+			$data = self::findOne([
+				'status' => self::STATUS_ACTIVE,
+				'alias'  => $alias,
+			]);
+
+			Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+		}
+
+		return $data;
+	}
+
+	/**
 	 * @param null|string|integer $subKey
 	 *
 	 * delete all: $subKey = "all"

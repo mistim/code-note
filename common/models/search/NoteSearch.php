@@ -12,13 +12,16 @@ use common\models\Note;
  */
 class NoteSearch extends Note
 {
+	/** @var integer */
+	public $tag_id;
+
 	/**
 	 * @inheritdoc
 	 */
 	public function rules()
 	{
 		return [
-			[['id', 'status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
+			[['id', 'status', 'category_id', 'creator_id', 'editor_id', 'tag_id'], 'integer'],
 			[
 				[
 					'title', 'alias', 'teaser', 'text', 'posted_at', 'category.title',
@@ -68,7 +71,7 @@ class NoteSearch extends Note
 			'query' => $query,
 		]);
 
-		$query->joinWith(['creator', 'editor', 'category']);
+		$query->joinWith(['creator', 'editor', 'category', 'noteTags']);
 
 		$dataProvider->sort->attributes['creator.username'] = [
 			'asc'  => ['creator.username' => SORT_ASC],
@@ -104,6 +107,12 @@ class NoteSearch extends Note
 			'created_at'  => $this->created_at,
 			'updated_at'  => $this->updated_at,
 		]);
+
+		if ($this->tag_id) {
+			$query->andFilterWhere([
+				'note_tag.tag_id' => $this->tag_id
+			]);
+		}
 
 		$query->andFilterWhere(['like', 'title', $this->title])
 			->andFilterWhere(['like', 'alias', $this->alias])

@@ -106,7 +106,7 @@ $tags = Tag::getAllActive();
 							<?php foreach ($categories as $category): ?>
 
 								<li class="col-inline">
-									<span class="left"><?= Html::a($category->title, ['#']) ?></span>
+									<span class="left"><?= Html::a($category->title, ['/post/category/' . $category->alias]) ?></span>
 									<span class="right"><?= $category->getPosts()->count() ?></span>
 								</li>
 
@@ -118,7 +118,7 @@ $tags = Tag::getAllActive();
 							<?php foreach ($categories as $category): ?>
 
 								<li class="col-inline">
-									<span class="left"><?= Html::a($category->title, ['#']) ?></span>
+									<span class="left"><?= Html::a($category->title, ['/note/category/' . $category->alias]) ?></span>
 									<span class="right"><?= $category->getNotes()->count() ?></span>
 								</li>
 
@@ -164,7 +164,7 @@ $tags = Tag::getAllActive();
 							<?php foreach ($tags as $tag): ?>
 
 								<li class="col-inline">
-									<span class="left"><?= Html::a($tag->title, ['#']) ?></span>
+									<span class="left"><?= Html::a($tag->title, ['/post/tag/' . $tag->alias]) ?></span>
 									<span class="right"><?= $tag->getPosts()->count() ?></span>
 								</li>
 
@@ -176,7 +176,7 @@ $tags = Tag::getAllActive();
 							<?php foreach ($tags as $tag): ?>
 
 								<li class="col-inline">
-									<span class="left"><?= Html::a($tag->title, ['#']) ?></span>
+									<span class="left"><?= Html::a($tag->title, ['/note/tag/' . $tag->alias]) ?></span>
 									<span class="right"><?= $tag->getNotes()->count() ?></span>
 								</li>
 

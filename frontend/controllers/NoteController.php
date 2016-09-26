@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Category;
 use common\models\Note;
 use common\models\search\NoteSearch;
+use common\models\Tag;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use Yii;
@@ -67,6 +68,12 @@ class NoteController extends BaseController
 		}
 	}
 
+	/**
+	 * @param $alias
+	 *
+	 * @return string
+	 * @throws NotFoundHttpException
+	 */
 	public function actionCategory($alias)
 	{
 		if (($model = Category::getActiveByAlias($alias)) !== null) {
@@ -78,6 +85,37 @@ class NoteController extends BaseController
 
 			$searchModel = new NoteSearch();
 			$searchModel->category_id = $model->getPrimaryKey();
+			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+			$dataProvider->sort->defaultOrder = [
+				'posted_at' => SORT_DESC,
+			];
+
+			return $this->render('index', [
+				'model'        => $model,
+				'dataProvider' => $dataProvider,
+			]);
+		} else {
+			throw new NotFoundHttpException('The requested page does not exist.');
+		}
+	}
+
+	/**
+	 * @param $alias
+	 *
+	 * @return string
+	 * @throws NotFoundHttpException
+	 */
+	public function actionTag($alias)
+	{
+		if (($model = Tag::getActiveByAlias($alias)) !== null) {
+			$model->meta_tag->status && $this->setSeo(
+				$model->meta_tag->title,
+				$model->meta_tag->keyword,
+				$model->meta_tag->description
+			);
+
+			$searchModel = new NoteSearch();
+			$searchModel->tag_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 			$dataProvider->sort->defaultOrder = [
 				'posted_at' => SORT_DESC,

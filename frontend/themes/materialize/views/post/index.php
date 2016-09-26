@@ -2,22 +2,35 @@
 
 use yii\widgets\ListView;
 
-/* @var $model \common\models\Category */
+/* @var $model \common\models\Category|\common\models\Tag */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 ?>
 
 <div class="card-panel">
 	<?php if ($model): ?>
-	<h1 class="center-align"><?= $model->title ?></h1>
-	<div class="card-content">
-		<?= $model->teaser ?>
-	</div>
+		<h1 class="center-align"><?= $titleModel ?>: <?= $model->title ?></h1>
+		<?php if ($titleModel === 'Category' && $model->teaser):
+			$titleModel = $model::className() === 'common\models\Category'
+					? 'Category' : 'Tag'; ?>
+
+			<div class="card-content">
+				<?= $model->teaser ?>
+			</div>
+
+		<?php endif; ?>
 	<?php else: ?>
-	<h1 class="center-align">Posts</h1>
-	<div class="card-content">
-		Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Pellentesque in ipsum id orci porta dapibus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vivamus suscipit tortor eget felis porttitor volutpat. Donec sollicitudin molestie malesuada.
-	</div>
+		<h1 class="center-align">Posts</h1>
+		<div class="card-content">
+			Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur
+			adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+			Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Vestibulum ac diam sit amet
+			quam vehicula elementum sed sit amet dui. Praesent sapien massa, convallis a pellentesque nec, egestas non
+			nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit
+			neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Pellentesque in ipsum id orci porta
+			dapibus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vivamus suscipit tortor
+			eget felis porttitor volutpat. Donec sollicitudin molestie malesuada.
+		</div>
 	<?php endif; ?>
 </div>
 

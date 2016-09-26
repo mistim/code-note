@@ -50,6 +50,8 @@ return [
                 'post/<alias:\w+>' => 'post/view',
                 'note/category/<alias:\w+>' => 'note/category',
                 'post/category/<alias:\w+>' => 'post/category',
+                'note/tag/<alias:\w+>' => 'note/tag',
+                'post/tag/<alias:\w+>' => 'post/tag',
             ],
         ],
         'assetManager' => [
