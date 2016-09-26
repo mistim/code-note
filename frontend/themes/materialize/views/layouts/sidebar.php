@@ -4,7 +4,8 @@ use common\models\Category;
 use common\models\Tag;
 use yii\helpers\Html;
 
-/** @var \common\models\Category $categories */
+/** @var \common\models\Category[] $categories */
+/** @var \common\models\Category[] $tags */
 
 $categories = Category::getAllActive();
 $tags = Tag::getAllActive();
@@ -94,7 +95,7 @@ $tags = Tag::getAllActive();
 							<?php foreach ($categories as $category): ?>
 
 								<li class="col-inline">
-									<span class="left"><?= Html::a($category->title, ['#']) ?></span>
+									<span class="left"><?= Html::a($category->title, ['/category/' . $category->title]) ?></span>
 									<span class="right"><?= $category->getPosts()->count() + $category->getNotes()->count() ?></span>
 								</li>
 
@@ -152,7 +153,7 @@ $tags = Tag::getAllActive();
 							<?php foreach ($tags as $tag): ?>
 
 								<li class="col-inline">
-									<span class="left"><?= Html::a($tag->title, ['#']) ?></span>
+									<span class="left"><?= Html::a($tag->title, ['/tag/' . $tag->title]) ?></span>
 									<span class="right"><?= $tag->getPosts()->count() + $tag->getNotes()->count() ?></span>
 								</li>
 

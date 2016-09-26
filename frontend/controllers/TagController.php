@@ -2,20 +2,20 @@
 
 namespace frontend\controllers;
 
-use common\models\Category;
 use common\models\search\NoteSearch;
+use common\models\Tag;
 use Yii;
 use yii\web\NotFoundHttpException;
 
 /**
- * Class CategoryController
+ * Class TagController
  * @package frontend\controllers
  */
-class CategoryController extends BaseController
+class TagController extends BaseController
 {
 	public function actionIndex($alias)
 	{
-		if (($model = Category::getActiveByAlias($alias)) !== null) {
+		if (($model = Tag::getActiveByAlias($alias)) !== null) {
 			$model->meta_tag->status && $this->setSeo(
 				$model->meta_tag->title,
 				$model->meta_tag->keyword,
@@ -23,7 +23,7 @@ class CategoryController extends BaseController
 			);
 
 			$searchModel = new PostNoteSearch();
-			$searchModel->category_id = $model->getPrimaryKey();
+			$searchModel->tag_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 			$dataProvider->sort->defaultOrder = [
 				'posted_at' => SORT_DESC,
