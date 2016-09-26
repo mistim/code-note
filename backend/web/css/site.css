@@ -196,3 +196,7 @@ input[type="checkbox"] {
 .jcrop-holder {
     margin: auto;
 }
+
+.select2-search__field {
+    width: auto !important;
+}

@@ -6,6 +6,7 @@ use backend\widgets\Box;
 /* @var $this yii\web\View */
 /* @var $model common\models\Post */
 /* @var $meta_tag common\models\MetaTag */
+/* @var $tags common\models\Tag[] */
 
 $this->title = Yii::t('admin', 'Update {modelClass}: ', [
     'modelClass' => 'Post',
@@ -21,8 +22,9 @@ $this->params['breadcrumbs'][] = Yii::t('admin', 'Update');
     </p>
 
     <?= $this->render('_form', [
-        'model' => $model,
-        'meta_tag' => $meta_tag
+        'model'    => $model,
+        'tags'     => $tags,
+        'meta_tag' => $meta_tag,
     ]) ?>
 
 </div>

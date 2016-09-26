@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use backend\components\TagBehavior;
 use backend\widgets\fileapi\behaviors\UploadBehavior;
 use Yii;
 use backend\models\User;
@@ -30,6 +31,7 @@ use yii\caching\TagDependency;
  * @property User      $creator
  * @property PostTag[] $postTags
  * @property MetaTag   $meta_tag
+ * @property Tag[]     $tags
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -43,6 +45,7 @@ class Post extends \yii\db\ActiveRecord
 	const IMAGE_PATH = '@statics/web/uploads/post';
 	const IMAGE_TMP  = '@statics/web/uploads/post/temp';
 	const IMAGE_URL  = '@statics_url/uploads/post';
+
 
 	/**
 	 * @return array
@@ -60,6 +63,7 @@ class Post extends \yii\db\ActiveRecord
 					],
 				],
 			],
+			TagBehavior::className()
 		];
 	}
 
@@ -80,7 +84,7 @@ class Post extends \yii\db\ActiveRecord
 			[['title', 'alias', 'text', 'status', 'category_id'], 'required'],
 			[['text'], 'string'],
 			[['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
-			[['posted_at', 'created_at', 'updated_at'], 'safe'],
+			[['posted_at', 'created_at', 'updated_at', 'list_tag'], 'safe'],
 			[['title', 'alias', 'image'], 'string', 'max' => 255],
 			['teaser', 'string', 'max' => 1000],
 			['alias', 'unique'],
@@ -128,6 +132,15 @@ class Post extends \yii\db\ActiveRecord
 			'created_at'  => Yii::t('admin', 'Date created'),
 			'updated_at'  => Yii::t('admin', 'Date updated'),
 		];
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getTags()
+	{
+		return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+			->viaTable('post_tag', ['post_id' => 'id']);
 	}
 
 	/**
@@ -203,6 +216,38 @@ class Post extends \yii\db\ActiveRecord
 	public function afterSave($insert, $changedAttributes)
 	{
 		parent::afterSave($insert, $changedAttributes);
+
+		if ($this->list_tag) {
+			PostTag::deleteAll([
+				'post_id' => $this->id,
+			]);
+
+			foreach ($this->list_tag as $key => $val) {
+				$tag = Tag::findOne([
+					'title' => $val
+				]);
+
+				if (!$tag) {
+					$tag         = new Tag();
+					$tag->title  = $val;
+					$tag->alias  = $val;
+					$tag->status = Tag::STATUS_ACTIVE;
+					if (!$tag->save()) {
+						var_dump($tag->getErrors());
+						exit;
+					}
+				}
+
+				$model          = new PostTag();
+				$model->post_id = $this->id;
+				$model->tag_id  = $tag->id;
+
+				if (!$model->save()) {
+					var_dump($model->getErrors());
+					exit;
+				}
+			}
+		}
 
 		$this->clearCacheModel();
 	}

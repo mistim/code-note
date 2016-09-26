@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\MetaTag;
+use common\models\Tag;
 use Yii;
 use common\models\Note;
 use common\models\search\NoteSearch;
@@ -51,6 +52,8 @@ class NoteController extends BaseController
     {
         /** @var Note $model */
         $model = new Note();
+        /** @var Tag[] $tags */
+        $tags = Tag::getAllActive();
         /** @var MetaTag $meta_tag */
         $meta_tag = new MetaTag();
 
@@ -66,9 +69,12 @@ class NoteController extends BaseController
         }
         else
         {
+            $model->setListTag($model->tags);
+
             return $this->render('create', [
-                'model' => $model,
-                'meta_tag' => $meta_tag
+                'model'    => $model,
+                'tags'     => $tags,
+                'meta_tag' => $meta_tag,
             ]);
         }
     }
@@ -83,6 +89,8 @@ class NoteController extends BaseController
     {
         /** @var Note $model */
         $model = $this->findModel($id);
+        /** @var Tag[] $tags */
+        $tags = $model->getTags()->all();
         /** @var MetaTag $meta_tag */
         $meta_tag = $model->getMeta_tag()->one();
 
@@ -98,9 +106,12 @@ class NoteController extends BaseController
         }
         else
         {
+            $model->setListTag($model->tags);
+
             return $this->render('update', [
-                'model' => $model,
-                'meta_tag' => $meta_tag
+                'model'    => $model,
+                'tags'     => $tags,
+                'meta_tag' => $meta_tag,
             ]);
         }
     }

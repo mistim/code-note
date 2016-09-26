@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\widgets\fileapi\actions\UploadAction;
 use common\models\MetaTag;
+use common\models\Tag;
 use Yii;
 use common\models\Post;
 use common\models\search\PostSearch;
@@ -65,6 +66,8 @@ class PostController extends BaseController
     {
         /** @var Post $model */
         $model = new Post();
+        /** @var Tag[] $tags */
+        $tags = Tag::getAllActive();
         /** @var MetaTag $meta_tag */
         $meta_tag = new MetaTag();
 
@@ -80,9 +83,12 @@ class PostController extends BaseController
         }
         else
         {
+            $model->setListTag($model->tags);
+
             return $this->render('create', [
-                'model' => $model,
-                'meta_tag' => $meta_tag
+                'model'    => $model,
+                'tags'     => $tags,
+                'meta_tag' => $meta_tag,
             ]);
         }
     }
@@ -97,6 +103,8 @@ class PostController extends BaseController
     {
         /** @var Post $model */
         $model = $this->findModel($id);
+        /** @var Tag[] $tags */
+        $tags = Tag::getAllActive();
         /** @var MetaTag $meta_tag */
         $meta_tag = $model->getMeta_tag()->one();
 
@@ -112,9 +120,12 @@ class PostController extends BaseController
         }
         else
         {
+            $model->setListTag($model->tags);
+
             return $this->render('update', [
-                'model' => $model,
-                'meta_tag' => $meta_tag
+                'model'    => $model,
+                'tags'     => $tags,
+                'meta_tag' => $meta_tag,
             ]);
         }
     }

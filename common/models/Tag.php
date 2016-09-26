@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\caching\TagDependency;
 
 /**
  * This is the model class for table "tag".
@@ -41,6 +42,7 @@ class Tag extends \yii\db\ActiveRecord
 	{
 		return [
 			[['title', 'alias', 'status'], 'required'],
+			//['alias', 'unique'],
 			[['status'], 'integer'],
 			[['title', 'alias'], 'string', 'max' => 255],
 		];
@@ -91,13 +93,7 @@ class Tag extends \yii\db\ActiveRecord
 	public function beforeSave($insert)
 	{
 		if (parent::beforeSave($insert)) {
-			if ($this->isNewRecord) {
-				$this->created_at = (new \DateTime())->format('Y-m-d H:i:s');
-				$this->creator_id = Yii::$app->user->getId();
-			} else {
-				$this->updated_at = (new \DateTime())->format('Y-m-d H:i:s');
-				$this->editor_id  = Yii::$app->user->getId();
-			}
+
 
 			return true;
 		} else {
@@ -119,7 +115,7 @@ class Tag extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @return mixed|static[]
+	 * @return mixed|Tag[]
 	 */
 	public static function getAllActive()
 	{
@@ -129,30 +125,37 @@ class Tag extends \yii\db\ActiveRecord
 		if (!$data) {
 			$model = self::findAll(['status' => self::STATUS_ACTIVE]);
 
-			/** @var Category $item */
-			foreach ($model as $item) {
-				$data[$item->getPrimaryKey()] = $item;
-			}
+			if ($model) {
+				/** @var Category $item */
+				foreach ($model as $item) {
+					$data[$item->getPrimaryKey()] = $item;
+				}
 
-			Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+				Yii::$app->cacheFrontend->set(
+					$keyCache, $data, self::CACHE_DURATION,
+					new TagDependency(['tags' => self::CACHE_KEY])
+				);
+			}
 		}
 
-		return $data;
+		return $data ? $data : [];
 	}
 
 	/**
-	 * @param string|integer $subKey
-	 *
-	 * @return bool
+	 * @param null|string|integer $subKey
 	 *
 	 * delete all: $subKey = "all"
 	 * delete default: $subKey = "default"
 	 * delete one: $subKey = $model->getPrimaryKey
 	 */
-	public static function clearCacheModel($subKey)
+	public static function clearCacheModel($subKey = null)
 	{
-		$keyCache = self::CACHE_KEY . $subKey;
+		if ($subKey) {
+			$keyCache = self::CACHE_KEY . $subKey;
 
-		return Yii::$app->cacheFrontend->delete($keyCache);
+			Yii::$app->cacheFrontend->delete($keyCache);
+		} else {
+			TagDependency::invalidate(Yii::$app->cache, self::CACHE_KEY);
+		}
 	}
 }

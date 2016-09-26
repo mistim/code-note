@@ -5,11 +5,21 @@ use backend\widgets\imperavi\Widget;
 use backend\widgets\fileapi\Widget as FileAPI;
 use common\models\Category;
 use yii\helpers\ArrayHelper;
+use backend\themes\adminlte\assets\Select2Asset;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Post */
+/* @var $tags common\models\Tag[] */
 /* @var $form yii\bootstrap\ActiveForm */
 
+$this->registerAssetBundle(Select2Asset::className());
+$this->registerJs(
+	'$("#post-list_tag").select2({
+        placeholder: "' . Yii::t('admin', 'Set tag') . '",
+        tags: true,
+        tokenSeparators: [","],
+    });'
+);
 ?>
 
 <?= $form->field($model, 'status')->checkbox([
@@ -27,6 +37,12 @@ use yii\helpers\ArrayHelper;
 	ArrayHelper::map(Category::getAllActive(), 'id', 'title'),
 	['prompt' => 'Choice category']
 ) ?>
+
+<?= $form->field($model, 'list_tag')
+	->dropDownList(ArrayHelper::map($tags, 'title', 'title'), [
+		'prompt' => Yii::t('admin', 'Set tag'),
+		'multiple' => true
+	]) ?>
 
 <?= $form->field($model, 'image')->widget(FileAPI::className(),
 	[

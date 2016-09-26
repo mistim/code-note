@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use backend\components\TagBehavior;
 use Yii;
 use backend\models\User;
 use yii\caching\TagDependency;
@@ -28,6 +29,7 @@ use yii\caching\TagDependency;
  * @property User      $creator
  * @property NoteTag[] $noteTags
  * @property MetaTag   $meta_tag
+ * @property Tag[]     $tags
  */
 class Note extends \yii\db\ActiveRecord
 {
@@ -36,6 +38,13 @@ class Note extends \yii\db\ActiveRecord
 
 	const CACHE_KEY      = 'modelNote_';
 	const CACHE_DURATION = 0;
+
+	public function behaviors()
+	{
+		return [
+			TagBehavior::className()
+		];
+	}
 
 	/**
 	 * @inheritdoc
@@ -54,7 +63,7 @@ class Note extends \yii\db\ActiveRecord
 			[['title', 'alias', 'text', 'status', 'category_id'], 'required'],
 			[['text'], 'string'],
 			[['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
-			[['posted_at', 'created_at', 'updated_at'], 'safe'],
+			[['posted_at', 'created_at', 'updated_at', 'list_tag'], 'safe'],
 			[['title', 'alias'], 'string', 'max' => 255],
 			['teaser', 'string', 'max' => 1000],
 			['alias', 'unique'],
@@ -92,6 +101,15 @@ class Note extends \yii\db\ActiveRecord
 			'created_at'  => Yii::t('admin', 'Date created'),
 			'updated_at'  => Yii::t('admin', 'Date updated'),
 		];
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getTags()
+	{
+		return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+			->viaTable('note_tag', ['note_id' => 'id']);
 	}
 
 	/**
@@ -167,6 +185,38 @@ class Note extends \yii\db\ActiveRecord
 	public function afterSave($insert, $changedAttributes)
 	{
 		parent::afterSave($insert, $changedAttributes);
+
+		if ($this->list_tag) {
+			NoteTag::deleteAll([
+				'note_id' => $this->id,
+			]);
+
+			foreach ($this->list_tag as $key => $val) {
+				$tag = Tag::findOne([
+					'title' => $val
+				]);
+
+				if (!$tag) {
+					$tag         = new Tag();
+					$tag->title  = $val;
+					$tag->alias  = $val;
+					$tag->status = Tag::STATUS_ACTIVE;
+					if (!$tag->save()) {
+						var_dump($tag->getErrors());
+						exit;
+					}
+				}
+
+				$model          = new NoteTag();
+				$model->note_id = $this->id;
+				$model->tag_id  = $tag->id;
+
+				if (!$model->save()) {
+					var_dump($model->getErrors());
+					exit;
+				}
+			}
+		}
 
 		$this->clearCacheModel();
 	}

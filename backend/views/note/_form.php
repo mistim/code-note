@@ -7,6 +7,7 @@ use yii\bootstrap\Tabs;
 /* @var $this yii\web\View */
 /* @var $model common\models\Note */
 /* @var $meta_tag common\models\MetaTag */
+/* @var $tags common\models\Tag[] */
 /* @var $form yii\bootstrap\ActiveForm */
 
 $this->registerJsFile('@web/js/char_counter.js', ['depends' => 'yii\web\JqueryAsset']);
@@ -26,6 +27,7 @@ $this->registerJsFile('@web/js/char_counter.js', ['depends' => 'yii\web\JqueryAs
                     'label'   => Yii::t('admin', 'Content'),
                     'content' => $this->render('_form_model', [
                         'form'  => $form,
+                        'tags'  => $tags,
                         'model' => $model,
                     ]),
                     'active'  => true,
