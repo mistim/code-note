@@ -16,8 +16,14 @@ echo DetailView::widget([
 			'format' => 'html',
 			'value' => ToolsHelper::getStatusStr($model->status)
 		],
-		'creator.username',
-		'editor.username',
+		[
+			'attribute' => 'creator.username',
+			'label' => Yii::t('admin', 'Creator')
+		],
+		[
+			'attribute' => 'editor.username',
+			'label' => Yii::t('admin', 'Editor')
+		],
 		'created_at:datetime',
 		'updated_at:datetime',
 		'teaser:html',

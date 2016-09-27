@@ -43,8 +43,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'alias',
                     'text:raw',
                     'status',
-                    'creator_id',
-                    'editor_id',
+                    [
+                        'attribute' => 'creator.username',
+                        'label' => Yii::t('admin', 'Creator')
+                    ],
+                    [
+                        'attribute' => 'editor.username',
+                        'label' => Yii::t('admin', 'Editor')
+                    ],
                     'created_at:datetime',
                     'updated_at:datetime',
                 ],

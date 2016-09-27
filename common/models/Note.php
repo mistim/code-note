@@ -26,6 +26,8 @@ use yii\caching\TagDependency;
  * @property integer   $is_post
  * @property integer   $cnt_view
  *
+ * @property array     $list_tag
+ *
  * @property User      $editor
  * @property Category  $category
  * @property User      $creator
