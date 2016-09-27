@@ -23,6 +23,7 @@ class NoteController extends BaseController
     public function actionIndex()
     {
         $searchModel = new NoteSearch();
+        $searchModel->is_post = Note::IS_POST;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

@@ -25,6 +25,7 @@ use yii\caching\TagDependency;
  * @property string    $created_at
  * @property string    $updated_at
  * @property integer   $meta_tag_id
+ * @property integer   $is_post
  *
  * @property User      $editor
  * @property Category  $category
@@ -41,11 +42,11 @@ class Post extends \yii\db\ActiveRecord
 	const CACHE_KEY      = 'modelPost_';
 	const CACHE_DURATION = 0;
 
+	const IS_POST = 1;
+
 	const IMAGE_PATH = '@statics/web/uploads/post';
 	const IMAGE_TMP  = '@statics/web/uploads/post/temp';
 	const IMAGE_URL  = '@statics_url/uploads/post';
-
-	public $is_post;
 
 	/**
 	 * @return array
@@ -83,7 +84,7 @@ class Post extends \yii\db\ActiveRecord
 		return [
 			[['title', 'alias', 'text', 'status', 'category_id'], 'required'],
 			[['text'], 'string'],
-			[['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
+			[['status', 'category_id', 'creator_id', 'editor_id', 'is_post'], 'integer'],
 			[['posted_at', 'created_at', 'updated_at', 'list_tag'], 'safe'],
 			[['title', 'alias', 'image'], 'string', 'max' => 255],
 			['teaser', 'string', 'max' => 1000],
@@ -200,6 +201,8 @@ class Post extends \yii\db\ActiveRecord
 				$this->updated_at = (new \DateTime())->format('Y-m-d H:i:s');
 				$this->editor_id  = Yii::$app->user->getId();
 			}
+
+			$this->is_post = self::IS_POST;
 
 			return true;
 		} else {

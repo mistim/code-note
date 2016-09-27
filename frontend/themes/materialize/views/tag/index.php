@@ -2,22 +2,19 @@
 
 use yii\widgets\ListView;
 
-/* @var $model \common\models\Category */
+/* @var $model \common\models\Tag */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 ?>
 
 <div class="card-panel">
-	<h1 class="center-align"><?= $model->title ?></h1>
-	<div class="card-content">
-		<?= $model->teaser ?>
-	</div>
+	<h1 class="center-align">Tag: <?= $model->title ?></h1>
 </div>
 
 <div id="list-post">
 	<?= ListView::widget([
 		'dataProvider' => $dataProvider,
-		'itemView' => '/common/_post',
+		'itemView' => '_view',
 		'pager' => [
 			'firstPageLabel' => '<i class="material-icons">first_page</i>',
 			'lastPageLabel' => '<i class="material-icons">last_page</i>',

@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\search\NoteSearch;
+use common\models\search\PostSearch;
 use common\models\Tag;
 use Yii;
 use yii\web\NotFoundHttpException;
@@ -22,7 +23,7 @@ class TagController extends BaseController
 				$model->meta_tag->description
 			);
 
-			$searchModel = new PostNoteSearch();
+			$searchModel = new PostSearch();
 			$searchModel->tag_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 			$dataProvider->sort->defaultOrder = [

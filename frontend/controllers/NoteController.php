@@ -25,6 +25,7 @@ class NoteController extends BaseController
 			'query' => Note::find()->where([
 				'AND',
 				['status' => Note::STATUS_ACTIVE],
+				['is_post' => Note::IS_POST],
 				[
 					'OR',
 					['<', 'posted_at', date('Y-m-d 00:00:00')],
@@ -84,6 +85,7 @@ class NoteController extends BaseController
 			);
 
 			$searchModel = new NoteSearch();
+			$searchModel->is_post = Note::IS_POST;
 			$searchModel->category_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 			$dataProvider->sort->defaultOrder = [
@@ -115,6 +117,7 @@ class NoteController extends BaseController
 			);
 
 			$searchModel = new NoteSearch();
+			$searchModel->is_post = Note::IS_POST;
 			$searchModel->tag_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 			$dataProvider->sort->defaultOrder = [

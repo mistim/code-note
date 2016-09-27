@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Category;
 use common\models\search\PostNoteSearch;
+use common\models\search\PostSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
@@ -24,35 +25,12 @@ class CategoryController extends BaseController
 				$model->meta_tag->description
 			);
 
-			$queryPost = (new Query())
-				->select('*, CONCAT(0) AS is_post')
-				->from('post')
-				->where(['category_id' => $model->getPrimaryKey()]);
-
-			$queryNote = (new Query())
-				->select('*, CONCAT(0) AS image, CONCAT(0) AS is_post')
-				->from('note')
-				->where(['category_id' => $model->getPrimaryKey()]);
-
-			$unionQuery = (new Query())
-				->from(['post_note' => $queryPost->union($queryNote, true)])
-				->orderBy(['posted_at' => SORT_ASC]);
-
-			/*$query1->union($query2, false);//false is UNION, true is UNION ALL
-			$sql = $query1->createCommand()->getRawSql();
-			$sql .= ' ORDER BY id DESC';
-			$query = User::findBySql($sql);*/
-
-			$dataProvider = new ActiveDataProvider([
-				'query' => $unionQuery,
-				'pagination' => [
-					'pageSize' => 20,
-				],
-			]);
-
-			/*$dataProvider->sort->defaultOrder = [
+			$searchModel = new PostSearch();
+			$searchModel->category_id = $model->getPrimaryKey();
+			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+			$dataProvider->sort->defaultOrder = [
 				'posted_at' => SORT_DESC,
-			];*/
+			];
 
 			return $this->render('index', [
 				'model'        => $model,

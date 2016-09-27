@@ -25,6 +25,7 @@ class PostController extends BaseController
 			'query' => Post::find()->where([
 				'AND',
 				['status' => Post::STATUS_ACTIVE],
+				['is_post' => Post::IS_POST],
 				[
 					'OR',
 					['<', 'posted_at', date('Y-m-d 00:00:00')],
@@ -84,6 +85,7 @@ class PostController extends BaseController
 			);
 
 			$searchModel = new PostSearch();
+			$searchModel->is_post = Post::IS_POST;
 			$searchModel->category_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 			$dataProvider->sort->defaultOrder = [
@@ -115,6 +117,7 @@ class PostController extends BaseController
 			);
 
 			$searchModel = new PostSearch();
+			$searchModel->is_post = Post::IS_POST;
 			$searchModel->tag_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 			$dataProvider->sort->defaultOrder = [

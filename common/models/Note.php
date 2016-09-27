@@ -23,6 +23,7 @@ use yii\caching\TagDependency;
  * @property string    $created_at
  * @property string    $updated_at
  * @property integer   $meta_tag_id
+ * @property integer   $is_post
  *
  * @property User      $editor
  * @property Category  $category
@@ -39,7 +40,7 @@ class Note extends \yii\db\ActiveRecord
 	const CACHE_KEY      = 'modelNote_';
 	const CACHE_DURATION = 0;
 
-	public $is_post;
+	const IS_POST = 0;
 
 	public function behaviors()
 	{
@@ -53,7 +54,7 @@ class Note extends \yii\db\ActiveRecord
 	 */
 	public static function tableName()
 	{
-		return 'note';
+		return 'post';
 	}
 
 	/**
@@ -64,7 +65,7 @@ class Note extends \yii\db\ActiveRecord
 		return [
 			[['title', 'alias', 'text', 'status', 'category_id'], 'required'],
 			[['text'], 'string'],
-			[['status', 'category_id', 'creator_id', 'editor_id'], 'integer'],
+			[['status', 'category_id', 'creator_id', 'editor_id', 'is_post'], 'integer'],
 			[['posted_at', 'created_at', 'updated_at', 'list_tag'], 'safe'],
 			[['title', 'alias'], 'string', 'max' => 255],
 			['teaser', 'string', 'max' => 1000],
@@ -102,6 +103,7 @@ class Note extends \yii\db\ActiveRecord
 			'editor_id'   => Yii::t('admin', 'Editor'),
 			'created_at'  => Yii::t('admin', 'Date created'),
 			'updated_at'  => Yii::t('admin', 'Date updated'),
+			'is_post'     => Yii::t('admin', 'Type'),
 		];
 	}
 
@@ -111,7 +113,7 @@ class Note extends \yii\db\ActiveRecord
 	public function getTags()
 	{
 		return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
-			->viaTable('note_tag', ['note_id' => 'id']);
+			->viaTable('post_tag', ['post_id' => 'id']);
 	}
 
 	/**
@@ -153,7 +155,8 @@ class Note extends \yii\db\ActiveRecord
 	 */
 	public function getNoteTags()
 	{
-		return $this->hasMany(NoteTag::className(), ['note_id' => 'id']);
+		return $this->hasMany(PostTag::className(), ['post_id' => 'id'])
+			->from(['note_tag' => PostTag::tableName()]);
 	}
 
 	/**
@@ -172,6 +175,8 @@ class Note extends \yii\db\ActiveRecord
 				$this->editor_id  = Yii::$app->user->getId();
 			}
 
+			$this->is_post = self::IS_POST;
+
 			return true;
 		} else {
 			return false;
@@ -189,8 +194,8 @@ class Note extends \yii\db\ActiveRecord
 		parent::afterSave($insert, $changedAttributes);
 
 		if ($this->list_tag) {
-			NoteTag::deleteAll([
-				'note_id' => $this->id,
+			PostTag::deleteAll([
+				'post_id' => $this->id,
 			]);
 
 			foreach ($this->list_tag as $key => $val) {
@@ -209,8 +214,8 @@ class Note extends \yii\db\ActiveRecord
 					}
 				}
 
-				$model          = new NoteTag();
-				$model->note_id = $this->id;
+				$model          = new PostTag();
+				$model->post_id = $this->id;
 				$model->tag_id  = $tag->id;
 
 				if (!$model->save()) {

@@ -21,7 +21,7 @@ class PostSearch extends Post
 	public function rules()
 	{
 		return [
-			[['id', 'status', 'category_id', 'creator_id', 'editor_id', 'tag_id'], 'integer'],
+			[['id', 'status', 'category_id', 'creator_id', 'editor_id', 'tag_id', 'is_post'], 'integer'],
 			[
 				[
 					'title', 'alias', 'teaser', 'text', 'image', 'posted_at', 'created_at', 'updated_at',
@@ -106,6 +106,7 @@ class PostSearch extends Post
 			'editor_id'   => $this->editor_id,
 			'created_at'  => $this->created_at,
 			'updated_at'  => $this->updated_at,
+			'is_post'     => $this->is_post,
 		]);
 
 		if ($this->tag_id) {

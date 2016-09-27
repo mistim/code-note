@@ -5,7 +5,7 @@ use common\models\Tag;
 use yii\helpers\Html;
 
 /** @var \common\models\Category[] $categories */
-/** @var \common\models\Category[] $tags */
+/** @var \common\models\Tag[] $tags */
 
 $categories = Category::getAllActive();
 $tags = Tag::getAllActive();

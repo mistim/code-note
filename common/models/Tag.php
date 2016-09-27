@@ -84,8 +84,9 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getNotes()
 	{
-		return $this->hasMany(Note::className(), ['id' => 'note_id'])
-			->via('noteTags');
+		return $this->hasMany(Note::className(), ['id' => 'post_id'])
+			->where(['is_post' => Note::IS_POST])
+			->via('postTags');
 	}
 
 	/**
@@ -102,6 +103,7 @@ class Tag extends \yii\db\ActiveRecord
 	public function getPosts()
 	{
 		return $this->hasMany(Post::className(), ['id' => 'post_id'])
+			->where(['is_post' => Post::IS_POST])
 			->via('postTags');
 	}
 
