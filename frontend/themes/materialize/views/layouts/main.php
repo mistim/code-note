@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
-/* @var $text string */
+/* @var $content string */
 
 use yii\helpers\Html;
 use frontend\assets as Assets;
@@ -63,8 +63,11 @@ $controller = Yii::$app->controller;
 				]); ?>
 
 
-				<a href="#" data-activates="nav-mobile" class="button-collapse">
+				<a href="#" data-activates="nav-mobile" class="button-collapse mobile-menu">
 					<i class="material-icons">menu</i>
+				</a>
+				<a href="#" data-activates="slide-out" class="button-collapse mobile-sidebar right">
+					<i class="material-icons">details</i>
 				</a>
 			</div>
 		</div>
@@ -80,7 +83,11 @@ $controller = Yii::$app->controller;
 				</div>
 			</div>
 			<div class="col hide-on-med-and-down l3">
-				<?= $this->render('sidebar') ?>
+				<div class="sidebar">
+					<div class="hide-on-med-and-down bar-top">
+						<?= $this->render('_sidebar') ?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -96,6 +103,8 @@ $controller = Yii::$app->controller;
 		</div>
 	</div>
 </footer>
+
+<?= $this->render('_side_nav') ?>
 
 <div class="go-up fixed-action-btn">
 	<a class="btn-floating btn-large deep-orange darken-1 waves-effect">

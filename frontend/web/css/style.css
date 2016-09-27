@@ -129,6 +129,32 @@ span.badge.badge-block {
     margin-right: 10px;
 }
 
+.mobile-sade.side-nav ul {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.mobile-sade.side-nav li {
+     line-height: inherit;
+}
+
+.mobile-sade.side-nav a {
+    color: #039be5;
+    display: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    height: inherit;
+    line-height: inherit;
+    padding: 0;
+}
+
+.mobile-sade.side-nav a:hover {
+     background-color: #fff;
+}
+
 /*** Contact Form ***/
 .site-contact form {
     padding: 25px 120px;

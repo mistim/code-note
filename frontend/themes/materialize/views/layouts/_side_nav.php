@@ -10,68 +10,12 @@ use frontend\helpers\ViewTools;
 
 $categories = Category::getAllActive();
 $tags = Tag::getAllActive();
+
 ?>
 
-<div class="sidebar">
-	<div class="hide-on-med-and-down bar-top">
-		<!--
-		<div class="widget card">
-			<div class="card-content">
-				<div class="card-title">
-					<span class="badge-block z-depth-0 blue-grey darken-3 white-text">
-						<i class="badge-icon material-icons">library_books</i>
-					</span> Categories
-				</div>
-				<ul class="collapsible z-depth-0" data-collapsible="accordion">
-					<li>
-						<div class="collapsible-header active">All</div>
-						<div class="collapsible-body">
-							<ul class="col-inline">
-								<?php foreach ($categories as $category): ?>
+<ul id="slide-out" class="mobile-sade side-nav">
+	<div class="row">
 
-									<li>
-										<span class="left"><?= Html::a($category->title, ['#']) ?></span>
-										<span class="right"><?= $category->getPosts()->count() + $category->getNotes()->count() ?></span>
-									</li>
-
-								<?php endforeach; ?>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">Posts</div>
-						<div class="collapsible-body">
-							<ul class="col-inline">
-								<?php foreach ($categories as $category): ?>
-
-									<li>
-										<span class="left"><?= Html::a($category->title, ['#']) ?></span>
-										<span class="right"><?= $category->getPosts()->count() ?></span>
-									</li>
-
-								<?php endforeach; ?>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<div class="collapsible-header">Notes</div>
-						<div class="collapsible-body">
-							<ul class="col-inline">
-								<?php foreach ($categories as $category): ?>
-
-									<li>
-										<span class="left"><?= Html::a($category->title, ['#']) ?></span>
-										<span class="right"><?= $category->getNotes()->count() ?></span>
-									</li>
-
-								<?php endforeach; ?>
-							</ul>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-		-->
 		<div class="card">
 			<div class="card-title">
 				Categories
@@ -81,23 +25,23 @@ $tags = Tag::getAllActive();
 					<div class="col s12 without-padding">
 						<ul class="tabs">
 							<li class="tab col s3">
-								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#categoryAll">
+								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#categoryAllSB">
 									All
 								</a>
 							</li>
 							<li class="tab col s3">
-								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#categoryPosts">
+								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#categoryPostsSB">
 									Posts
 								</a>
 							</li>
 							<li class="tab col s3">
-								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#categoryNotes">
+								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#categoryNotesSB">
 									Notes
 								</a>
 							</li>
 						</ul>
 					</div>
-					<div id="categoryAll" class="col s12">
+					<div id="categoryAllSB" class="col s12">
 						<ul>
 							<?php foreach ($categories as $category): ?>
 
@@ -109,7 +53,7 @@ $tags = Tag::getAllActive();
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<div id="categoryPosts" class="col s12">
+					<div id="categoryPostsSB" class="col s12">
 						<ul>
 							<?php foreach ($categories as $category): ?>
 
@@ -121,7 +65,7 @@ $tags = Tag::getAllActive();
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<div id="categoryNotes" class="col s12">
+					<div id="categoryNotesSB" class="col s12">
 						<ul>
 							<?php foreach ($categories as $category): ?>
 
@@ -145,23 +89,23 @@ $tags = Tag::getAllActive();
 					<div class="col s12 without-padding">
 						<ul class="tabs">
 							<li class="tab col s3">
-								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#tagAll">
+								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#tagAllSB">
 									All
 								</a>
 							</li>
 							<li class="tab col s3">
-								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#tagPosts">
+								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#tagPostsSB">
 									Posts
 								</a>
 							</li>
 							<li class="tab col s3">
-								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#tagNotes">
+								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#tagNotesSB">
 									Notes
 								</a>
 							</li>
 						</ul>
 					</div>
-					<div id="tagAll" class="col s12">
+					<div id="tagAllSB" class="col s12">
 						<ul>
 							<?php foreach ($tags as $tag): ?>
 
@@ -173,7 +117,7 @@ $tags = Tag::getAllActive();
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<div id="tagPosts" class="col s12">
+					<div id="tagPostsSB" class="col s12">
 						<ul>
 							<?php foreach ($tags as $tag): ?>
 
@@ -185,7 +129,7 @@ $tags = Tag::getAllActive();
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<div id="tagNotes" class="col s12">
+					<div id="tagNotesSB" class="col s12">
 						<ul>
 							<?php foreach ($tags as $tag): ?>
 
@@ -200,5 +144,6 @@ $tags = Tag::getAllActive();
 				</div>
 			</div>
 		</div>
+
 	</div>
-</div>
+</ul>

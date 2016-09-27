@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
-/* @var $text string */
+/* @var $content string */
 
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
