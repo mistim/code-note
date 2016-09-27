@@ -183,15 +183,19 @@ span.badge.badge-block {
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
-    color: #f4511e;
+    color: #039be5;
     padding: 0;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {
+    color: #039be5;
 }
 
 .card .card-action a.waves-effect:not(.btn):not(.btn-large):not(.btn-floating) {
     color: #f4511e;
 }
 
-.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {
+.card .card-action a.waves-effect:not(.btn):not(.btn-large):not(.btn-floating):hover {
     color: #ff8a65;
 }
 

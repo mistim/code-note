@@ -16,7 +16,7 @@ use yii\widgets\ListView;
 <div id="list-post">
 	<?= ListView::widget([
 		'dataProvider' => $dataProvider,
-		'itemView' => '_view',
+		'itemView' => '/common/_view',
 		'pager' => [
 			'firstPageLabel' => '<i class="material-icons">first_page</i>',
 			'lastPageLabel' => '<i class="material-icons">last_page</i>',

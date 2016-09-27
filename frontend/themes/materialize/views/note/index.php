@@ -9,10 +9,10 @@ use yii\widgets\ListView;
 
 <div class="card-panel">
 	<?php if ($model): ?>
+		<?php $titleModel = $model::className() === 'common\models\Category' ? 'Category' : 'Tag'; ?>
+
 		<h1 class="center-align"><?= $titleModel ?>: <?= $model->title ?></h1>
-		<?php if ($titleModel === 'Category' && $model->teaser):
-			$titleModel = $model::className() === 'common\models\Category'
-				? 'Category' : 'Tag'; ?>
+		<?php if ($titleModel === 'Category' && $model->teaser): ?>
 
 			<div class="card-content">
 				<?= $model->teaser ?>
@@ -38,7 +38,7 @@ use yii\widgets\ListView;
 
 	<?= ListView::widget([
 		'dataProvider' => $dataProvider,
-		'itemView' => '/common/_note',
+		'itemView' => '/common/_view',
 		'pager' => [
 			'firstPageLabel' => '<i class="material-icons">first_page</i>',
 			'lastPageLabel' => '<i class="material-icons">last_page</i>',

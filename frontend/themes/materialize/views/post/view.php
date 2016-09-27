@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use frontend\helpers\ViewTools;
 
 /** @var $this \yii\web\View */
 /** @var $model \common\models\Post */
@@ -27,7 +28,9 @@ use yii\helpers\Html;
 				</span>
 				<span class="post-info">
 					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="tags">style</i>
-					<span class="post-info-text">Aaa</span>
+					<span class="post-info-text">
+						<?= implode(', ', ViewTools::getTagLinks($model)) ?>
+					</span>
 				</span>
 				<span class="post-info">
 					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="quantity views">visibility</i>
