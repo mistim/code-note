@@ -3,6 +3,7 @@
 use common\models\Category;
 use common\models\Tag;
 use yii\helpers\Html;
+use frontend\helpers\ViewTools;
 
 /** @var \common\models\Category[] $categories */
 /** @var \common\models\Tag[] $tags */
@@ -80,13 +81,19 @@ $tags = Tag::getAllActive();
 					<div class="col s12 without-padding">
 						<ul class="tabs">
 							<li class="tab col s3">
-								<a class="active blue-grey-text text-darken-2" href="#categoryAll">All</a>
+								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#categoryAll">
+									All
+								</a>
 							</li>
 							<li class="tab col s3">
-								<a class="blue-grey-text text-darken-2" href="#categoryPosts">Posts</a>
+								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#categoryPosts">
+									Posts
+								</a>
 							</li>
 							<li class="tab col s3">
-								<a class="blue-grey-text text-darken-2" href="#categoryNotes">Notes</a>
+								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#categoryNotes">
+									Notes
+								</a>
 							</li>
 						</ul>
 					</div>
@@ -138,13 +145,19 @@ $tags = Tag::getAllActive();
 					<div class="col s12 without-padding">
 						<ul class="tabs">
 							<li class="tab col s3">
-								<a class="active blue-grey-text text-darken-2" href="#tagAll">All</a>
+								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#tagAll">
+									All
+								</a>
 							</li>
 							<li class="tab col s3">
-								<a class="blue-grey-text text-darken-2" href="#tagPosts">Posts</a>
+								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#tagPosts">
+									Posts
+								</a>
 							</li>
 							<li class="tab col s3">
-								<a class="blue-grey-text text-darken-2" href="#tagNotes">Notes</a>
+								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#tagNotes">
+									Notes
+								</a>
 							</li>
 						</ul>
 					</div>

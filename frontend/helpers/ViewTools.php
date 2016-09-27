@@ -3,6 +3,7 @@
 namespace frontend\helpers;
 
 use yii\helpers\Html;
+use Yii;
 
 /**
  * Class ViewTools
@@ -27,5 +28,15 @@ class ViewTools
 		}
 
 		return $data;
+	}
+
+	/**
+	 * @param $route
+	 *
+	 * @return bool
+	 */
+	public static function isActiveRoute($route)
+	{
+		return Yii::$app->controller->id === $route ? 'active' : '';
 	}
 }
