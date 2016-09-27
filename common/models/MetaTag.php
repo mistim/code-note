@@ -41,7 +41,7 @@ class MetaTag extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['entity', 'status'], 'required'],
+			[['status'], 'required'],
 			[['status'], 'integer'],
 			['link', 'unique'],
 			[['entity', 'title', 'keyword', 'description'], 'string', 'max' => 255],

@@ -8,7 +8,7 @@ class m160925_125702_create_table_meta_tag extends Migration
     {
         $this->createTable('{{%meta_tag}}', [
             'id'          => $this->primaryKey(),
-            'entity'      => $this->string()->notNull(),
+            'entity'      => $this->string()->null(),
             'status'      => $this->boolean()->notNull(),
             'title'       => $this->string()->notNull(),
             'keyword'     => $this->string()->notNull(),

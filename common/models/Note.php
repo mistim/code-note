@@ -72,7 +72,7 @@ class Note extends \yii\db\ActiveRecord
 			[['posted_at', 'created_at', 'updated_at', 'list_tag'], 'safe'],
 			[['title', 'alias'], 'string', 'max' => 255],
 			['teaser', 'string', 'max' => 1000],
-			['alias', 'unique'],
+			['alias', 'unique', 'targetAttribute' => 'id'],
 			[
 				['editor_id'], 'exist', 'skipOnError'     => true, 'targetClass' => Admin::className(),
 				                        'targetAttribute' => ['editor_id' => 'id'],
