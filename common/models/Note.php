@@ -65,8 +65,8 @@ class Note extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['title', 'alias', 'text', 'status', 'category_id'], 'required', 'on' => 'crud', 'except' => 'cnt-view'],
-			['cnt_view', 'integer', 'on' => 'cnt-view', 'except' => 'crud'],
+			[['title', 'alias', 'text', 'status', 'category_id'], 'required', 'on' => 'crud', 'except' => 'update'],
+			['cnt_view', 'integer', 'on' => 'update', 'except' => 'crud'],
 			[['text'], 'string'],
 			[['status', 'category_id', 'creator_id', 'editor_id', 'is_post'], 'integer'],
 			[['posted_at', 'created_at', 'updated_at', 'list_tag'], 'safe'],
@@ -269,7 +269,7 @@ class Note extends \yii\db\ActiveRecord
 	 */
 	public function updateCnt()
 	{
-		$this->scenario = 'cnt-view';
+		$this->scenario = 'update';
 		$this->cnt_view++;
 		$this->update();
 		$this->clearCacheModel();
