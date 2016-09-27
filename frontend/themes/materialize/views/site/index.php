@@ -3,14 +3,19 @@
 use yii\widgets\ListView;
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $text_block \common\models\TextBlock */
 
 ?>
 
 <div class="card-panel">
-	<h1 class="center-align">Posts</h1>
+	<?php if($text_block): ?>
+	<h1 class="center-align"><?= $text_block->title ?></h1>
 	<div class="card-content">
-		Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Pellentesque in ipsum id orci porta dapibus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vivamus suscipit tortor eget felis porttitor volutpat. Donec sollicitudin molestie malesuada.
+		<?= $text_block->text ?>
 	</div>
+	<?php else: ?>
+		<h1 class="center-align">Notes code</h1>
+	<?php endif; ?>
 </div>
 
 <div id="list-post">

@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use common\models\Note;
 use common\models\Post;
+use common\models\TextBlock;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\data\ActiveDataProvider;
@@ -90,6 +91,7 @@ class SiteController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'text_block'   => TextBlock::getActiveByID(TextBlock::BLOCK_NOTES_CODE),
         ]);
     }
 

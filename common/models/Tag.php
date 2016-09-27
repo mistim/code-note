@@ -137,17 +137,20 @@ class Tag extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @return mixed|Tag[]
+	 * @param bool|false $use_cache
+	 *
+	 * @return array|null|Post[]
 	 */
-	public static function getAllActive()
+	public static function getAllActive($use_cache = false)
 	{
+		$data = null;
 		$keyCache = self::CACHE_KEY . 'all';
-		$data     = Yii::$app->cacheFrontend->get($keyCache);
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
 
 		if (!$data) {
 			$model = self::findAll(['status' => self::STATUS_ACTIVE]);
 
-			if ($model) {
+			if ($model && $use_cache) {
 				/** @var Category $item */
 				foreach ($model as $item) {
 					$data[$item->getPrimaryKey()] = $item;
@@ -157,6 +160,8 @@ class Tag extends \yii\db\ActiveRecord
 					$keyCache, $data, self::CACHE_DURATION,
 					new TagDependency(['tags' => self::CACHE_KEY])
 				);
+			} else {
+				$data = $model;
 			}
 		}
 
@@ -164,14 +169,16 @@ class Tag extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @param $alias
+	 * @param           $alias
+	 * @param bool|true $use_cache
 	 *
-	 * @return null|Category
+	 * @return null|Post
 	 */
-	public static function getActiveByAlias($alias)
+	public static function getActiveByAlias($alias, $use_cache = false)
 	{
+		$data = null;
 		$keyCache = self::CACHE_KEY . $alias;
-		$data     = Yii::$app->cacheFrontend->get($keyCache);
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
 
 		if (!$data) {
 			$data = self::findOne([
@@ -179,7 +186,7 @@ class Tag extends \yii\db\ActiveRecord
 				'alias'  => $alias,
 			]);
 
-			Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
 		}
 
 		return $data;

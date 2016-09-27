@@ -5,6 +5,7 @@ namespace common\models;
 use backend\widgets\fileapi\behaviors\UploadBehavior;
 use backend\models\User;
 use Yii;
+use yii\caching\TagDependency;
 
 /**
  * This is the model class for table "text_block".
@@ -28,9 +29,9 @@ class TextBlock extends \yii\db\ActiveRecord
 	const STATUS_IN_ACTIVE = 0;
 	const STATUS_ACTIVE    = 1;
 
-	const BLOCK_ID_ABOUT_US = 1;
-	const BLOCK_ID_GAS      = 2;
-	const BLOCK_ID_OIL      = 3;
+	const BLOCK_NOTES_CODE = 1;
+	const BLOCK_ID_GAS     = 2;
+	const BLOCK_ID_OIL     = 3;
 
 	const CACHE_KEY      = 'modelTextBlock_';
 	const CACHE_DURATION = 0;
@@ -168,40 +169,100 @@ class TextBlock extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @return mixed|static[]
+	 * @param bool|false $use_cache
+	 *
+	 * @return array|null|Post[]
 	 */
-	public static function getAllActive()
+	public static function getAllActive($use_cache = false)
 	{
+		$data = null;
 		$keyCache = self::CACHE_KEY . 'all';
-		$data     = Yii::$app->cacheFrontend->get($keyCache);
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
 
 		if (!$data) {
 			$model = self::findAll(['status' => self::STATUS_ACTIVE]);
 
-			/** @var TextBlock $item */
-			foreach ($model as $item) {
-				$data[$item->getPrimaryKey()] = $item;
-			}
+			if ($model && $use_cache) {
+				/** @var Category $item */
+				foreach ($model as $item) {
+					$data[$item->getPrimaryKey()] = $item;
+				}
 
-			Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+				Yii::$app->cacheFrontend->set(
+					$keyCache, $data, self::CACHE_DURATION,
+					new TagDependency(['tags' => self::CACHE_KEY])
+				);
+			} else {
+				$data = $model;
+			}
+		}
+
+		return $data ? $data : [];
+	}
+
+	/**
+	 * @param           $alias
+	 * @param bool|true $use_cache
+	 *
+	 * @return null|Post
+	 */
+	public static function getActiveByAlias($alias, $use_cache = false)
+	{
+		$data = null;
+		$keyCache = self::CACHE_KEY . $alias;
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
+
+		if (!$data) {
+			$data = self::findOne([
+				'status' => self::STATUS_ACTIVE,
+				'alias'  => $alias,
+			]);
+
+			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
 		}
 
 		return $data;
 	}
 
 	/**
-	 * @param string|integer $subKey
+	 * @param           $id
+	 * @param bool|true $use_cache
 	 *
-	 * @return bool
+	 * @return null|Post
+	 */
+	public static function getActiveByID($id, $use_cache = false)
+	{
+		$data     = null;
+		$keyCache = self::CACHE_KEY . $id;
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
+
+		if (!$data) {
+			$data = self::findOne([
+				'status' => self::STATUS_ACTIVE,
+				'id'     => $id,
+			]);
+
+			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @param null|string|integer $subKey
 	 *
 	 * delete all: $subKey = "all"
 	 * delete default: $subKey = "default"
 	 * delete one: $subKey = $model->getPrimaryKey
 	 */
-	public static function clearCacheModel($subKey)
+	public static function clearCacheModel($subKey = null)
 	{
-		$keyCache = self::CACHE_KEY . $subKey;
+		if ($subKey) {
+			$keyCache = self::CACHE_KEY . $subKey;
 
-		return Yii::$app->cacheFrontend->delete($keyCache);
+			Yii::$app->cacheFrontend->delete($keyCache);
+		} else {
+			TagDependency::invalidate(Yii::$app->cacheFrontend, self::CACHE_KEY);
+		}
 	}
 }
