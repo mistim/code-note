@@ -60,6 +60,7 @@ class NoteController extends BaseController
 				$model->meta_tag->keyword,
 				$model->meta_tag->description
 			);
+			$model->updateCnt();
 
 			return $this->render('view', [
 				'model' => $model,

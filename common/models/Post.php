@@ -26,6 +26,7 @@ use yii\caching\TagDependency;
  * @property string    $updated_at
  * @property integer   $meta_tag_id
  * @property integer   $is_post
+ * @property integer   $cnt_view
  *
  * @property User      $editor
  * @property Category  $category
@@ -82,9 +83,10 @@ class Post extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['title', 'alias', 'text', 'status', 'category_id'], 'required'],
+			[['title', 'alias', 'text', 'status', 'category_id'], 'required', 'on' => 'crud', 'except' => 'cnt-view'],
+			['cnt_view', 'integer', 'on' => 'cnt-view', 'except' => 'crud'],
 			[['text'], 'string'],
-			[['status', 'category_id', 'creator_id', 'editor_id', 'is_post'], 'integer'],
+			[['status', 'category_id', 'creator_id', 'editor_id', 'is_post', 'cnt_view'], 'integer'],
 			[['posted_at', 'created_at', 'updated_at', 'list_tag'], 'safe'],
 			[['title', 'alias', 'image'], 'string', 'max' => 255],
 			['teaser', 'string', 'max' => 1000],
@@ -197,12 +199,12 @@ class Post extends \yii\db\ActiveRecord
 			if ($this->isNewRecord) {
 				$this->created_at = (new \DateTime())->format('Y-m-d H:i:s');
 				$this->creator_id = Yii::$app->user->getId();
+				$this->is_post = self::IS_POST;
+				$this->cnt_view = 0;
 			} else {
 				$this->updated_at = (new \DateTime())->format('Y-m-d H:i:s');
 				$this->editor_id  = Yii::$app->user->getId();
 			}
-
-			$this->is_post = self::IS_POST;
 
 			return true;
 		} else {
@@ -255,6 +257,8 @@ class Post extends \yii\db\ActiveRecord
 		$this->clearCacheModel();
 	}
 
+
+
 	/**
 	 * @param MetaTag $meta_tag
 	 *
@@ -289,17 +293,33 @@ class Post extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @return mixed|static[]
+	 * @throws \Exception
 	 */
-	public static function getAllActive()
+	public function updateCnt()
 	{
+		$this->scenario = 'cnt-view';
+		$this->cnt_view++;
+		if (!$this->update()) {
+			var_dump($this->cnt_view); exit;
+		}
+		$this->clearCacheModel();
+	}
+
+	/**
+	 * @param bool|false $use_cache
+	 *
+	 * @return array|null|Post[]
+	 */
+	public static function getAllActive($use_cache = false)
+	{
+		$data = null;
 		$keyCache = self::CACHE_KEY . 'all';
-		$data     = Yii::$app->cacheFrontend->get($keyCache);
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
 
 		if (!$data) {
 			$model = self::findAll(['status' => self::STATUS_ACTIVE]);
 
-			if ($model) {
+			if ($model && $use_cache) {
 				/** @var Category $item */
 				foreach ($model as $item) {
 					$data[$item->getPrimaryKey()] = $item;
@@ -309,6 +329,8 @@ class Post extends \yii\db\ActiveRecord
 					$keyCache, $data, self::CACHE_DURATION,
 					new TagDependency(['tags' => self::CACHE_KEY])
 				);
+			} else {
+				$data = $model;
 			}
 		}
 
@@ -316,14 +338,16 @@ class Post extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @param $alias
+	 * @param           $alias
+	 * @param bool|true $use_cache
 	 *
 	 * @return null|Post
 	 */
-	public static function getActiveByAlias($alias)
+	public static function getActiveByAlias($alias, $use_cache = false)
 	{
+		$data = null;
 		$keyCache = self::CACHE_KEY . $alias;
-		$data     = Yii::$app->cacheFrontend->get($keyCache);
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
 
 		if (!$data) {
 			$data = self::findOne([
@@ -331,7 +355,7 @@ class Post extends \yii\db\ActiveRecord
 				'alias'  => $alias,
 			]);
 
-			Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
 		}
 
 		return $data;
@@ -351,7 +375,7 @@ class Post extends \yii\db\ActiveRecord
 
 			Yii::$app->cacheFrontend->delete($keyCache);
 		} else {
-			TagDependency::invalidate(Yii::$app->cache, self::CACHE_KEY);
+			TagDependency::invalidate(Yii::$app->cacheFrontend, self::CACHE_KEY);
 		}
 	}
 }

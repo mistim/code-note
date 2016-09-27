@@ -24,11 +24,11 @@ use yii\caching\TagDependency;
  * @property string    $updated_at
  * @property integer   $meta_tag_id
  * @property integer   $is_post
+ * @property integer   $cnt_view
  *
  * @property User      $editor
  * @property Category  $category
  * @property User      $creator
- * @property NoteTag[] $noteTags
  * @property MetaTag   $meta_tag
  * @property Tag[]     $tags
  */
@@ -63,7 +63,8 @@ class Note extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['title', 'alias', 'text', 'status', 'category_id'], 'required'],
+			[['title', 'alias', 'text', 'status', 'category_id'], 'required', 'on' => 'crud', 'except' => 'cnt-view'],
+			['cnt_view', 'integer', 'on' => 'cnt-view', 'except' => 'crud'],
 			[['text'], 'string'],
 			[['status', 'category_id', 'creator_id', 'editor_id', 'is_post'], 'integer'],
 			[['posted_at', 'created_at', 'updated_at', 'list_tag'], 'safe'],
@@ -262,17 +263,31 @@ class Note extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @return mixed|static[]
+	 * @throws \Exception
 	 */
-	public static function getAllActive()
+	public function updateCnt()
 	{
+		$this->scenario = 'cnt-view';
+		$this->cnt_view++;
+		$this->update();
+		$this->clearCacheModel();
+	}
+
+	/**
+	 * @param bool|false $use_cache
+	 *
+	 * @return array|null|Note[]
+	 */
+	public static function getAllActive($use_cache = false)
+	{
+		$data = null;
 		$keyCache = self::CACHE_KEY . 'all';
-		$data     = Yii::$app->cacheFrontend->get($keyCache);
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
 
 		if (!$data) {
 			$model = self::findAll(['status' => self::STATUS_ACTIVE]);
 
-			if ($model) {
+			if ($model && $use_cache) {
 				/** @var Category $item */
 				foreach ($model as $item) {
 					$data[$item->getPrimaryKey()] = $item;
@@ -282,6 +297,8 @@ class Note extends \yii\db\ActiveRecord
 					$keyCache, $data, self::CACHE_DURATION,
 					new TagDependency(['tags' => self::CACHE_KEY])
 				);
+			} else {
+				$data = $model;
 			}
 		}
 
@@ -289,14 +306,16 @@ class Note extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @param $alias
+	 * @param           $alias
+	 * @param bool|true $use_cache
 	 *
 	 * @return null|Note
 	 */
-	public static function getActiveByAlias($alias)
+	public static function getActiveByAlias($alias, $use_cache = false)
 	{
+		$data = null;
 		$keyCache = self::CACHE_KEY . $alias;
-		$data     = Yii::$app->cacheFrontend->get($keyCache);
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
 
 		if (!$data) {
 			$data = self::findOne([
@@ -304,7 +323,7 @@ class Note extends \yii\db\ActiveRecord
 				'alias'  => $alias,
 			]);
 
-			Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
 		}
 
 		return $data;

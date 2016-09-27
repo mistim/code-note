@@ -21,6 +21,8 @@ class m160922_094318_create_table_post extends Migration
             'created_at'  => $this->dateTime()->notNull(),
             'updated_at'  => $this->dateTime()->null(),
             'meta_tag'    => $this->integer()->null(),
+            'is_post'     => $this->boolean()->null(),
+            'cnt_view'    => $this->integer()->null(),
         ]);
 
         $this->addForeignKey('fk_post_to_categoryID', '{{%post}}', ['category_id'], '{{%category}}', ['id'], 'RESTRICT', 'RESTRICT');

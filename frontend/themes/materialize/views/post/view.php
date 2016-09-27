@@ -34,7 +34,9 @@ use frontend\helpers\ViewTools;
 				</span>
 				<span class="post-info">
 					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="quantity views">visibility</i>
-					<span class="post-info-text">7</span>
+					<span class="post-info-text">
+						<?= $model->cnt_view ?>
+					</span>
 				</span>
 			</div>
 		</div>
