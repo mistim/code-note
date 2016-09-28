@@ -9,7 +9,7 @@
 				this.button.addCallback(button, this.source.toggle);
 
 				// Set icon
-				this.button.setIcon(button, '<i class="fa fa-code"></i>');
+				//this.button.setIcon(button, '<i class="fa fa-code"></i>');
 
 				var style = {
 					'width': '100%',

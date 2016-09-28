@@ -6,7 +6,7 @@
             init: function ()
             {
                 var icons = {
-                    'html': '<i class="fa fa-code"></i>',
+                    //'html': '<i class="fa fa-code"></i>',
                     'format': '<i class="fa fa-paragraph"></i>',
                     'lists': '<i class="fa fa-list-ol"></i>',
                     'link': '<i class="fa fa-link"></i>',

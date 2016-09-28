@@ -38,10 +38,6 @@
 					"sup": {
 						title: "Superscript",
 						args: ['sup']
-					},
-					"sub": {
-						title: "Subscript",
-						args: ['sub']
 					}
 				};
 

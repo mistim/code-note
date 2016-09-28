@@ -30,14 +30,15 @@ class Asset extends AssetBundle
 	 */
 	public $css = [
 		'redactor.m.css',
-		'font.css',
+		//'codemirror/codemirror.css',
 	];
 
 	/**
 	 * @inheritdoc
 	 */
 	public $js = [
-	    'redactor.m.js'
+	    'redactor.m.js',
+	    //'codemirror/codemirror.js',
 	];
 
 	/**

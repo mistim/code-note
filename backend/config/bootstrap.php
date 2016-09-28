@@ -14,31 +14,51 @@ Yii::$container->set(Widget::className(), [
 		'imageUpload'       => Yii::getAlias('@web/uploader/image-upload'),
 		'fileManagerJson'   => Yii::getAlias('@web/uploader/file-get'),
 		'fileUpload'        => Yii::getAlias('@web/file-upload'),
+		//'definedLinks' => Yii::getAlias('@web/redactor/link-get'),
 		'formatting' => ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5'],
-		/*'formattingAdd' => [
-			'pre-code' => [
-				'title' => 'Code',
-				'args' => 'pre'
-			]
-		],*/
+		'formattingAdd' => [
+			'php' => [
+				'title' => 'Code PHP',
+				'args' => ['pre', 'class', 'php']
+			],
+			'html' => [
+				'title' => 'Code HTML',
+				'args' => ['pre', 'class', 'html']
+			],
+			'css' => [
+				'title' => 'Code CSS',
+				'args' => ['pre', 'class', 'css']
+			],
+			'javascript' => [
+				'title' => 'Code JavaScript',
+				'args' => ['pre', 'class', 'javascript']
+			],
+		],
 		'plugins'           => [
 			'source',
 			'alignment',
 			'table',
-			'definedlinks',
+			//'definedlinks',
 			'imagemanager',
 			'filemanager',
 			'video',
 			'counter',
-			'inlinestyle',
+			//'inlinestyle',
 			'limiter',
 			'properties',
 			'textdirection',
 			//'textexpander',
 			'clips',
 			'fullscreen',
-			'iconic'
+			'iconic',
+			//'codemirror',
+			//'hightline'
 		],
+		/*'codemirror' => [
+			'lineNumbers' => true,
+			'indentUnit' => 4,
+			'mode' => 'xml'
+		],*/
 		'buttons' => [
 			'html', 'format', 'bold', 'italic', 'underline', 'deleted', 'alignment',
 			'lists', 'properties', 'table', 'link', 'image', 'video', 'file', 'inline',
