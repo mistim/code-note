@@ -14,7 +14,7 @@ class HighlightAsset extends AssetBundle
 {
 	const DEFAULT_SELECTOR = 'pre code';
 
-	public $sourcePath = '@frontend/web/plugins/';
+	public $sourcePath = '@frontend/web/plugins/highlight/';
 
 	public $css = [
 		'styles/darkula.css',
@@ -31,7 +31,7 @@ class HighlightAsset extends AssetBundle
 	/**
 	 * @var string Preferred selector on which code Highlight would be applied.
 	 */
-	public $selector = 'pre';//self::DEFAULT_SELECTOR;
+	public $selector = 'pre'; //self::DEFAULT_SELECTOR;
 
 	/**
 	 * @var array of options to be declared as js object with global

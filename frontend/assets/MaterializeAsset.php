@@ -19,7 +19,6 @@ class MaterializeAsset extends AssetBundle
 	 * @inheritdoc
 	 */
 	public $css = [
-		'http://fonts.googleapis.com/icon?family=Material+Icons',
 		'css/materialize.min.css',
 	];
 
@@ -29,5 +28,6 @@ class MaterializeAsset extends AssetBundle
 
 	public $depends = [
 		'yii\web\JqueryAsset',
+		'frontend\assets\MaterialDesignIconsAsset'
 	];
 }

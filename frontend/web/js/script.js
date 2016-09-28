@@ -34,6 +34,5 @@ $(document).ready(function() {
             offset: 81
         });
         barTop.outerWidth($('.sidebar').width());
-        console.log(barTop.width());
     }, 100);
 });

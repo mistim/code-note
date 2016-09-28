@@ -1,6 +1,7 @@
 {
     "name": "code-note",
     "dependencies": {
-        "materialize": "^0.97.7"
+        "materialize": "^0.97.7",
+        "material-design-icons": "^2.2.0"
     }
 }
