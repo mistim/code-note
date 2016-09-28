@@ -3,6 +3,10 @@
 namespace frontend\assets;
 use yii\web\AssetBundle;
 
+/**
+ * Class MaterialDesignIconsAsset
+ * @package frontend\assets
+ */
 class MaterialDesignIconsAsset extends AssetBundle
 {
 	/**

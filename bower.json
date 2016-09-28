@@ -2,6 +2,36 @@
     "name": "code-note",
     "dependencies": {
         "materialize": "^0.97.7",
-        "material-design-icons": "^2.2.0"
-    }
+        "material-design-icons": "^2.2.0",
+        "bootbox.js": ">=4.4.0",
+        "admin-lte": ">=2.3.6",
+        "font-awesome": ">=4.6.3"
+    },
+    "exportsOverride": {
+        "materialize": {
+            "js": "dist/js/*.js",
+            "css": "dist/css/*.css",
+            "fonts/roboto": "dist/fonts/roboto/*"
+        },
+        "material-design-icons": {
+            "iconfont": "iconfont/*"
+        },
+        "bootbox.js": {
+            "js": "bootbox.js"
+        },
+        "admin-lte": {
+            "js": "dist/js/*.js",
+            "css": "dist/css/*.css",
+            "img": "dist/img/*",
+            "pluguns": "plugins/*"
+        },
+        "font-awesome": {
+            "css": "css/*.css",
+            "fonts": "fonts/*"
+        }
+    },
+    "ignore": [
+        "codepoints",
+        "README.md"
+    ]
 }

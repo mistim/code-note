@@ -19,19 +19,19 @@ Yii::$container->set(Widget::className(), [
 		'formattingAdd' => [
 			'php' => [
 				'title' => 'Code PHP',
-				'args' => ['pre', 'class', 'php']
+				'args' => ['pre', 'class', 'hl-code php']
 			],
 			'html' => [
 				'title' => 'Code HTML',
-				'args' => ['pre', 'class', 'html']
+				'args' => ['pre', 'class', 'hl-code html']
 			],
 			'css' => [
 				'title' => 'Code CSS',
-				'args' => ['pre', 'class', 'css']
+				'args' => ['pre', 'class', 'hl-code css']
 			],
 			'javascript' => [
 				'title' => 'Code JavaScript',
-				'args' => ['pre', 'class', 'javascript']
+				'args' => ['pre', 'class', 'hl-code javascript']
 			],
 		],
 		'plugins'           => [

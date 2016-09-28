@@ -42,7 +42,7 @@
     "scripts": {
         "post-install-cmd": [
             "php init --env=Development --overwrite=n",
-            "bower install"
+            "bower install -p"
         ]
     }
 }
