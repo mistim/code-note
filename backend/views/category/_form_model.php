@@ -7,10 +7,15 @@ use backend\widgets\imperavi\Widget;
 /* @var $model common\models\Category */
 /* @var $form yii\bootstrap\ActiveForm */
 
+$template = "{label}\n{beginWrapper}\n{input}\n<div class='chars-info'>"
+	. "<span class=\"char-total\">" . Yii::t('admin', 'Total characters') . ": <strong><span class=\"cnt-char-total\"></span></strong>" . "</span>"
+	. "<span class=\"word-total\">" . Yii::t('admin', 'Total words') . ": <strong><span class=\"cnt-word-total\"></span></strong>" . "</span>"
+	. "<span class=\"char-left\">" . Yii::t('admin', 'Characters left') . ": <strong><span class=\"cnt-char-left\"></span></strong>" . "</span>"
+	. "</div>\n{hint}\n{error}\n{endWrapper}";
 ?>
 
 <?= $form->field($model, 'status')->checkbox([
-	'template' => "{label}<div class='col-sm-6'>\n{input}\n{error}\n{hint}</div>"
+	'template' => "{label}<div class='col-sm-6'>\n{input}\n{error}\n{hint}</div>",
 ])
 	->label(null, ['class' => 'control-label col-sm-3']) ?>
 
@@ -18,24 +23,12 @@ use backend\widgets\imperavi\Widget;
 
 <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
-<?= '';//$form->field($model, 'teaser')->textarea(['maxlength' => true]) ?>
+<?= '';//$form->field($model, 'teaser')->textarea(['maxlength' => true])  ?>
 
-<?= '';//$form->field($model, 'teaser')->widget(TinyMce::className()) ?>
+<?= '';//$form->field($model, 'teaser')->widget(TinyMce::className())  ?>
 
-<?= $form->field($model, 'teaser')->widget(Widget::className(), [
-	'settings' => [
-		'lang'             => 'ru',
-		'minHeight'        => 210,
-		'imageManagerJson' => Url::to(['uploader/image-get']),
-		'imageUpload'      => Url::to(['uploader/image-upload']),
-		'fileManagerJson'  => Url::to(['uploader/file-get']),
-		'fileUpload'       => Url::to(['uploader/file-upload']),
-		'plugins'          => [
-			'fullscreen',
-			'clips',
-			'table',
-			'imagemanager',
-			'filemanager'
-		]
-	]
-])->textarea(['class' => 'redactor']) ?>
+<?= $form->field($model, 'teaser', [
+	'template' => $template,
+])
+	->widget(Widget::className())
+	->textarea(['class' => 'redactor char_counter', 'maxlength' => true]) ?>

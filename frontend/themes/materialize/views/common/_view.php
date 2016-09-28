@@ -15,14 +15,14 @@ $controller = $model->is_post ? '/post' : '/note';
 		<div class="card hoverable card-view">
 			<?php if ($model->is_post): ?>
 				<div class="card-head col-block">
-					<h3><?= $model->title ?></h3>
+					<h3><?= Html::a($model->title, [$controller . '/' . $model->alias]) ?></h3>
 				</div>
 				<div class="card-image">
 					<?= Html::img($model->urlAttribute('image')) ?>
 				</div>
 			<?php else: ?>
 				<div class="note card-head col-block">
-					<h3><?= $model->title ?></h3>
+					<h3><?= Html::a($model->title, [$controller . '/' . $model->alias]) ?></h3>
 				</div>
 			<?php endif; ?>
 			<div class="card-content">

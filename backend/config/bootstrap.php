@@ -1,6 +1,59 @@
 <?php
 
+use yii\helpers\Url;
+use backend\widgets\imperavi\Widget;
+use yii\web\JsExpression;
+
 Yii::setAlias('@web', '/admin_7a1M8O');
+
+Yii::$container->set(Widget::className(), [
+	'settings' => [
+		'lang'              => 'ru',
+		'minHeight'         => 210,
+		'imageManagerJson'  => Yii::getAlias('@web/uploader/image-get'),
+		'imageUpload'       => Yii::getAlias('@web/uploader/image-upload'),
+		'fileManagerJson'   => Yii::getAlias('@web/uploader/file-get'),
+		'fileUpload'        => Yii::getAlias('@web/file-upload'),
+		'formatting' => ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5'],
+		/*'formattingAdd' => [
+			'pre-code' => [
+				'title' => 'Code',
+				'args' => 'pre'
+			]
+		],*/
+		'plugins'           => [
+			'source',
+			'alignment',
+			'table',
+			'definedlinks',
+			'imagemanager',
+			'filemanager',
+			'video',
+			'counter',
+			'inlinestyle',
+			'limiter',
+			'properties',
+			'textdirection',
+			//'textexpander',
+			'clips',
+			'fullscreen',
+			'iconic'
+		],
+		'buttons' => [
+			'html', 'format', 'bold', 'italic', 'underline', 'deleted', 'alignment',
+			'lists', 'properties', 'table', 'link', 'image', 'video', 'file', 'inline',
+			'clips', 'textdirection', 'fullscreen'
+		],
+		'callbacks'         => new JsExpression("{
+                    counter: function(data)
+                    {
+                        $('.cnt-word-total').text(data.words);
+                        $('.cnt-char-total').text(data.characters);
+                        $('.cnt-char-left').text($('#category-teaser').attr('maxlength')- data.characters);
+                    }
+                }"),
+	],
+]);
 
 // Конфигурация по умолчанию для виджета TinyMCE.
 /*Yii::$container->set('dosamigos\tinymce\TinyMce', [

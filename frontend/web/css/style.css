@@ -237,6 +237,10 @@ span.badge.badge-block {
     margin-bottom: 0;
 }
 
+.card-head h3 a {
+    color: rgba(0,0,0,0.87);
+}
+
 .card-head .post-info {
     font-size: 14px;
 }
@@ -286,4 +290,9 @@ span.badge.badge-block {
 
 .tabs .indicator {
     background-color: #607d8b;
+}
+
+/*** Hightline.js ***/
+.hljs {
+    background: #002b36;
 }

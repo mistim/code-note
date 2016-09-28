@@ -200,3 +200,17 @@ input[type="checkbox"] {
 .select2-search__field {
     width: auto !important;
 }
+
+.chars-info span {
+    margin-right: 10px;
+}
+
+.redactor-modal-tab input[type="checkbox"] {
+    position: relative;
+    top: 1px;
+    margin-left: 2px;
+}
+
+.redactor-modal-tab input[type="file"] {
+    margin-top: 20px;
+}

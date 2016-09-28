@@ -8,6 +8,7 @@ use frontend\assets as Assets;
 use yii\widgets\Menu;
 
 Assets\MaterializeAsset::register($this);
+Assets\HighlightAsset::register($this);
 Assets\AppAsset::register($this);
 
 $controller = Yii::$app->controller;

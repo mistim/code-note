@@ -4,7 +4,7 @@
 /* @var $meta_tag common\models\MetaTag */
 /* @var $form yii\bootstrap\ActiveForm */
 
-$template = "{label}\n{beginWrapper}\n{input}\n<div>"
+$template = "{label}\n{beginWrapper}\n{input}\n<div class='chars-info'>"
 	."<span class=\"char-total\">".Yii::t('admin', 'Total characters').": <strong><span class=\"cnt-char-total\"></span></strong>"."</span>"
 	."<span class=\"word-total\">".Yii::t('admin', 'Total words').": <strong><span class=\"cnt-word-total\"></span></strong>"."</span>"
 	."<span class=\"char-left\">".Yii::t('admin', 'Characters left').": <strong><span class=\"cnt-char-left\"></span></strong>"."</span>"

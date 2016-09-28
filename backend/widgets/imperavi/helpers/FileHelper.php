@@ -43,6 +43,7 @@ class FileHelper extends BaseFileHelper
             throw new InvalidParamException('Unable to open directory: ' . $dir);
             // @codeCoverageIgnoreEnd
         }
+        $iterationID = 1;
         while (($file = readdir($handle)) !== false) {
             if ($file === '.' || $file === '..') {
                 continue;
@@ -57,15 +58,17 @@ class FileHelper extends BaseFileHelper
                             $list[] = [
                                 'title' => $file,
                                 'thumb' => $url,
-                                'image' => $url
+                                'url' => $url,
+                                'id' => $iterationID++
                             ];
                         } elseif ($type === GetAction::TYPE_FILES) {
                             $size = self::getFileSize($path);
                             $list[] = [
                                 'title' => $file,
                                 'name' => $file,
-                                'link' => $url,
-                                'size' => $size
+                                'url' => $url,
+                                'size' => $size,
+                                'id' => $iterationID++
                             ];
                         } else {
                             $list[] = $path;

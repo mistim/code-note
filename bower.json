@@ -1,5 +1,5 @@
 {
-    "name": "music",
+    "name": "code-note",
     "dependencies": {
         "materialize": "^0.97.7"
     }

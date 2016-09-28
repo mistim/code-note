@@ -99,9 +99,9 @@ class UploadAction extends Action
                     $model->file->name = uniqid() . '.' . $model->file->extension;
                 }
                 if ($model->file->saveAs($this->path . $model->file->name)) {
-                    $result = ['filelink' => $this->url . $model->file->name];
+                    $result = ['url' => $this->url . $model->file->name];
                     if ($this->uploadOnlyImage !== true) {
-                        $result['filename'] = $model->file->name;
+                        $result['name'] = $model->file->name;
                     }
                 } else {
                     $result = [

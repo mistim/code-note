@@ -11,6 +11,12 @@ use backend\themes\adminlte\assets\Select2Asset;
 /* @var $tags common\models\Tag[] */
 /* @var $form yii\bootstrap\ActiveForm */
 
+$template = "{label}\n{beginWrapper}\n{input}\n<div class='chars-info'>"
+	. "<span class=\"char-total\">" . Yii::t('admin', 'Total characters') . ": <strong><span class=\"cnt-char-total\"></span></strong>" . "</span>"
+	. "<span class=\"word-total\">" . Yii::t('admin', 'Total words') . ": <strong><span class=\"cnt-word-total\"></span></strong>" . "</span>"
+	. "<span class=\"char-left\">" . Yii::t('admin', 'Characters left') . ": <strong><span class=\"cnt-char-left\"></span></strong>" . "</span>"
+	. "</div>\n{hint}\n{error}\n{endWrapper}";
+
 $this->registerAssetBundle(Select2Asset::className());
 $this->registerJs(
 	'$("#note-list_tag").select2({
@@ -43,38 +49,11 @@ $this->registerJs(
 		'multiple' => true
 	]) ?>
 
-<?= $form->field($model, 'teaser')->widget(Widget::className(), [
-	'settings' => [
-		'lang'             => 'ru',
-		'minHeight'        => 210,
-		'imageManagerJson' => Url::to(['uploader/image-get']),
-		'imageUpload'      => Url::to(['uploader/image-upload']),
-		'fileManagerJson'  => Url::to(['uploader/file-get']),
-		'fileUpload'       => Url::to(['uploader/file-upload']),
-		'plugins'          => [
-			'fullscreen',
-			'clips',
-			'table',
-			'imagemanager',
-			'filemanager'
-		]
-	]
-])->textarea(['class' => 'redactor']) ?>
+<?= $form->field($model, 'teaser', [
+	'template' => $template,
+])
+	->widget(Widget::className())
+	->textarea(['class' => 'redactor char_counter', 'maxlength' => true]) ?>
 
-<?= $form->field($model, 'text')->widget(Widget::className(), [
-	'settings' => [
-		'lang'             => 'ru',
-		'minHeight'        => 400,
-		'imageManagerJson' => Url::to(['uploader/image-get']),
-		'imageUpload'      => Url::to(['uploader/image-upload']),
-		'fileManagerJson'  => Url::to(['uploader/file-get']),
-		'fileUpload'       => Url::to(['uploader/file-upload']),
-		'plugins'          => [
-			'fullscreen',
-			'clips',
-			'table',
-			'imagemanager',
-			'filemanager'
-		]
-	]
-])->textarea(['class' => 'redactor']) ?>
+<?= $form->field($model, 'text')->widget(Widget::className())
+	->textarea(['class' => 'redactor']) ?>

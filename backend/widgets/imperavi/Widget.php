@@ -105,8 +105,9 @@ class Widget extends BaseWidget
         $request = Yii::$app->getRequest();
 
         if ($request->enableCsrfValidation) {
-            $this->settings['uploadImageFields'][$request->csrfParam] = $request->getCsrfToken();
-            $this->settings['uploadFileFields'][$request->csrfParam] = $request->getCsrfToken();
+            //$this->settings['uploadImageFields'][$request->csrfParam] = $request->getCsrfToken();
+            //$this->settings['uploadFileFields'][$request->csrfParam] = $request->getCsrfToken();
+            $this->settings['imageUploadFields'][$request->csrfParam] = $request->getCsrfToken();
         }
         // @codeCoverageIgnoreEnd
 

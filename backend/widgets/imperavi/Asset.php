@@ -29,14 +29,15 @@ class Asset extends AssetBundle
 	 * @inheritdoc
 	 */
 	public $css = [
-		'redactor.css'
+		'redactor.m.css',
+		'font.css',
 	];
 
 	/**
 	 * @inheritdoc
 	 */
 	public $js = [
-	    'redactor.min.js'
+	    'redactor.m.js'
 	];
 
 	/**
@@ -52,14 +53,14 @@ class Asset extends AssetBundle
 	public function registerAssetFiles($view)
 	{
 		if ($this->language !== null) {
-			$this->js[] = 'lang/' . $this->language . '.js';
+			$this->js[] = 'lang/' . $this->language . '.m.js';
 		}
 		if (!empty($this->plugins)) {
 			foreach ($this->plugins as $plugin) {
 				if ($plugin === 'clips') {
-					$this->css[] = 'plugins/' . $plugin . '/' . $plugin . '.css';
+					$this->css[] = 'plugins/' . $plugin . '/' . $plugin . '.m.css';
 				}
-				$this->js[] = 'plugins/' . $plugin . '/' . $plugin .'.js';
+				$this->js[] = 'plugins/' . $plugin . '/' . $plugin .'.m.js';
 			}
 		}
 		parent::registerAssetFiles($view);
