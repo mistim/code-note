@@ -118,6 +118,7 @@ class PostController extends BaseController
 			);
 
 			$searchModel = new PostSearch();
+			$searchModel->status = Post::STATUS_ACTIVE;
 			$searchModel->is_post = Post::IS_POST;
 			$searchModel->tag_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);

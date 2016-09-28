@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Category;
+use common\models\Post;
 use common\models\search\PostNoteSearch;
 use common\models\search\PostSearch;
 use Yii;
@@ -26,6 +27,7 @@ class CategoryController extends BaseController
 			);
 
 			$searchModel = new PostSearch();
+			$searchModel->status = Post::STATUS_ACTIVE;
 			$searchModel->category_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 			$dataProvider->sort->defaultOrder = [

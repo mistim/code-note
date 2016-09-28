@@ -86,6 +86,7 @@ class NoteController extends BaseController
 			);
 
 			$searchModel = new NoteSearch();
+			$searchModel->status = Note::STATUS_ACTIVE;
 			$searchModel->is_post = Note::IS_POST;
 			$searchModel->category_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);

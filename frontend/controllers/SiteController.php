@@ -78,7 +78,9 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Post::find(),
+            'query' => Post::find()->where([
+                'status' => Post::STATUS_ACTIVE
+            ]),
             'pagination' => [
                 'pageSize' => 5,
             ],

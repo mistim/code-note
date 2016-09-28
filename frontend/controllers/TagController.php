@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Post;
 use common\models\search\NoteSearch;
 use common\models\search\PostSearch;
 use common\models\Tag;
@@ -24,6 +25,7 @@ class TagController extends BaseController
 			);
 
 			$searchModel = new PostSearch();
+			$searchModel->status = Post::STATUS_ACTIVE;
 			$searchModel->tag_id = $model->getPrimaryKey();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 			$dataProvider->sort->defaultOrder = [

@@ -98,15 +98,15 @@ class PostSearch extends Post
 
 		// grid filtering conditions
 		$query->andFilterWhere([
-			'id'          => $this->id,
-			'status'      => $this->status,
-			'posted_at'   => $this->posted_at,
-			'category_id' => $this->category_id,
-			'creator_id'  => $this->creator_id,
-			'editor_id'   => $this->editor_id,
-			'created_at'  => $this->created_at,
-			'updated_at'  => $this->updated_at,
-			'is_post'     => $this->is_post,
+			'post.id'          => $this->id,
+			'post.status'      => $this->status,
+			'post.posted_at'   => $this->posted_at,
+			'post.category_id' => $this->category_id,
+			'post.creator_id'  => $this->creator_id,
+			'post.editor_id'   => $this->editor_id,
+			'post.created_at'  => $this->created_at,
+			'post.updated_at'  => $this->updated_at,
+			'post.is_post'     => $this->is_post,
 		]);
 
 		if ($this->tag_id) {
