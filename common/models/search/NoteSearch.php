@@ -98,15 +98,15 @@ class NoteSearch extends Note
 
 		// grid filtering conditions
 		$query->andFilterWhere([
-			'note.id'          => $this->id,
-			'note.status'      => $this->status,
-			'note.posted_at'   => $this->posted_at,
-			'note.category_id' => $this->category_id,
-			'note.creator_id'  => $this->creator_id,
-			'note.editor_id'   => $this->editor_id,
-			'note.created_at'  => $this->created_at,
-			'note.updated_at'  => $this->updated_at,
-			'note.is_post'     => $this->is_post,
+			'post.id'          => $this->id,
+			'post.status'      => $this->status,
+			'post.posted_at'   => $this->posted_at,
+			'post.category_id' => $this->category_id,
+			'post.creator_id'  => $this->creator_id,
+			'post.editor_id'   => $this->editor_id,
+			'post.created_at'  => $this->created_at,
+			'post.updated_at'  => $this->updated_at,
+			'post.is_post'     => $this->is_post,
 		]);
 
 		if ($this->tag_id) {

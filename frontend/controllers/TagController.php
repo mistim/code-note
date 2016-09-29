@@ -18,11 +18,7 @@ class TagController extends BaseController
 	public function actionIndex($alias)
 	{
 		if (($model = Tag::getActiveByAlias($alias)) !== null) {
-			$model->meta_tag->status && $this->setSeo(
-				$model->meta_tag->title,
-				$model->meta_tag->keyword,
-				$model->meta_tag->description
-			);
+			$this->setSeoByModel($model);
 
 			$searchModel = new PostSearch();
 			$searchModel->status = Post::STATUS_ACTIVE;

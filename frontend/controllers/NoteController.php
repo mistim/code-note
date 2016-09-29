@@ -55,11 +55,7 @@ class NoteController extends BaseController
 	 */
 	public function actionView($alias) {
 		if (($model = Note::getActiveByAlias($alias)) !== null) {
-			$model->meta_tag->status && $this->setSeo(
-				$model->meta_tag->title,
-				$model->meta_tag->keyword,
-				$model->meta_tag->description
-			);
+			$this->setSeoByModel($model);
 			$model->updateCnt();
 
 			return $this->render('view', [
@@ -79,11 +75,7 @@ class NoteController extends BaseController
 	public function actionCategory($alias)
 	{
 		if (($model = Category::getActiveByAlias($alias)) !== null) {
-			$model->meta_tag->status && $this->setSeo(
-				$model->meta_tag->title,
-				$model->meta_tag->keyword,
-				$model->meta_tag->description
-			);
+			$this->setSeoByModel($model);
 
 			$searchModel = new NoteSearch();
 			$searchModel->status = Note::STATUS_ACTIVE;
@@ -112,11 +104,7 @@ class NoteController extends BaseController
 	public function actionTag($alias)
 	{
 		if (($model = Tag::getActiveByAlias($alias)) !== null) {
-			$model->meta_tag->status && $this->setSeo(
-				$model->meta_tag->title,
-				$model->meta_tag->keyword,
-				$model->meta_tag->description
-			);
+			$this->setSeoByModel($model);
 
 			$searchModel = new NoteSearch();
 			$searchModel->is_post = Note::IS_POST;
