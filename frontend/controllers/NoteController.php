@@ -21,26 +21,7 @@ class NoteController extends BaseController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = new ActiveDataProvider([
-			'query' => Note::find()->where([
-				'AND',
-				['status' => Note::STATUS_ACTIVE],
-				['is_post' => Note::IS_POST],
-				[
-					'OR',
-					['<', 'posted_at', date('Y-m-d 00:00:00')],
-					['posted_at' => date('Y-m-d 00:00:00')]
-				]
-			]),
-			'pagination' => [
-				'pageSize' => 5,
-			],
-			'sort' => [
-				'defaultOrder' => [
-					'posted_at' => SORT_DESC
-				]
-			]
-		]);
+		$dataProvider = Note::getDataProvider();
 
 		return $this->render('index', [
 			'dataProvider' => $dataProvider,

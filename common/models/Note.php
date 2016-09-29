@@ -6,6 +6,7 @@ use backend\components\TagBehavior;
 use Yii;
 use backend\models\User;
 use yii\caching\TagDependency;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "note".
@@ -347,5 +348,32 @@ class Note extends \yii\db\ActiveRecord
 		} else {
 			TagDependency::invalidate(Yii::$app->cacheFrontend, self::CACHE_KEY);
 		}
+	}
+
+	/**
+	 * @return ActiveDataProvider
+	 */
+	public static function getDataProvider()
+	{
+		return new ActiveDataProvider([
+			'query' => self::find()->where([
+				'AND',
+				['status' => self::STATUS_ACTIVE],
+				['is_post' => self::IS_POST],
+				[
+					'OR',
+					['<', 'posted_at', date('Y-m-d 00:00:00')],
+					['posted_at' => date('Y-m-d 00:00:00')]
+				]
+			]),
+			'pagination' => [
+				'pageSize' => 5,
+			],
+			'sort' => [
+				'defaultOrder' => [
+					'posted_at' => SORT_DESC
+				]
+			]
+		]);
 	}
 }
