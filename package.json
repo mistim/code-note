@@ -1,0 +1,22 @@
+{
+  "name": "code-note",
+  "version": "1.0.0",
+  "description": "Notes by the code",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mistim/code-note.git"
+  },
+  "author": "Mistim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mistim/code-note/issues"
+  },
+  "homepage": "https://github.com/mistim/code-note#readme"
+}
