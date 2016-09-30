@@ -34,3 +34,6 @@ phpunit.phar
 
 # npm
 /node_modules
+
+# uploads dir
+/frontend/web/uploads
