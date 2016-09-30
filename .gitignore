@@ -31,3 +31,6 @@ phpunit.phar
 
 # vagrant runtime
 /.vagrant
+
+# npm
+/node_modules

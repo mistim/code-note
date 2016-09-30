@@ -1,6 +1,6 @@
 'use strict'
 
-const gulp = require('././gulp');
+const gulp = require('gulp');
 
 gulp.task('copy:materialize', function() {
     return gulp.src('vendor/bower/materialize/dist/**/*.*')
@@ -12,11 +12,10 @@ gulp.task('copy:materialize', function() {
 });
 
 gulp.task('copy:material-design-icons', function() {
-    return gulp.src('vendor/bower/material-design-icons/iconfont/**/*.{*,!md}')
-        /*.pipe(gulp.dest(function(file) {
-            return file.extname !== '.md' ? 'frontend/web/plugins/material-design-icons/iconfont' :
-                file.extname === '.css' ? 'css' : 'fonts';
-        }));*/
+    return gulp.src([
+        'vendor/bower/material-design-icons/iconfont/*.css',
+        'vendor/bower/material-design-icons/iconfont/MaterialIcons-Regular.*'
+    ])
         .pipe(gulp.dest('frontend/web/plugins/material-design-icons/iconfont'))
 });
 
