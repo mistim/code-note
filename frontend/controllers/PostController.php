@@ -41,6 +41,8 @@ class PostController extends BaseController
 
 			return $this->render('view', [
 				'model' => $model,
+				'prev'  => $model->getPrev(),
+				'next'  => $model->getNext(),
 			]);
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');

@@ -5,6 +5,8 @@ use frontend\helpers\ViewTools;
 
 /** @var $this \yii\web\View */
 /** @var $model \common\models\Post */
+/** @var $prev \common\models\Post */
+/** @var $next \common\models\Post */
 
 ?>
 
@@ -45,6 +47,17 @@ use frontend\helpers\ViewTools;
 		</div>
 		<div class="card-content">
 			<?= $model->text ?>
+		</div>
+	</div>
+</div>
+
+<div class="card-panel">
+	<div class="card-content">
+		<div class="col s6 left-align">
+			<?= $prev ? Html::a($prev->title, ['/post/' . $prev->alias]) : '' ?>
+		</div>
+		<div class="col s6 right-align">
+			<?= $next ? Html::a($next->title, ['/post/' . $next->alias]) : '' ?>
 		</div>
 	</div>
 </div>

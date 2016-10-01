@@ -376,4 +376,60 @@ class Note extends \yii\db\ActiveRecord
 			]
 		]);
 	}
+
+	/**
+	 * @param bool|true $use_cache
+	 *
+	 * @return null|static
+	 */
+	public function getPrev($use_cache = false)
+	{
+		$data = null;
+		$keyCache = self::CACHE_KEY . 'prev_' . $this->getPrimaryKey();
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
+
+		if (!$data) {
+			$data = self::find()->select(['id', 'title', 'alias'])
+				->where([
+					'AND',
+					['status' => self::STATUS_ACTIVE],
+					['is_post' => self::IS_POST],
+					['<', 'id', $this->getPrimaryKey()]
+				])
+				->orderBy(['id' => SORT_DESC])
+				->one();
+
+			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @param bool|true $use_cache
+	 *
+	 * @return null|static
+	 */
+	public function getNext($use_cache = false)
+	{
+		$data = null;
+		$keyCache = self::CACHE_KEY . 'next_' . $this->getPrimaryKey();
+		$use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
+
+		if (!$data) {
+			$data = self::find()->select(['id', 'title', 'alias'])
+				->where([
+					'AND',
+					['status' => self::STATUS_ACTIVE],
+					['is_post' => self::IS_POST],
+					['>', 'id', $this->getPrimaryKey()]
+				])
+				->orderBy(['id' => SORT_ASC])
+				->one();
+
+			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+		}
+
+		return $data;
+	}
 }

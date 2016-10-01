@@ -5,7 +5,8 @@ use frontend\helpers\ViewTools;
 
 /** @var $this \yii\web\View */
 /** @var $model \common\models\Note */
-
+/** @var $prev \common\models\Note */
+/** @var $next \common\models\Note */
 ?>
 
 <div class="note-view">
@@ -42,6 +43,17 @@ use frontend\helpers\ViewTools;
 		</div>
 		<div class="card-content">
 			<?= $model->text ?>
+		</div>
+	</div>
+</div>
+
+<div class="card-panel">
+	<div class="card-content">
+		<div class="col s6 left-align">
+			<?= $prev ? Html::a($prev->title, ['/note/' . $prev->alias]) : '' ?>
+		</div>
+		<div class="col s6 right-align">
+			<?= $next ? Html::a($next->title, ['/note/' . $next->alias]) : '' ?>
 		</div>
 	</div>
 </div>
