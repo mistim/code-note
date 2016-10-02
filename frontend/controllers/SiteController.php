@@ -232,4 +232,14 @@ class SiteController extends BaseController
             'model' => $model,
         ]);
     }
+
+    /**
+     * @return string
+     */
+    public function actionOffline()
+    {
+        $this->layout = '@frontend/themes/materialize/views/layouts/catch_all';
+
+        return $this->render('offline');
+    }
 }
