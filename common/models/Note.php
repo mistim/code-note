@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use backend\components\TagBehavior;
+use common\components\TagBehavior;
 use Yii;
 use backend\models\User;
 use yii\caching\TagDependency;

@@ -1,12 +1,12 @@
 <?php
 
-namespace backend\components;
+namespace common\components;
 
 use yii\base\Behavior;
 
 /**
  * Class TagBehavior
- * @package backend\components
+ * @package common\components
  *
  */
 class TagBehavior extends Behavior

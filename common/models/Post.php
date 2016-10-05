@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use backend\components\TagBehavior;
+use common\components\TagBehavior;
 use backend\widgets\fileapi\behaviors\UploadBehavior;
 use Yii;
 use backend\models\User;
