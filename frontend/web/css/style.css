@@ -282,7 +282,7 @@ span.badge.badge-block {
 }
 
 .card-panel h1 {
-    margin: 0;
+    margin: 15px 0 15px;
 }
 
 .card-panel .card-content {
