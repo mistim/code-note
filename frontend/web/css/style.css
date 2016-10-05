@@ -267,6 +267,10 @@ span.badge.badge-block {
     margin-bottom: 10px;
 }
 
+.card-panel[class*="-view"] .card-content {
+    padding: 20px;
+}
+
 .card-view.card .card-image img, .card-view.card .card-content {
     border-radius: 0;
 }
@@ -282,8 +286,17 @@ span.badge.badge-block {
 }
 
 .card-panel .card-content {
-    padding: 20px;
     text-align: justify;
+}
+
+.row-clean {
+    padding: 0;
+}
+
+.row-clean:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .collapsible-body ul {

@@ -52,12 +52,18 @@ use frontend\helpers\ViewTools;
 </div>
 
 <div class="card-panel">
-	<div class="card-content">
+	<div class="card-content row-clean">
 		<div class="col s6 left-align">
-			<?= $prev ? Html::a($prev->title, ['/post/' . $prev->alias]) : '' ?>
+			<?php if($prev): ?>
+			<p>Prev:</p>
+			<h5><?= Html::a($prev->title, ['/post/' . $prev->alias]) ?></h5>
+			<?php endif; ?>
 		</div>
 		<div class="col s6 right-align">
-			<?= $next ? Html::a($next->title, ['/post/' . $next->alias]) : '' ?>
+			<?php if($next): ?>
+			<p>Next:</p>
+			<h5><?= Html::a($next->title, ['/post/' . $next->alias]) ?></h5>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>

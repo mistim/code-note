@@ -7,7 +7,7 @@ use yii\widgets\ListView;
 
 ?>
 
-<div class="card-panel">
+<div class="card-panel card-view">
 	<?php if ($model): ?>
 		<?php $titleModel = $model::className() === 'common\models\Category' ? 'Category' : 'Tag'; ?>
 

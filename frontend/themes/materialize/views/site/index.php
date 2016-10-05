@@ -7,7 +7,7 @@ use yii\widgets\ListView;
 
 ?>
 
-<div class="card-panel">
+<div class="card-panel card-view">
 	<?php if($text_block): ?>
 	<h1 class="center-align"><?= $text_block->title ?></h1>
 	<div class="card-content">

@@ -50,10 +50,16 @@ use frontend\helpers\ViewTools;
 <div class="card-panel">
 	<div class="card-content">
 		<div class="col s6 left-align">
-			<?= $prev ? Html::a($prev->title, ['/note/' . $prev->alias]) : '' ?>
+			<?php if($prev): ?>
+				<p>Prev:</p>
+				<h5><?= Html::a($prev->title, ['/note/' . $prev->alias]) ?></h5>
+			<?php endif; ?>
 		</div>
 		<div class="col s6 right-align">
-			<?= $next ? Html::a($next->title, ['/note/' . $next->alias]) : '' ?>
+			<?php if($next): ?>
+				<p>Next:</p>
+				<h5><?= Html::a($next->title, ['/note/' . $next->alias]) ?></h5>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>
