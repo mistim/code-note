@@ -108,6 +108,7 @@ class Note extends \yii\db\ActiveRecord
 			'created_at'  => Yii::t('admin', 'Date created'),
 			'updated_at'  => Yii::t('admin', 'Date updated'),
 			'is_post'     => Yii::t('admin', 'Type'),
+			'cnt_view'    => Yii::t('admin', 'Count view'),
 		];
 	}
 

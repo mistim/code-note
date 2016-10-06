@@ -34,11 +34,12 @@ $gridConfig = [
             },
             'filter' => ToolsHelper::getStatusStr()
         ],
-         'posted_at:datetime',
+        'cnt_view',
+        'posted_at:datetime',
         // 'category_id',
-         'creator.username',
+        'creator.username',
         // 'editor_id',
-         'created_at:datetime',
+        'created_at:datetime',
         // 'updated_at',
     ],
 ];

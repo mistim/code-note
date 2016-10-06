@@ -21,7 +21,7 @@ class NoteSearch extends Note
 	public function rules()
 	{
 		return [
-			[['id', 'status', 'category_id', 'creator_id', 'editor_id', 'tag_id', 'is_post'], 'integer'],
+			[['id', 'status', 'category_id', 'creator_id', 'editor_id', 'tag_id', 'is_post', 'cnt_view'], 'integer'],
 			[
 				[
 					'title', 'alias', 'teaser', 'text', 'posted_at', 'category.title',
@@ -107,6 +107,7 @@ class NoteSearch extends Note
 			'post.created_at'  => $this->created_at,
 			'post.updated_at'  => $this->updated_at,
 			'post.is_post'     => $this->is_post,
+			'post.cnt_view'    => $this->cnt_view,
 		]);
 
 		if ($this->tag_id) {

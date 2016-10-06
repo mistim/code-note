@@ -137,6 +137,7 @@ class Post extends \yii\db\ActiveRecord
 			'editor_id'   => Yii::t('admin', 'Editor'),
 			'created_at'  => Yii::t('admin', 'Date created'),
 			'updated_at'  => Yii::t('admin', 'Date updated'),
+			'cnt_view'    => Yii::t('admin', 'Count view'),
 		];
 	}
 
