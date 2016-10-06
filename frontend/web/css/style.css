@@ -331,7 +331,7 @@ span.badge.badge-block {
 }
 
 #pl-page {
-    width: 250px;
+    width: 300px;
     height: 250px;
     position: absolute;
     left: 50%;
@@ -342,4 +342,14 @@ span.badge.badge-block {
     letter-spacing:-2px;
     text-align:center;
     line-height:35px;
+}
+
+#pl-text {
+    text-shadow: 5px 5px 5px #90a4ae;
+    font-size: 52px;
+    position: absolute;
+    top: -114px;
+    text-align: center;
+    width: 100%;
+    color: #37474f;
 }

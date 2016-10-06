@@ -47,6 +47,7 @@
 
 <div id="pl-page-wrapper">
 	<div id="pl-page">
+		<div id="pl-text">Notes code</div>
 		<?= $this->render('/preloader/_1') ?>
 	</div>
 </div>
