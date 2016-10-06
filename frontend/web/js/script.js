@@ -1,3 +1,11 @@
+$(window).on('load', function () {
+    var $preloader = $('#pl-page-wrapper'),
+        $svg_anm   = $('#pl-page');
+    $('body').removeClass('hide');
+    $svg_anm.delay(500).fadeOut();
+    $preloader.delay(1000).fadeOut('slow');
+});
+
 $(document).ready(function() {
 
     $('.mobile-menu').sideNav();

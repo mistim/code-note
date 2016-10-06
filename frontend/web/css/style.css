@@ -318,3 +318,28 @@ span.badge.badge-block {
 .hljs {
     background: #002b36;
 }
+
+/*** Preloader ***/
+#pl-page-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right:0;
+    bottom:0;
+    background: #eceff1;
+    z-index: 10000;
+}
+
+#pl-page {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left:-125px;
+    margin-top:-75px;
+    font-size:40px;
+    letter-spacing:-2px;
+    text-align:center;
+    line-height:35px;
+}
