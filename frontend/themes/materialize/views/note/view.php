@@ -48,7 +48,7 @@ use frontend\helpers\ViewTools;
 </div>
 
 <div class="card-panel">
-	<div class="card-content">
+	<div class="card-content row-clean">
 		<div class="col s6 left-align">
 			<?php if($prev): ?>
 				<p>Prev:</p>
