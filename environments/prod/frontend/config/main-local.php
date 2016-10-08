@@ -6,7 +6,8 @@ return [
             'cookieValidationKey' => '',
         ],
         'assetManager' => [
-            'bundles' => [
+            'bundles' => require __DIR__ . '/assets/assets-prod.php',
+            /*'bundles' => [
                 'frontend\assets\HighlightAsset' => [
                     'selector' => '.hl-code',
                     'sourcePath' => '@frontend/web/plugins/highlight/'
@@ -17,7 +18,7 @@ return [
                 'frontend\assets\MaterializeAsset' => [
                     'sourcePath' => '@frontend/web/plugins/materialize/'
                 ],
-            ]
+            ]*/
         ],
     ],
 ];

@@ -4,7 +4,7 @@
  */
 
 // In the console environment, some path aliases may not exist. Please define these:
-Yii::setAlias('@webroot', __DIR__ . '/web');
+Yii::setAlias('@webroot', __DIR__ . '/frontend/web');
 Yii::setAlias('@web', '/');
 Yii::setAlias('@compressor', __DIR__ . '/data/compressor');
 
@@ -15,13 +15,16 @@ return [
 	'cssCompressor' => 'java -jar ' . Yii::getAlias('@compressor') . '/yuicompressor.jar --type css {from} -o {to}',
 	// The list of asset bundles to compress:
 	'bundles'       => [
-		'app\assets\AppAsset',
 		'yii\web\YiiAsset',
 		'yii\web\JqueryAsset',
 		'yii\widgets\ActiveFormAsset',
 		'yii\widgets\PjaxAsset',
 		'yii\captcha\CaptchaAsset',
 		'yii\validators\ValidationAsset',
+		'frontend\assets\MaterialDesignIconsAsset',
+		'frontend\assets\MaterializeAsset',
+		'frontend\assets\HighlightAsset',
+		'frontend\assets\AppAsset',
 	],
 	// Asset bundle for compression output:
 	'targets'       => [
