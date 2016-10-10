@@ -14,9 +14,9 @@ $controller = Yii::$app->controller;
 				</a>
 
 				<?php $menu_items = [
-					['label' => 'Posts', 'url' => ['/post'], 'active' => $controller->id === 'post',],
-					['label' => 'Notes', 'url' => ['/note'], 'active' => $controller->id === 'note',],
-					//['label' => 'Contacts', 'url' => ['site/contact']],
+					['label' => Yii::t('app', 'Posts'), 'url' => ['/post'], 'active' => $controller->id === 'post',],
+					['label' => Yii::t('app', 'Notes'), 'url' => ['/note'], 'active' => $controller->id === 'note',],
+					//['label' => Yii::t('app', 'Contacts'), 'url' => ['site/contact']],
 				]; ?>
 
 				<?= Menu::widget([

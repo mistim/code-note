@@ -26,17 +26,17 @@ $tags = Tag::getAllActive();
 						<ul class="tabs">
 							<li class="tab col s3">
 								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#categoryAllSB">
-									All
+									<?= Yii::t('app', 'All') ?>
 								</a>
 							</li>
 							<li class="tab col s3">
 								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#categoryPostsSB">
-									Posts
+									<?= Yii::t('app', 'Posts') ?>
 								</a>
 							</li>
 							<li class="tab col s3">
 								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#categoryNotesSB">
-									Notes
+									<?= Yii::t('app', 'Notes') ?>
 								</a>
 							</li>
 						</ul>
@@ -90,17 +90,17 @@ $tags = Tag::getAllActive();
 						<ul class="tabs">
 							<li class="tab col s3">
 								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#tagAllSB">
-									All
+									<?= Yii::t('app', 'All') ?>
 								</a>
 							</li>
 							<li class="tab col s3">
 								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#tagPostsSB">
-									Posts
+									<?= Yii::t('app', 'Posts') ?>
 								</a>
 							</li>
 							<li class="tab col s3">
 								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#tagNotesSB">
-									Notes
+									<?= Yii::t('app', 'Notes') ?>
 								</a>
 							</li>
 						</ul>
