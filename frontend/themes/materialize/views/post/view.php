@@ -59,13 +59,13 @@ use frontend\helpers\ViewTools;
 	<div class="card-content row-clean">
 		<div class="col s6 left-align">
 			<?php if($prev): ?>
-			<p>Prev:</p>
+			<p><?= Yii::t('app', 'Prev:') ?></p>
 			<h5><?= Html::a($prev->title, ['/post/' . $prev->alias]) ?></h5>
 			<?php endif; ?>
 		</div>
 		<div class="col s6 right-align">
 			<?php if($next): ?>
-			<p>Next:</p>
+			<p><?= Yii::t('app', 'Next:') ?></p>
 			<h5><?= Html::a($next->title, ['/post/' . $next->alias]) ?></h5>
 			<?php endif; ?>
 		</div>

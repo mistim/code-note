@@ -8,7 +8,7 @@ use yii\widgets\ListView;
 ?>
 
 <div class="card-panel">
-	<h1 class="center-align">Tag: <?= $model->title ?></h1>
+	<h1 class="center-align"><?= Yii::t('app', 'Tag:') ?> <?= $model->title ?></h1>
 </div>
 
 <div id="list-post">
