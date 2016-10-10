@@ -16,7 +16,11 @@ use frontend\helpers\ViewTools;
 			<h1><?= $model->title ?></h1>
 			<div class="post-info-block right-align">
 				<span class="post-info">
-					<?= Html::a('<i class="material-icons">chevron_left</i> Back to List', ['/post'], ['class' => 'left']) ?>
+					<?= Html::a(
+						Html::tag('i', null, ['class' => 'material-icons']) . Yii::t('app', 'Back to List'),
+						['/post'],
+						['class' => 'left']
+					) ?>
 				</span>
 				<span class="post-info">
 					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="date created">event_note</i>

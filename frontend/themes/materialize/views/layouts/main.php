@@ -47,7 +47,7 @@
 
 <div id="pl-page-wrapper">
 	<div id="pl-page">
-		<div id="pl-text"><?= Yii::t('app', 'preloader_text') ?></div>
+		<div id="pl-text"><?= Yii::t('app', 'preloader text') ?></div>
 		<?= $this->render('/preloader/_1') ?>
 	</div>
 </div>

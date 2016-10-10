@@ -14,7 +14,7 @@ use yii\widgets\ListView;
 		<?= $text_block->text ?>
 	</div>
 	<?php else: ?>
-		<h1 class="center-align">Notes code</h1>
+		<h1 class="center-align"><?= Yii::t('app', 'Notes code') ?></h1>
 	<?php endif; ?>
 </div>
 

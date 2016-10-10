@@ -20,7 +20,7 @@ use yii\widgets\ListView;
 
 		<?php endif; ?>
 	<?php else: ?>
-		<h1 class="center-align">Notes</h1>
+		<h1 class="center-align"><?= Yii::t('app', 'Notes') ?></h1>
 		<div class="card-content">
 			Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur
 			adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
