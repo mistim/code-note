@@ -47,25 +47,25 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                'note/<alias:[\w-]+>' => 'note/view',
-                'post/<alias:[\w-]+>' => 'post/view',
-                'category/<alias:[\w-]+>' => 'category/index',
-                'tag/<alias:[\w-]+>' => 'tag/index',
+                'note/<alias:[\w-]+>'          => 'note/view',
+                'post/<alias:[\w-]+>'          => 'post/view',
+                'category/<alias:[\w-]+>'      => 'category/index',
+                'tag/<alias:[\w-]+>'           => 'tag/index',
                 'note/category/<alias:[\w-]+>' => 'note/category',
                 'post/category/<alias:[\w-]+>' => 'post/category',
-                'note/tag/<alias:[\w-]+>' => 'note/tag',
-                'post/tag/<alias:[\w-]+>' => 'post/tag',
+                'note/tag/<alias:[\w-]+>'      => 'note/tag',
+                'post/tag/<alias:[\w-]+>'      => 'post/tag',
             ],
         ],
         'assetManager' => [
             'bundles' => [
                 'yii\bootstrap\BootstrapPluginAsset' => [
                     'css' => [],
-                    'js' => [],
+                    'js'  => [],
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
-                    'js' => [],
+                    'js'  => [],
                 ]
             ],
         ],

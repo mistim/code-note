@@ -331,12 +331,12 @@ span.badge.badge-block {
 }
 
 #pl-page {
-    width: 300px;
+    width: 450px;
     height: 250px;
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-left:-125px;
+    margin-left:-225px;
     margin-top:-75px;
     font-size:40px;
     letter-spacing:-2px;
