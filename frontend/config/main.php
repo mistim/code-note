@@ -66,7 +66,11 @@ return [
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
                     'js'  => [],
-                ]
+                ],
+                'frontend\assets\HighlightAsset' => [
+                    'selector' => '.hl-code',
+                    'sourcePath' => '@frontend/web/plugins/highlight/'
+                ],
             ],
         ],
         'view' => [

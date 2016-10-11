@@ -18,7 +18,7 @@ $tags = Tag::getAllActive(true);
 
 		<div class="card">
 			<div class="card-title">
-				Categories
+				<?= Yii::t('app', 'Categories') ?>
 			</div>
 			<div class="card-content">
 				<div class="col-inline">
@@ -47,7 +47,9 @@ $tags = Tag::getAllActive(true);
 
 								<li class="col-inline">
 									<span class="left"><?= Html::a($category->title, ['/category/' . $category->alias]) ?></span>
-									<span class="right"><?= $category->getPosts()->count() + $category->getNotes()->count() ?></span>
+									<span class="right">
+										<?= $category->countPosts('_all_' . $category->alias) + $category->countNotes('_all_' . $category->alias) ?>
+									</span>
 								</li>
 
 							<?php endforeach; ?>
@@ -59,7 +61,7 @@ $tags = Tag::getAllActive(true);
 
 								<li class="col-inline">
 									<span class="left"><?= Html::a($category->title, ['/post/category/' . $category->alias]) ?></span>
-									<span class="right"><?= $category->getPosts()->count() ?></span>
+									<span class="right"><?= $category->countPosts('_post_' . $category->alias) ?></span>
 								</li>
 
 							<?php endforeach; ?>
@@ -71,7 +73,7 @@ $tags = Tag::getAllActive(true);
 
 								<li class="col-inline">
 									<span class="left"><?= Html::a($category->title, ['/note/category/' . $category->alias]) ?></span>
-									<span class="right"><?= $category->getNotes()->count() ?></span>
+									<span class="right"><?= $category->countNotes('_note_' . $category->alias) ?></span>
 								</li>
 
 							<?php endforeach; ?>
@@ -82,7 +84,7 @@ $tags = Tag::getAllActive(true);
 		</div>
 		<div class="card">
 			<div class="card-title">
-				Tags
+				<?= Yii::t('app', 'Tags') ?>
 			</div>
 			<div class="card-content">
 				<div class="col-inline">
@@ -111,7 +113,9 @@ $tags = Tag::getAllActive(true);
 
 								<li class="col-inline">
 									<span class="left"><?= Html::a($tag->title, ['/tag/' . $tag->alias]) ?></span>
-									<span class="right"><?= $tag->getPosts()->count() + $tag->getNotes()->count() ?></span>
+									<span class="right">
+										<?= $tag->countPosts('_all_' . $tag->alias) + $tag->countNotes('_all_' . $tag->alias) ?>
+									</span>
 								</li>
 
 							<?php endforeach; ?>
@@ -123,7 +127,7 @@ $tags = Tag::getAllActive(true);
 
 								<li class="col-inline">
 									<span class="left"><?= Html::a($tag->title, ['/post/tag/' . $tag->alias]) ?></span>
-									<span class="right"><?= $tag->getPosts()->count() ?></span>
+									<span class="right"><?= $tag->countPosts('_post_' . $tag->alias) ?></span>
 								</li>
 
 							<?php endforeach; ?>
@@ -135,7 +139,7 @@ $tags = Tag::getAllActive(true);
 
 								<li class="col-inline">
 									<span class="left"><?= Html::a($tag->title, ['/note/tag/' . $tag->alias]) ?></span>
-									<span class="right"><?= $tag->getNotes()->count() ?></span>
+									<span class="right"><?= $tag->countNotes('_note_' . $tag->alias) ?></span>
 								</li>
 
 							<?php endforeach; ?>

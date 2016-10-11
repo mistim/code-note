@@ -6,7 +6,7 @@ use frontend\helpers\ViewTools;
 /** @var $this \yii\web\View */
 /** @var $model \common\models\Post */
 
-$this->registerJs($js);
+//$this->registerJs($js);
 $controller = $model->is_post ? '/post' : '/note';
 ?>
 
