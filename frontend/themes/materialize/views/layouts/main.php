@@ -11,7 +11,7 @@
 <head>
 	<?= $this->render('_head') ?>
 </head>
-<body class="blue-grey lighten-5 hide">
+<body class="blue-grey lighten-5">
 <?php $this->beginBody() ?>
 
 <?= $this->render('_menu') ?>

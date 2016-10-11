@@ -1,6 +1,6 @@
 $(window).on('load', function () {
     //$('#pl-text').fadeIn();
-    $('body').removeClass('hide');
+    //$('body').removeClass('hide');
     $('#pl-page').delay(500).fadeOut();
     $('#pl-page-wrapper').delay(1000).fadeOut('slow');
 });
