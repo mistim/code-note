@@ -12,6 +12,14 @@
 	<?= $this->render('_head') ?>
 </head>
 <body class="blue-grey lighten-5">
+
+<div id="pl-page-wrapper">
+	<div id="pl-page">
+		<div id="pl-text"><?= Yii::t('app', 'preloader text') ?></div>
+		<?= $this->render('/preloader/_1') ?>
+	</div>
+</div>
+
 <?php $this->beginBody() ?>
 
 <?= $this->render('_menu') ?>
@@ -43,13 +51,6 @@
 	<a class="btn-floating btn-large deep-orange darken-1 waves-effect">
 		<i class="large material-icons">keyboard_arrow_up</i>
 	</a>
-</div>
-
-<div id="pl-page-wrapper">
-	<div id="pl-page">
-		<div id="pl-text"><?= Yii::t('app', 'preloader text') ?></div>
-		<?= $this->render('/preloader/_1') ?>
-	</div>
 </div>
 
 <?php $this->endBody() ?>
