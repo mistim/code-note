@@ -68,7 +68,9 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getMeta_tag()
 	{
-		return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
+        return self::getDb()->cache(function($db) {
+            return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -76,7 +78,9 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getNoteTags()
 	{
-		return $this->hasMany(NoteTag::className(), ['tag_id' => 'id']);
+        return self::getDb()->cache(function($db) {
+            return $this->hasMany(PostTag::className(), ['tag_id' => 'id']);
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -84,9 +88,11 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getNotes()
 	{
-		return $this->hasMany(Note::className(), ['id' => 'post_id'])
-			->where(['is_post' => Note::IS_POST])
-			->via('postTags');
+        return self::getDb()->cache(function($db) {
+            return $this->hasMany(Note::className(), ['id' => 'post_id'])
+                ->where(['is_post' => Note::IS_POST])
+                ->via('postTags');
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -94,7 +100,9 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getPostTags()
 	{
-		return $this->hasMany(PostTag::className(), ['tag_id' => 'id']);
+        return self::getDb()->cache(function($db) {
+            return $this->hasMany(PostTag::className(), ['tag_id' => 'id']);
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -102,9 +110,11 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getPosts()
 	{
-		return $this->hasMany(Post::className(), ['id' => 'post_id'])
-			->where(['is_post' => Post::IS_POST])
-			->via('postTags');
+        return self::getDb()->cache(function($db) {
+            return $this->hasMany(Post::className(), ['id' => 'post_id'])
+                ->where(['is_post' => Post::IS_POST])
+                ->via('postTags');
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -172,7 +182,7 @@ class Tag extends \yii\db\ActiveRecord
 	 * @param           $alias
 	 * @param bool|true $use_cache
 	 *
-	 * @return null|Post
+	 * @return null|Tag
 	 */
 	public static function getActiveByAlias($alias, $use_cache = false)
 	{
@@ -186,7 +196,10 @@ class Tag extends \yii\db\ActiveRecord
 				'alias'  => $alias,
 			]);
 
-			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+			$use_cache && Yii::$app->cacheFrontend->set(
+                $keyCache, $data, self::CACHE_DURATION,
+                new TagDependency(['tags' => self::CACHE_KEY])
+            );;
 		}
 
 		return $data;

@@ -228,7 +228,7 @@ class TextBlock extends \yii\db\ActiveRecord
 	 * @param           $id
 	 * @param bool|true $use_cache
 	 *
-	 * @return null|Post
+	 * @return null|TextBlock
 	 */
 	public static function getActiveByID($id, $use_cache = false)
 	{

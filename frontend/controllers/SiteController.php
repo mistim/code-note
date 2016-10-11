@@ -6,6 +6,7 @@ use common\models\Post;
 use common\models\TextBlock;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\caching\TagDependency;
 use yii\data\ActiveDataProvider;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -93,7 +94,7 @@ class SiteController extends BaseController
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'text_block'   => TextBlock::getActiveByID(TextBlock::BLOCK_NOTES_CODE),
+            'text_block'   => TextBlock::getActiveByID(TextBlock::BLOCK_NOTES_CODE, true),
         ]);
     }
 

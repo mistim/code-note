@@ -57,7 +57,7 @@ class PostController extends BaseController
 	 */
 	public function actionCategory($alias)
 	{
-		if (($model = Category::getActiveByAlias($alias)) !== null) {
+		if (($model = Category::getActiveByAlias($alias, true)) !== null) {
 			$this->setSeoByModel($model);
 
 			$searchModel = new PostSearch();
@@ -85,7 +85,7 @@ class PostController extends BaseController
 	 */
 	public function actionTag($alias)
 	{
-		if (($model = Tag::getActiveByAlias($alias)) !== null) {
+		if (($model = Tag::getActiveByAlias($alias, true)) !== null) {
 			$this->setSeoByModel($model);
 
 			$searchModel = new PostSearch();

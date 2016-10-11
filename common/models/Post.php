@@ -146,8 +146,11 @@ class Post extends \yii\db\ActiveRecord
 	 */
 	public function getTags()
 	{
-		return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
-			->viaTable('post_tag', ['post_id' => 'id']);
+        return self::getDb()->cache(function($db) {
+            return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+                ->viaTable('post_tag', ['post_id' => 'id']);
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+
 	}
 
 	/**
@@ -155,7 +158,9 @@ class Post extends \yii\db\ActiveRecord
 	 */
 	public function getMeta_tag()
 	{
-		return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
+        return self::getDb()->cache(function($db) {
+            return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -172,7 +177,9 @@ class Post extends \yii\db\ActiveRecord
 	 */
 	public function getCategory()
 	{
-		return $this->hasOne(Category::className(), ['id' => 'category_id']);
+        return self::getDb()->cache(function($db) {
+            return $this->hasOne(Category::className(), ['id' => 'category_id']);
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -189,7 +196,9 @@ class Post extends \yii\db\ActiveRecord
 	 */
 	public function getPostTags()
 	{
-		return $this->hasMany(PostTag::className(), ['post_id' => 'id']);
+        return self::getDb()->cache(function($db) {
+            return $this->hasMany(PostTag::className(), ['post_id' => 'id']);
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -357,7 +366,10 @@ class Post extends \yii\db\ActiveRecord
 				'alias'  => $alias,
 			]);
 
-			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+			$use_cache && Yii::$app->cacheFrontend->set(
+			    $keyCache, $data, self::CACHE_DURATION,
+                new TagDependency(['tags' => self::CACHE_KEY])
+            );
 		}
 
 		return $data;

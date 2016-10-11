@@ -93,7 +93,9 @@ class Category extends \yii\db\ActiveRecord
 	 */
 	public function getMeta_tag()
 	{
-		return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
+        return self::getDb()->cache(function($db) {
+            return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -119,8 +121,10 @@ class Category extends \yii\db\ActiveRecord
 	 */
 	public function getNotes()
 	{
-		return $this->hasMany(Note::className(), ['category_id' => 'id'])
-			->where(['is_post' => Note::IS_POST]);
+        return self::getDb()->cache(function($db) {
+            return $this->hasMany(Note::className(), ['category_id' => 'id'])
+                ->where(['is_post' => Note::IS_POST]);
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -128,8 +132,10 @@ class Category extends \yii\db\ActiveRecord
 	 */
 	public function getPosts()
 	{
-		return $this->hasMany(Post::className(), ['category_id' => 'id'])
-			->where(['is_post' => Post::IS_POST]);
+        return self::getDb()->cache(function($db) {
+            return $this->hasMany(Post::className(), ['category_id' => 'id'])
+                ->where(['is_post' => Post::IS_POST]);
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 	}
 
 	/**
@@ -227,26 +233,30 @@ class Category extends \yii\db\ActiveRecord
 		return $data ? $data : [];
 	}
 
-	/**
-	 * @param $alias
-	 *
-	 * @return null|Category
-	 */
-	public static function getActiveByAlias($alias)
+    /**
+     * @param $alias
+     * @param bool $use_cache
+     * @return null|static
+     */
+	public static function getActiveByAlias($alias, $use_cache = false)
 	{
-		$keyCache = self::CACHE_KEY . $alias;
-		$data     = Yii::$app->cacheFrontend->get($keyCache);
+        $data = null;
+        $keyCache = self::CACHE_KEY . $alias;
+        $use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
 
-		if (!$data) {
-			$data = self::findOne([
-				'status' => self::STATUS_ACTIVE,
-				'alias'  => $alias,
-			]);
+        if (!$data) {
+            $data = self::findOne([
+                'status' => self::STATUS_ACTIVE,
+                'alias'  => $alias,
+            ]);
 
-			Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
-		}
+            $use_cache && Yii::$app->cacheFrontend->set(
+                $keyCache, $data, self::CACHE_DURATION,
+                new TagDependency(['tags' => self::CACHE_KEY])
+            );
+        }
 
-		return $data;
+        return $data;
 	}
 
 	/**

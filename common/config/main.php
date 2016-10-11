@@ -30,12 +30,16 @@ return [
                 'app*' => [
                     'class' => 'yii\i18n\DbMessageSource',
                     'sourceLanguage' => 'en-US',
-                    'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation']
+                    'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation'],
+                    'enableCaching' => true,
+                    'cachingDuration' => 0
                 ],
                 'admin*' => [
                     'class' => 'yii\i18n\DbMessageSource',
                     'sourceLanguage' => 'en-US',
-                    'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation']
+                    'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation'],
+                    'enableCaching' => true,
+                    'cachingDuration' => 0
                 ],
             ],
         ],
