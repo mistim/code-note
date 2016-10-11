@@ -132,6 +132,52 @@ class Category extends \yii\db\ActiveRecord
 			->where(['is_post' => Post::IS_POST]);
 	}
 
+    /**
+     * @param null $cache_prefix
+     * @param bool $use_cache
+     * @return null
+     */
+	public function countNotes($cache_prefix = null, $use_cache = true)
+    {
+        $data = null;
+        $keyCache = self::CACHE_KEY . 'countNotes' . $cache_prefix;
+        $use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
+
+        if ($data === null) {
+            Yii::$app->cacheFrontend->set(
+                $keyCache,
+                $this->getNotes()->count(),
+                self::CACHE_DURATION,
+                new TagDependency(['tags' => self::CACHE_KEY])
+            );
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param null $cache_prefix
+     * @param bool $use_cache
+     * @return null
+     */
+	public function countPosts($cache_prefix = null, $use_cache = true)
+    {
+        $data = null;
+        $keyCache = self::CACHE_KEY . 'countPosts' . $cache_prefix;
+        $use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
+
+        if ($data === null) {
+            Yii::$app->cacheFrontend->set(
+                $keyCache,
+                $this->getPosts()->count(),
+                self::CACHE_DURATION,
+                new TagDependency(['tags' => self::CACHE_KEY])
+            );
+        }
+
+        return $data;
+    }
+
 	/**
 	 * @param MetaTag $meta_tag
 	 *
