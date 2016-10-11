@@ -10,8 +10,8 @@ use frontend\helpers\ViewTools;
 
 
 
-$categories = Category::getAllActive();
-$tags = Tag::getAllActive();
+$categories = Category::getAllActive(true);
+$tags = Tag::getAllActive(true);
 ?>
 
 <!--

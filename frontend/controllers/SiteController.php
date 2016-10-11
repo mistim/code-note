@@ -78,22 +78,8 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Post::find()->where([
-                'status' => Post::STATUS_ACTIVE
-            ]),
-            'pagination' => [
-                'pageSize' => 5,
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'posted_at' => SORT_DESC
-                ]
-            ]
-        ]);
-
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'dataProvider' => Post::getDataProviderAll(),
             'text_block'   => TextBlock::getActiveByID(TextBlock::BLOCK_NOTES_CODE, true),
         ]);
     }

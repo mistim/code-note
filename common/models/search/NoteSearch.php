@@ -4,6 +4,7 @@ namespace common\models\search;
 
 use Yii;
 use yii\base\Model;
+use yii\caching\TagDependency;
 use yii\data\ActiveDataProvider;
 use common\models\Note;
 
@@ -116,13 +117,17 @@ class NoteSearch extends Note
 			]);
 		}
 
-		$query->andFilterWhere(['like', 'title', $this->title])
-			->andFilterWhere(['like', 'alias', $this->alias])
+		$query->andFilterWhere(['like', 'post.title', $this->title])
+			->andFilterWhere(['like', 'post.alias', $this->alias])
 			->andFilterWhere(['like', 'teaser', $this->teaser])
 			->andFilterWhere(['like', 'text', $this->text])
 			->andFilterWhere(['like', 'creator.username', $this->getAttribute('creator.username')])
 			->andFilterWhere(['like', 'editor.username', $this->getAttribute('editor.username')])
 			->andFilterWhere(['like', 'category.title', $this->getAttribute('category.title')]);
+
+        self::getDb()->cache(function ($db) use ($dataProvider) {
+            $dataProvider->prepare();
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 
 		return $dataProvider;
 	}

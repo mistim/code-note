@@ -68,9 +68,7 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getMeta_tag()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
 	}
 
 	/**
@@ -78,9 +76,7 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getNoteTags()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasMany(PostTag::className(), ['tag_id' => 'id']);
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasMany(PostTag::className(), ['tag_id' => 'id']);
 	}
 
 	/**
@@ -88,11 +84,9 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getNotes()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasMany(Note::className(), ['id' => 'post_id'])
-                ->where(['is_post' => Note::IS_POST])
-                ->via('postTags');
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasMany(Note::className(), ['id' => 'post_id'])
+			->where(['is_post' => Note::IS_POST])
+			->via('postTags');
 	}
 
 	/**
@@ -100,9 +94,7 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getPostTags()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasMany(PostTag::className(), ['tag_id' => 'id']);
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasMany(PostTag::className(), ['tag_id' => 'id']);
 	}
 
 	/**
@@ -110,11 +102,9 @@ class Tag extends \yii\db\ActiveRecord
 	 */
 	public function getPosts()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasMany(Post::className(), ['id' => 'post_id'])
-                ->where(['is_post' => Post::IS_POST])
-                ->via('postTags');
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasMany(Post::className(), ['id' => 'post_id'])
+			->where(['is_post' => Post::IS_POST])
+			->via('postTags');
 	}
 
 	/**

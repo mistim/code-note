@@ -93,9 +93,7 @@ class Category extends \yii\db\ActiveRecord
 	 */
 	public function getMeta_tag()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
 	}
 
 	/**
@@ -121,10 +119,8 @@ class Category extends \yii\db\ActiveRecord
 	 */
 	public function getNotes()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasMany(Note::className(), ['category_id' => 'id'])
-                ->where(['is_post' => Note::IS_POST]);
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasMany(Note::className(), ['category_id' => 'id'])
+			->where(['is_post' => Note::IS_POST]);
 	}
 
 	/**
@@ -132,10 +128,8 @@ class Category extends \yii\db\ActiveRecord
 	 */
 	public function getPosts()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasMany(Post::className(), ['category_id' => 'id'])
-                ->where(['is_post' => Post::IS_POST]);
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasMany(Post::className(), ['category_id' => 'id'])
+			->where(['is_post' => Post::IS_POST]);
 	}
 
 	/**
@@ -206,31 +200,35 @@ class Category extends \yii\db\ActiveRecord
 		$this->clearCacheModel();
 	}
 
-	/**
-	 * @return mixed|static[]
-	 */
-	public static function getAllActive()
+    /**
+     * @param bool $use_cache
+     * @return array|null|static[]
+     */
+	public static function getAllActive($use_cache = false)
 	{
-		$keyCache = self::CACHE_KEY . 'all';
-		$data     = Yii::$app->cacheFrontend->get($keyCache);
+        $data = null;
+        $keyCache = self::CACHE_KEY . 'all';
+        $use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
 
-		if (!$data) {
-			$model = self::findAll(['status' => self::STATUS_ACTIVE]);
+        if (!$data) {
+            $model = self::findAll(['status' => self::STATUS_ACTIVE]);
 
-			if ($model) {
-				/** @var Category $item */
-				foreach ($model as $item) {
-					$data[$item->getPrimaryKey()] = $item;
-				}
+            if ($model && $use_cache) {
+                /** @var Category $item */
+                foreach ($model as $item) {
+                    $data[$item->getPrimaryKey()] = $item;
+                }
 
-				Yii::$app->cacheFrontend->set(
-					$keyCache, $data, self::CACHE_DURATION,
-					new TagDependency(['tags' => self::CACHE_KEY])
-				);
-			}
-		}
+                Yii::$app->cacheFrontend->set(
+                    $keyCache, $data, self::CACHE_DURATION,
+                    new TagDependency(['tags' => self::CACHE_KEY])
+                );
+            } else {
+                $data = $model;
+            }
+        }
 
-		return $data ? $data : [];
+        return $data ? $data : [];
 	}
 
     /**

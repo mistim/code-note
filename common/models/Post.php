@@ -146,11 +146,8 @@ class Post extends \yii\db\ActiveRecord
 	 */
 	public function getTags()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
-                ->viaTable('post_tag', ['post_id' => 'id']);
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
-
+		return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+			->viaTable('post_tag', ['post_id' => 'id']);
 	}
 
 	/**
@@ -158,9 +155,7 @@ class Post extends \yii\db\ActiveRecord
 	 */
 	public function getMeta_tag()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasOne(MetaTag::className(), ['id' => 'meta_tag_id']);
 	}
 
 	/**
@@ -177,9 +172,7 @@ class Post extends \yii\db\ActiveRecord
 	 */
 	public function getCategory()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasOne(Category::className(), ['id' => 'category_id']);
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasOne(Category::className(), ['id' => 'category_id']);
 	}
 
 	/**
@@ -196,9 +189,7 @@ class Post extends \yii\db\ActiveRecord
 	 */
 	public function getPostTags()
 	{
-        return self::getDb()->cache(function($db) {
-            return $this->hasMany(PostTag::className(), ['post_id' => 'id']);
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		return $this->hasMany(PostTag::className(), ['post_id' => 'id']);
 	}
 
 	/**
@@ -393,12 +384,35 @@ class Post extends \yii\db\ActiveRecord
 		}
 	}
 
+	public static function getDataProviderAll()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Post::find()->where([
+                'status' => Post::STATUS_ACTIVE
+            ]),
+            'pagination' => [
+                'pageSize' => 5,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'posted_at' => SORT_DESC
+                ]
+            ]
+        ]);
+
+        self::getDb()->cache(function ($db) use ($dataProvider) {
+            $dataProvider->prepare();
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+
+        return $dataProvider;
+    }
+
 	/**
 	 * @return ActiveDataProvider
 	 */
 	public static function getDataProvider()
 	{
-		return new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
 			'query' => self::find()->where([
 				'AND',
 				['status' => self::STATUS_ACTIVE],
@@ -418,6 +432,12 @@ class Post extends \yii\db\ActiveRecord
 				]
 			]
 		]);
+
+        self::getDb()->cache(function ($db) use ($dataProvider) {
+            $dataProvider->prepare();
+        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+
+        return $dataProvider;
 	}
 
 	/**
@@ -442,7 +462,10 @@ class Post extends \yii\db\ActiveRecord
 				->orderBy(['id' => SORT_DESC])
 				->one();
 
-			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+			$use_cache && Yii::$app->cacheFrontend->set(
+			    $keyCache, $data, self::CACHE_DURATION,
+                new TagDependency(['tags' => self::CACHE_KEY])
+            );
 		}
 
 		return $data;
@@ -470,7 +493,10 @@ class Post extends \yii\db\ActiveRecord
 				->orderBy(['id' => SORT_ASC])
 				->one();
 
-			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+			$use_cache && Yii::$app->cacheFrontend->set(
+			    $keyCache, $data, self::CACHE_DURATION,
+                new TagDependency(['tags' => self::CACHE_KEY])
+            );
 		}
 
 		return $data;

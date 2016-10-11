@@ -8,8 +8,8 @@ use frontend\helpers\ViewTools;
 /** @var \common\models\Category[] $categories */
 /** @var \common\models\Tag[] $tags */
 
-$categories = Category::getAllActive();
-$tags = Tag::getAllActive();
+$categories = Category::getAllActive(true);
+$tags = Tag::getAllActive(true);
 
 ?>
 
