@@ -31,23 +31,23 @@ $controller = $model->is_post ? '/post' : '/note';
 			<div class="waves card-action col-block">
 				<div class="col s9 left-align">
 					<span class="post-info">
-					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="date created">event_note</i>
+					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="<?= Yii::t('app', 'date created') ?>">event_note</i>
 					<span class="post-info-text"><?= Yii::$app->formatter->format($model->posted_at, 'date') ?></span>
 				</span>
 				<span class="post-info">
-					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="category">library_books</i>
+					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="<?= Yii::t('app', 'category') ?>">library_books</i>
 					<span class="post-info-text">
 						<?= Html::a($model->category->title, [$controller . '/category/' . $model->category->alias]) ?>
 					</span>
 				</span>
 				<span class="post-info">
-					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="tags">style</i>
+					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="<?= Yii::t('app', 'tags') ?>">style</i>
 					<span class="post-info-text">
 						<?= implode(', ', ViewTools::getTagLinks($model)) ?>
 					</span>
 				</span>
 				<span class="post-info">
-					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="quantity views">visibility</i>
+					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="<?= Yii::t('app', 'quantity views') ?>">visibility</i>
 					<span class="post-info-text">
 						<?= $model->cnt_view ?>
 					</span>
