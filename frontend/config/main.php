@@ -68,7 +68,7 @@ return [
                     'js'  => [],
                 ],
                 'frontend\assets\HighlightAsset' => [
-                    'selector' => '.hl-code',
+                    'selector'   => '.hl-code',
                     'sourcePath' => '@frontend/web/plugins/highlight/'
                 ],
             ],
