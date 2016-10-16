@@ -55,7 +55,7 @@ $controller = $model->is_post ? '/post' : '/note';
 				</div>
 				<div class="col s3 right-align">
 					<?= Html::a(
-						'Read more',
+						Yii::t('app', 'Read more'),
 						[$controller . '/' . $model->alias],
 						['class' => 'waves-effect']
 					) ?>

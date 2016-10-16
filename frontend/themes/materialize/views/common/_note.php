@@ -42,7 +42,7 @@ JS;
 				</div>
 				<div class="col s3 right-align">
 					<?= Html::a(
-						'Read more',
+						Yii::t('app', 'Read more'),
 						['/note/' . $model->alias],
 						['class' => 'waves-effect']
 					) ?>

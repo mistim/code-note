@@ -15,11 +15,11 @@
 		top: 50%;
 		left: 50%;
 		border: 3px solid rgb(236, 239, 241);
-		border-radius: 1374px;
-		-o-border-radius: 1374px;
-		-ms-border-radius: 1374px;
-		-webkit-border-radius: 1374px;
-		-moz-border-radius: 1374px;
+		border-radius: 1400px;
+		-o-border-radius: 1400px;
+		-ms-border-radius: 1400px;
+		-webkit-border-radius: 1400px;
+		-moz-border-radius: 1400px;
 	}
 
 	.cssload-whirlpool {
@@ -47,9 +47,9 @@
 
 	.cssload-whirlpool::before {
 		content: "";
-		margin: -29px 0 0 -30px;
-		height: 58px;
-		width: 58px;
+		margin: -27px 0 0 -27px;
+		height: 54px;
+		width: 54px;
 		animation: cssload-rotate 1750ms linear infinite;
 		-o-animation: cssload-rotate 1750ms linear infinite;
 		-ms-animation: cssload-rotate 1750ms linear infinite;
@@ -59,7 +59,7 @@
 
 	.cssload-whirlpool::after {
 		content: "";
-		margin: -46px 0 0 -44px;
+		margin: -46px 0 0 -45px;
 		height: 91px;
 		width: 91px;
 		animation: cssload-rotate 3500ms linear infinite;
