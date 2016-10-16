@@ -11,7 +11,8 @@ use yii\web\AssetBundle;
  */
 class BootboxAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/bower/bootbox.js';
+    //public $sourcePath = '@vendor/bower/bootbox.js';
+    public $sourcePath = '@backend/web/plugins/bootbox.js';
 
     public $js = [
         'bootbox.js',

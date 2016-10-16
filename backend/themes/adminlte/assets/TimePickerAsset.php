@@ -9,7 +9,8 @@ use yii\web\AssetBundle;
  */
 class TimePickerAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/bower/admin-lte/plugins';
+    //public $sourcePath = '@vendor/bower/admin-lte/plugins';
+    public $sourcePath = '@backend/web/plugins/admin-lte/plugins';
 
     public $css = [
         'timepicker/bootstrap-timepicker.min.css',

@@ -52,3 +52,15 @@ environments/            contains environment-based overrides
 tests                    contains various tests for the advanced application
     codeception/         contains tests developed with Codeception PHP Testing Framework
 ```
+
+Bower
+
+    npm install -g bower
+    
+Gulp 
+
+    gulp copy
+    
+Assets 
+
+    yii asset assets.php frontend/config/assets/assets-prod.php

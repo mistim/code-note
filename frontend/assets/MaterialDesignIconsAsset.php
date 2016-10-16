@@ -12,7 +12,8 @@ class MaterialDesignIconsAsset extends AssetBundle
 	/**
 	 * @inheritdoc
 	 */
-	public $sourcePath = '@vendor/bower/material-design-icons';
+	//public $sourcePath = '@vendor/bower/material-design-icons';
+	public $sourcePath = '@frontend/web/plugins/material-design-icons';
 
 	/**
 	 * @inheritdoc

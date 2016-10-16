@@ -10,7 +10,8 @@ use yii\web\AssetBundle;
  */
 class Select2Asset extends AssetBundle
 {
-	public $sourcePath = '@vendor/bower/admin-lte/plugins';
+	//public $sourcePath = '@vendor/bower/admin-lte/plugins';
+	public $sourcePath = '@backend/web/plugins/admin-lte/plugins';
 
 	public $css = [
 		'select2/select2.min.css',

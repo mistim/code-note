@@ -15,7 +15,8 @@ class AdminLteAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@vendor/bower/admin-lte/dist';
+    //public $sourcePath = '@vendor/bower/admin-lte/dist';
+    public $sourcePath = '@backend/web/plugins/admin-lte/dist';
 
     /**
      * @inheritdoc

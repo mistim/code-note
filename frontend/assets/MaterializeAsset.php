@@ -13,7 +13,8 @@ class MaterializeAsset extends AssetBundle
 	/**
 	 * @inheritdoc
 	 */
-	public $sourcePath = '@vendor/bower/materialize/dist';
+	//public $sourcePath = '@vendor/bower/materialize/dist';
+	public $sourcePath = '@frontend/web/plugins/materialize';
 
 	/**
 	 * @inheritdoc
