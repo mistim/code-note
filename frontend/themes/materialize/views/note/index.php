@@ -34,6 +34,7 @@ use yii\widgets\ListView;
 	<?php endif; ?>
 </div>
 
+<?php if ($dataProvider): ?>
 <div id="list-note">
 
 	<?= ListView::widget([
@@ -53,3 +54,8 @@ use yii\widgets\ListView;
 		],
 	]); ?>
 </div>
+<?php else: ?>
+	<div class="card-panel card-view">
+		<div class="card-content"><?= Yii::t('app', 'Nothing') ?></div>
+	</div>
+<?php endif; ?>

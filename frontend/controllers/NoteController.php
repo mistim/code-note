@@ -60,14 +60,18 @@ class NoteController extends BaseController
 		if (($model = Category::getActiveByAlias($alias)) !== null) {
 			$this->setSeoByModel($model);
 
-			$searchModel = new NoteSearch();
-			$searchModel->status = Note::STATUS_ACTIVE;
-			$searchModel->is_post = Note::IS_POST;
-			$searchModel->category_id = $model->getPrimaryKey();
-			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-			$dataProvider->sort->defaultOrder = [
-				'posted_at' => SORT_DESC,
-			];
+            if ($model->countNotes('_note_' . $model->alias)) {
+                $searchModel = new NoteSearch();
+                $searchModel->status = Note::STATUS_ACTIVE;
+                $searchModel->is_post = Note::IS_POST;
+                $searchModel->category_id = $model->getPrimaryKey();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->sort->defaultOrder = [
+                    'posted_at' => SORT_DESC,
+                ];
+            } else {
+                $dataProvider = null;
+            }
 
 			return $this->render('index', [
 				'model'        => $model,
@@ -89,13 +93,17 @@ class NoteController extends BaseController
 		if (($model = Tag::getActiveByAlias($alias)) !== null) {
 			$this->setSeoByModel($model);
 
-			$searchModel = new NoteSearch();
-			$searchModel->is_post = Note::IS_POST;
-			$searchModel->tag_id = $model->getPrimaryKey();
-			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-			$dataProvider->sort->defaultOrder = [
-				'posted_at' => SORT_DESC,
-			];
+            if ($model->countNotes('_note_' . $model->alias)) {
+                $searchModel = new NoteSearch();
+                $searchModel->is_post = Note::IS_POST;
+                $searchModel->tag_id = $model->getPrimaryKey();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->sort->defaultOrder = [
+                    'posted_at' => SORT_DESC,
+                ];
+            } else {
+                $dataProvider = null;
+            }
 
 			return $this->render('index', [
 				'model'        => $model,
