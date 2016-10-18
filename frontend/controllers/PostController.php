@@ -60,7 +60,7 @@ class PostController extends BaseController
 		if (($model = Category::getActiveByAlias($alias, true)) !== null) {
 			$this->setSeoByModel($model);
 
-            if ($model->countNotes('_note_' . $model->alias)) {
+            if ($model->countNotes('_post_' . $model->alias)) {
                 $searchModel = new PostSearch();
                 $searchModel->is_post = Post::IS_POST;
                 $searchModel->category_id = $model->getPrimaryKey();
@@ -92,7 +92,7 @@ class PostController extends BaseController
 		if (($model = Tag::getActiveByAlias($alias, true)) !== null) {
 			$this->setSeoByModel($model);
 
-            if ($model->countNotes('_note_' . $model->alias)) {
+            if ($model->countNotes('_post_' . $model->alias)) {
                 $searchModel = new PostSearch();
                 $searchModel->status = Post::STATUS_ACTIVE;
                 $searchModel->is_post = Post::IS_POST;
