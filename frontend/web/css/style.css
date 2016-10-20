@@ -1,5 +1,5 @@
 html {
-    font-family: 'Noto Sans', serif;
+    /*font-family: 'Noto Sans', serif;*/
     font-size: 16px;
 }
 
@@ -296,7 +296,7 @@ span.badge.badge-block {
 }
 
 [class*="-view"] .card-content {
-    padding: 30px 40px;
+    padding: 30px 40px 20px;
     text-align: justify;
 }
 
@@ -305,7 +305,7 @@ span.badge.badge-block {
 }
 
 .card-panel[class*="-view"] .card-content {
-    padding: 20px;
+    padding: 0 20px 10px;
 }
 
 .card-view.card .card-image img, .card-view.card .card-content {
@@ -354,4 +354,8 @@ span.badge.badge-block {
 /*** Hightline.js ***/
 .hljs {
     background: #002b36;
+}
+
+.list-view .row {
+    margin-bottom: 0;
 }
