@@ -42,4 +42,18 @@ $(document).ready(function() {
         });
         barTop.outerWidth($('.sidebar').width());
     }, 100);
+
+    $('.tabs a').on('click', function(e) {
+        e.preventDefault();
+        var tabs = $(this).parents('.tabs').find('a');
+        tabs.each(function() {
+            $(this).find('i').removeClass('hide');
+            $(this).find('span').addClass('hide');
+            $(this).parent('.tab').attr('class', 'tab col s1');
+        });
+
+        $(this).find('i').addClass('hide');
+        $(this).find('span').removeClass('hide');
+        $(this).parent('.tab').attr('class', 'tab col s10');
+    });
 });

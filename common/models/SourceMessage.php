@@ -17,6 +17,7 @@ class SourceMessage extends \yii\db\ActiveRecord
 {
 	public $translation_uk;
 	public $translation_en;
+	public $translation_ru;
 
 	/**
 	 * @inheritdoc
@@ -33,7 +34,7 @@ class SourceMessage extends \yii\db\ActiveRecord
 	{
 		return [
 			[['category'], 'required'],
-			[['message', 'translation_en', 'translation_uk'], 'string'],
+			[['message', 'translation_en', 'translation_uk', 'translation_ru'], 'string'],
 			[['category'], 'string', 'max' => 32],
 		];
 	}
@@ -49,6 +50,7 @@ class SourceMessage extends \yii\db\ActiveRecord
 			'message'        => Yii::t('admin', 'Message'),
 			'translation_uk' => Yii::t('admin', 'UA'),
 			'translation_en' => Yii::t('admin', 'EN'),
+			'translation_ru' => Yii::t('admin', 'RU'),
 		];
 	}
 
@@ -78,8 +80,9 @@ class SourceMessage extends \yii\db\ActiveRecord
 	{
 		$langKey   = [];
 		$languages = $languages ? $languages : [
-			'uk' => 'Український',
-			'en' => 'English',
+			//'uk' => 'Український',
+			//'en' => 'English',
+			'ru' => 'Русский',
 		];
 
 		foreach ($languages as $code => $lang) {

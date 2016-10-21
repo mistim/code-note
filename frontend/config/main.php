@@ -83,6 +83,24 @@ return [
                 ],
             ],
         ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\DbMessageSource',
+                    'sourceLanguage' => 'en-US',
+                    'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation'],
+                    'enableCaching' => false,
+                    'cachingDuration' => 0
+                ],
+                'admin*' => [
+                    'class' => 'yii\i18n\DbMessageSource',
+                    'sourceLanguage' => 'en-US',
+                    'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation'],
+                    'enableCaching' => false,
+                    'cachingDuration' => 0
+                ],
+            ],
+        ],
     ],
     'params' => $params,
 ];

@@ -25,20 +25,11 @@ $gridConfig = [
 
         'message',
         [
-            'attribute' => 'translationEn',
-            'label'     => Yii::t('admin', 'EN'),
-            'value'     => function ($data) {
-                foreach ($data->messages as $item) {
-                    if ($item->language === 'en') return $item->translation;
-                }
-            }
-        ],
-        [
             'attribute' => 'translationUa',
-            'label'     => Yii::t('admin', 'UA'),
+            'label'     => Yii::t('admin', 'RU'),
             'value'     => function ($data) {
                 foreach ($data->messages as $item) {
-                    if ($item->language === 'uk') return $item->translation;
+                    if ($item->language === 'ru') return $item->translation;
                 }
             }
         ],

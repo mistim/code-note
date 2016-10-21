@@ -30,13 +30,51 @@ class ViewTools
 		return $data;
 	}
 
-	/**
-	 * @param $route
-	 *
-	 * @return bool
-	 */
-	public static function isActiveRoute($route)
+    /**
+     * @param array ...$routes
+     *
+     * @return string
+     */
+	public static function isActiveRoute(...$routes)
 	{
-		return Yii::$app->controller->id === $route ? 'active' : '';
+	    foreach ($routes as $route) {
+            if (Yii::$app->controller->id === $route) {
+                return 'active';
+            }
+        }
+
+		return '';
 	}
+
+    /**
+     * @param array ...$routes
+     *
+     * @return string
+     */
+	public static function isHide(...$routes)
+    {
+        foreach ($routes as $route) {
+            if (Yii::$app->controller->id === $route) {
+                return 'hide';
+            }
+        }
+
+        return '';
+    }
+
+    /**
+     * @param array ...$routes
+     *
+     * @return string
+     */
+    public static function notHide(...$routes)
+    {
+        foreach ($routes as $route) {
+            if (Yii::$app->controller->id === $route) {
+                return '';
+            }
+        }
+
+        return 'hide';
+    }
 }

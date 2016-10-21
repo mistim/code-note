@@ -44,12 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id',
                     'message',
                     [
-                        'label' => 'EN',
-                        'value' => Message::getTranslate($model, 'en')
-                    ],
-                    [
-                        'label' => 'UA',
-                        'value' => Message::getTranslate($model, 'us')
+                        'label' => 'RU',
+                        'value' => Message::getTranslate($model, 'ru')
                     ],
                 ],
             ]) ?>

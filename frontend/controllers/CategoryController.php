@@ -6,6 +6,7 @@ use common\models\Category;
 use common\models\Post;
 use common\models\search\PostNoteSearch;
 use common\models\search\PostSearch;
+use frontend\helpers\ViewTools;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
@@ -19,6 +20,7 @@ class CategoryController extends BaseController
 {
 	public function actionIndex($alias)
 	{
+        ViewTools::isActiveRoute('site', 'category', 'tag');
 		if (($model = Category::getActiveByAlias($alias)) !== null) {
 			$this->setSeoByModel($model);
 

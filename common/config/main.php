@@ -25,23 +25,5 @@ return [
             'class' => 'yii\caching\FileCache',
             'cachePath' => Yii::getAlias('@frontend') . '/runtime/cache'
         ],
-        'i18n' => [
-            'translations' => [
-                'app*' => [
-                    'class' => 'yii\i18n\DbMessageSource',
-                    'sourceLanguage' => 'en-US',
-                    'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation'],
-                    'enableCaching' => true,
-                    'cachingDuration' => 0
-                ],
-                'admin*' => [
-                    'class' => 'yii\i18n\DbMessageSource',
-                    'sourceLanguage' => 'en-US',
-                    'on missingTranslation' => ['common\components\TranslationEventHandler', 'handleMissingTranslation'],
-                    'enableCaching' => true,
-                    'cachingDuration' => 0
-                ],
-            ],
-        ],
     ],
 ];

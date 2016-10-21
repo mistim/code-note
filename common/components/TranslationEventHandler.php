@@ -34,23 +34,28 @@ class TranslationEventHandler
 				->bindValue('message', $event->message)
 				->queryOne();
 
-			if (!$data )
+			if (!$data)
 			{
 				$model = new SourceMessage();
 				$model->attributes = $attributes;
 
-				if ( $model->save() ) {
+				if ($model->save()) {
 
 					$attributes = ['id' => $model->id, 'language' => $event->language];
 					self::saveMessage($attributes, $event);
 
 					if ($event->category === 'app')
 					{
-						foreach (Yii::$app->urlManager->languages as $language => $languageName)
-						{
-							$attributes = ['id' => $model->id, 'language' => $language];
-							self::saveMessage($attributes, $event);
-						}
+					    if (isset(Yii::$app->urlManager->languages)) {
+                            foreach (Yii::$app->urlManager->languages as $language => $languageName)
+                            {
+                                $attributes = ['id' => $model->id, 'language' => $language];
+                                self::saveMessage($attributes, $event);
+                            }
+                        } else {
+                            $attributes = ['id' => $model->id, 'language' => Yii::$app->language];
+                            self::saveMessage($attributes, $event);
+                        }
 					}
 				}
 			}
@@ -65,11 +70,16 @@ class TranslationEventHandler
 
 				if ($event->category === 'app')
 				{
-					foreach (Yii::$app->urlManager->languages as $language => $languageName)
-					{
-						$attributes = ['id' => $data['id'], 'language' => $language];
-						self::saveMessage($attributes, $event);
-					}
+                    if (isset(Yii::$app->urlManager->languages)) {
+                        foreach (Yii::$app->urlManager->languages as $language => $languageName)
+                        {
+                            $attributes = ['id' => $data['id'], 'language' => $language];
+                            self::saveMessage($attributes, $event);
+                        }
+                    } else {
+                        $attributes = ['id' => $data['id'], 'language' => Yii::$app->language];
+                        self::saveMessage($attributes, $event);
+                    }
 				}
 			}
 
@@ -78,12 +88,12 @@ class TranslationEventHandler
 
 	}
 
-	/**
-	 * @param $attributes
-	 * @param MissingTranslationEvent $event
-	 * @return bool
-	 */
-	protected static function saveMessage($attributes, MissingTranslationEvent $event)
+    /**
+     * @param array $attributes
+     * @param MissingTranslationEvent $event
+     * @return bool
+     */
+	protected static function saveMessage(array $attributes, MissingTranslationEvent $event)
 	{
 		/** @var Message $message */
 		$message = Message::findOne([
@@ -113,6 +123,10 @@ class TranslationEventHandler
 			return true;
 		}
 		elseif ($category === 'app' && isset(Yii::$app->urlManager->languages) && in_array(Yii::$app->language, array_keys(Yii::$app->urlManager->languages), true))
+		{
+			return true;
+		}
+		elseif ($category === 'app' && !isset(Yii::$app->urlManager->languages) && Yii::$app->language !== Yii::$app->sourceLanguage)
 		{
 			return true;
 		}
