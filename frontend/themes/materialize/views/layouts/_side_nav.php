@@ -18,25 +18,29 @@ $tags = Tag::getAllActive(true);
 
 		<div class="card">
 			<div class="card-title">
-				<?= Yii::t('app', 'Categories') ?>
+				<?= Yii::t('app', 'Categories') ?>: <span class="title-entity">
+					<span data-id="#categoryAllSB" class="<?= ViewTools::notHide('site', 'category', 'tag') ?>"><?= Yii::t('app', 'all') ?></span>
+					<span data-id="#categoryPostsSB" class="<?= ViewTools::notHide('post') ?>"><?= Yii::t('app', 'posts') ?></span>
+					<span data-id="#categoryNotesSB" class="<?= ViewTools::notHide('note') ?>"><?= Yii::t('app', 'notes') ?></span>
+				</span>
 			</div>
 			<div class="card-content">
 				<div class="col-inline">
 					<div class="col s12 without-padding">
 						<ul class="tabs">
-							<li class="tab col s3">
+							<li class="tab">
 								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#categoryAllSB">
-									<?= Yii::t('app', 'All') ?>
+									<i class="material-icons dp48">view_module</i>
 								</a>
 							</li>
-							<li class="tab col s3">
+							<li class="tab">
 								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#categoryPostsSB">
-									<?= Yii::t('app', 'Posts') ?>
+									<i class="material-icons dp48">view_list</i>
 								</a>
 							</li>
-							<li class="tab col s3">
+							<li class="tab">
 								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#categoryNotesSB">
-									<?= Yii::t('app', 'Notes') ?>
+									<i class="material-icons dp48">reorder</i>
 								</a>
 							</li>
 						</ul>
@@ -84,25 +88,29 @@ $tags = Tag::getAllActive(true);
 		</div>
 		<div class="card">
 			<div class="card-title">
-				<?= Yii::t('app', 'Tags') ?>
+				<?= Yii::t('app', 'Tags') ?>: <span class="title-entity">
+					<span data-id="#tagAllSB" class="<?= ViewTools::notHide('site', 'category', 'tag') ?>"><?= Yii::t('app', 'all') ?></span>
+					<span data-id="#tagPostsSB" class="<?= ViewTools::notHide('post') ?>"><?= Yii::t('app', 'posts') ?></span>
+					<span data-id="#tagNotesSB" class="<?= ViewTools::notHide('note') ?>"><?= Yii::t('app', 'notes') ?></span>
+				</span>
 			</div>
 			<div class="card-content">
 				<div class="col-inline">
 					<div class="col s12 without-padding">
 						<ul class="tabs">
-							<li class="tab col s3">
+							<li class="tab">
 								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#tagAllSB">
-									<?= Yii::t('app', 'All') ?>
+									<i class="material-icons dp48">view_module</i>
 								</a>
 							</li>
-							<li class="tab col s3">
+							<li class="tab ">
 								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#tagPostsSB">
-									<?= Yii::t('app', 'Posts') ?>
+									<i class="material-icons dp48">view_list</i>
 								</a>
 							</li>
-							<li class="tab col s3">
+							<li class="tab">
 								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#tagNotesSB">
-									<?= Yii::t('app', 'Notes') ?>
+									<i class="material-icons dp48">reorder</i>
 								</a>
 							</li>
 						</ul>

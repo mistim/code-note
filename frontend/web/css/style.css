@@ -221,7 +221,7 @@ span.badge.badge-block {
      line-height: inherit;
 }
 
-.mobile-sade.side-nav a {
+.mobile-sade.side-nav .col-inline a {
     color: #039be5;
     display: inherit;
     font-size: inherit;
@@ -396,4 +396,16 @@ span.badge.badge-block {
 
 .tabs .tab:not(.active) {
     min-width: 73px;
+}
+
+.side-nav li.tab>a>i, .side-nav li.tab>a>[class^="mdi-"], .side-nav li.tab>a>[class*="mdi-"], .side-nav li.tab>a>i.material-icons {
+    float: inherit;
+    line-height: inherit;
+    margin: 0;
+    width: inherit;
+    color: inherit;
+}
+
+.side-nav {
+    width: 280px;
 }
