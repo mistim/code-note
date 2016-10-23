@@ -141,12 +141,13 @@ class Category extends \yii\db\ActiveRecord
     {
         $data = null;
         $keyCache = self::CACHE_KEY . 'countNotes' . $cache_prefix;
-        $use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
+        if ($use_cache) $data = Yii::$app->cacheFrontend->get($keyCache);
 
-        if ($data === null) {
+        if ($data === null || $data === false) {
+            $data = $this->getNotes()->count();
             Yii::$app->cacheFrontend->set(
                 $keyCache,
-                $this->getNotes()->count(),
+                $data,
                 self::CACHE_DURATION,
                 new TagDependency(['tags' => self::CACHE_KEY])
             );
@@ -164,12 +165,13 @@ class Category extends \yii\db\ActiveRecord
     {
         $data = null;
         $keyCache = self::CACHE_KEY . 'countPosts' . $cache_prefix;
-        $use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
+        if ($use_cache) $data = Yii::$app->cacheFrontend->get($keyCache);
 
-        if ($data === null) {
+        if ($data === null || $data === false) {
+            $data = $this->getPosts()->count();
             Yii::$app->cacheFrontend->set(
                 $keyCache,
-                $this->getPosts()->count(),
+                $data,
                 self::CACHE_DURATION,
                 new TagDependency(['tags' => self::CACHE_KEY])
             );
@@ -254,7 +256,7 @@ class Category extends \yii\db\ActiveRecord
 	{
         $data = null;
         $keyCache = self::CACHE_KEY . 'all';
-        $use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
+        if ($use_cache) $data = Yii::$app->cacheFrontend->get($keyCache);
 
         if (!$data) {
             $model = self::findAll(['status' => self::STATUS_ACTIVE]);
@@ -286,7 +288,7 @@ class Category extends \yii\db\ActiveRecord
 	{
         $data = null;
         $keyCache = self::CACHE_KEY . $alias;
-        $use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
+        if ($use_cache) $data = Yii::$app->cacheFrontend->get($keyCache);
 
         if (!$data) {
             $data = self::findOne([
