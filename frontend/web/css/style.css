@@ -3,6 +3,40 @@ html {
     font-size: 16px;
 }
 
+@media only screen and (max-width: 1321px) {
+    .hide-on-med-and-down {
+        display: none;
+    }
+
+    nav a.button-collapse {
+        display: block;
+    }
+
+    nav .brand-logo {
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
+}
+
+@media only screen and (min-width: 1321px) {
+    .container {
+        width: 1280px;
+    }
+
+    .main-content {
+        width: 995px;
+    }
+
+    .sidebar {
+        width: 260px;
+    }
+
+    nav a.button-collapse {
+        display: none;
+    }
+}
+
 body {
     display: flex;
     min-height: 100vh;
@@ -358,4 +392,8 @@ span.badge.badge-block {
 
 .list-view .row {
     margin-bottom: 0;
+}
+
+.tabs .tab:not(.active) {
+    min-width: 73px;
 }

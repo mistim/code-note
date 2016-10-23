@@ -45,15 +45,15 @@ $(document).ready(function() {
 
     $('.tabs a').on('click', function(e) {
         e.preventDefault();
-        var tabs = $(this).parents('.tabs').find('a');
-        tabs.each(function() {
-            $(this).find('i').removeClass('hide');
-            $(this).find('span').addClass('hide');
-            $(this).parent('.tab').attr('class', 'tab col s1');
-        });
+        var titleEntity = $(this).parents('.card').find('.title-entity span');
+        var id = $(this).attr('href');
 
-        $(this).find('i').addClass('hide');
-        $(this).find('span').removeClass('hide');
-        $(this).parent('.tab').attr('class', 'tab col s10');
+        titleEntity.each(function() {
+            if ($(this).data('id') === id) {
+                $(this).removeClass('hide');
+            } else {
+                $(this).addClass('hide');
+            }
+        });
     });
 });

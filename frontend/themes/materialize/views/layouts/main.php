@@ -27,12 +27,12 @@
 <main>
 	<div class="container">
 		<div class="row">
-			<div class="col s12 l9">
+			<div class="col">
 				<div class="main-content">
 					<?= $content ?>
 				</div>
 			</div>
-			<div class="col hide-on-med-and-down l3">
+			<div class="col hide-on-med-and-down">
 				<div class="sidebar">
 					<div class="hide-on-med-and-down bar-top">
 						<?= $this->render('_sidebar') ?>
