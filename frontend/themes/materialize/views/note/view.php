@@ -17,7 +17,7 @@ use frontend\helpers\ViewTools;
 				<span class="post-info">
 					<?= Html::a(
 						Html::tag('i', null, ['class' => 'material-icons']) . Yii::t('app', 'Back to List'),
-						['/note'],
+						[\yii\helpers\Url::previous()],
 						['class' => 'left']
 					) ?>
 				</span>

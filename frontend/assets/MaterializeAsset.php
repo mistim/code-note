@@ -24,7 +24,7 @@ class MaterializeAsset extends AssetBundle
 	];
 
 	public $js = [
-		'js/materialize.js',
+		'js/materialize.min.js',
 	];
 
 	public $depends = [

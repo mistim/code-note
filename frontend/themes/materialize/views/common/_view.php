@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use frontend\helpers\ViewTools;
 
 /** @var $this \yii\web\View */
@@ -8,6 +9,7 @@ use frontend\helpers\ViewTools;
 
 //$this->registerJs($js);
 $controller = $model->is_post ? '/post' : '/note';
+Url::remember();
 ?>
 
 <div class="row">

@@ -256,7 +256,7 @@ class Category extends \yii\db\ActiveRecord
 	{
         $data = null;
         $keyCache = self::CACHE_KEY . 'all';
-        if ($use_cache) $data = Yii::$app->cacheFrontend->get($keyCache);
+        $use_cache && $data = Yii::$app->cacheFrontend->get($keyCache);
 
         if (!$data) {
             $model = self::findAll(['status' => self::STATUS_ACTIVE]);

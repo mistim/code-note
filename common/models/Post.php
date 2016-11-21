@@ -384,7 +384,12 @@ class Post extends \yii\db\ActiveRecord
 		}
 	}
 
-	public static function getDataProviderAll()
+    /**
+     * @param bool $use_cache
+     *
+     * @return ActiveDataProvider
+     */
+	public static function getDataProviderAll($use_cache = false)
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Post::find()->where([
@@ -400,17 +405,21 @@ class Post extends \yii\db\ActiveRecord
             ]
         ]);
 
-        self::getDb()->cache(function ($db) use ($dataProvider) {
-            $dataProvider->prepare();
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+        $use_cache && self::getDb()->cache(
+            function ($db) use ($dataProvider) {
+                $dataProvider->prepare();
+            }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY])
+        );
 
         return $dataProvider;
     }
 
-	/**
-	 * @return ActiveDataProvider
-	 */
-	public static function getDataProvider()
+    /**
+     * @param bool $use_cache
+     *
+     * @return ActiveDataProvider
+     */
+	public static function getDataProvider($use_cache = false)
 	{
         $dataProvider = new ActiveDataProvider([
 			'query' => self::find()->where([
@@ -433,7 +442,7 @@ class Post extends \yii\db\ActiveRecord
 			]
 		]);
 
-        self::getDb()->cache(function ($db) use ($dataProvider) {
+        $use_cache && self::getDb()->cache(function ($db) use ($dataProvider) {
             $dataProvider->prepare();
         }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 

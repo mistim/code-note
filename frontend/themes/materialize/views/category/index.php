@@ -5,6 +5,7 @@ use yii\widgets\ListView;
 /* @var $model \common\models\Category */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+\yii\helpers\Url::remember();
 ?>
 
 <div class="card-panel">

@@ -354,10 +354,12 @@ class Note extends \yii\db\ActiveRecord
 		}
 	}
 
-	/**
-	 * @return ActiveDataProvider
-	 */
-	public static function getDataProvider()
+    /**
+     * @param bool $use_cache
+     *
+     * @return ActiveDataProvider
+     */
+	public static function getDataProvider($use_cache = false)
 	{
         $dataProvider = new ActiveDataProvider([
 			'query' => self::find()->where([
@@ -380,7 +382,7 @@ class Note extends \yii\db\ActiveRecord
 			]
 		]);
 
-        self::getDb()->cache(function ($db) use ($dataProvider) {
+        $use_cache && self::getDb()->cache(function ($db) use ($dataProvider) {
             $dataProvider->prepare();
         }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
 
