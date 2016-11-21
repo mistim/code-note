@@ -22,6 +22,7 @@ class PostController extends BaseController
 	public function actionIndex()
 	{
 		$dataProvider = Post::getDataProvider();
+        $this->setSeo(Yii::t('app', 'Posts'));
 
 		return $this->render('index', [
 			'dataProvider' => $dataProvider,

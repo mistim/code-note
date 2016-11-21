@@ -22,6 +22,7 @@ class NoteController extends BaseController
 	public function actionIndex()
 	{
 		$dataProvider = Note::getDataProvider();
+        $this->setSeo(Yii::t('app', 'Notes'));
 
 		return $this->render('index', [
 			'dataProvider' => $dataProvider,

@@ -57,6 +57,10 @@ class BaseController extends Controller
      */
     public function setSeo($title = null, $keywords = null, $description = null)
     {
+        if ($title && !$keywords && !$description) {
+            $keywords = $description = $title;
+        }
+
         $this->getView()->params['title'] = $this->getView()->params['title'] ?: $title;
         $this->getView()->params['keywords'] = $this->getView()->params['keywords'] ?: $keywords;
         $this->getView()->params['description'] = $this->getView()->params['description'] ?: $description;
