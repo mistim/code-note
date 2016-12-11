@@ -34,6 +34,8 @@ use yii\data\ActiveDataProvider;
  * @property User      $creator
  * @property MetaTag   $meta_tag
  * @property Tag[]     $tags
+ *
+ * @method void setListTagID(array $tags)
  */
 class Note extends \yii\db\ActiveRecord
 {
