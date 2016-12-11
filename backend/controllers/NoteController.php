@@ -127,6 +127,7 @@ class NoteController extends BaseController
         $model->scenario = 'update';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->clearCacheModel();
             $result = [
                 'status' => true,
                 'message' => Yii::t('app', 'Entry has been saved successfully!')

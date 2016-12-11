@@ -125,9 +125,11 @@ class NoteSearch extends Note
 			->andFilterWhere(['like', 'editor.username', $this->getAttribute('editor.username')])
 			->andFilterWhere(['like', 'category.title', $this->getAttribute('category.title')]);
 
-        self::getDb()->cache(function ($db) use ($dataProvider) {
-            $dataProvider->prepare();
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+        if (Yii::$app->id === 'frontend') {
+            self::getDb()->cache(function ($db) use ($dataProvider) {
+                $dataProvider->prepare();
+            }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+        }
 
 		return $dataProvider;
 	}

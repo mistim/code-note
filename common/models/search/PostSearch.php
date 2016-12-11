@@ -125,9 +125,11 @@ class PostSearch extends Post
 			->andFilterWhere(['like', 'creator.username', $this->getAttribute('creator.username')])
 			->andFilterWhere(['like', 'editor.username', $this->getAttribute('editor.username')]);
 
-        self::getDb()->cache(function ($db) use ($dataProvider) {
-            $dataProvider->prepare();
-        }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+		if (Yii::$app->id === 'frontend') {
+            self::getDb()->cache(function ($db) use ($dataProvider) {
+                $dataProvider->prepare();
+            }, self::CACHE_DURATION, new TagDependency(['tags' => self::CACHE_KEY]));
+        }
 
 		return $dataProvider;
 	}
