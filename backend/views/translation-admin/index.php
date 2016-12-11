@@ -74,12 +74,12 @@ if ($showActions === true) {
                         'target' => '_blank',
                         'data'   => [
                             'method'  => 'post',
-                            'confirm' => Yii::t('app', 'The translations will be imported. Are you sure?'),
+                            'confirm' => Yii::t('admin', 'The translations will be imported. Are you sure?'),
                         ]
                     ]
                 ); ?>
                 <?= Html::a(
-                    Yii::t('app', 'Export'),
+                    Yii::t('admin', 'Export'),
                     ['/translation-exchange/export', 'category' => 'admin'],
                     [
                         'class' => 'btn btn-flat btn-flat btn-info link-prompt-export',

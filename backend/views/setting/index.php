@@ -19,7 +19,12 @@ $gridConfig = [
     'filterModel' => $searchModel,
     'columns' => [
         'id',
-        'status',
+        [
+            'class' => '\backend\widgets\grid\ICheckColumn',
+            'attribute' => 'status',
+            'modelName' => 'Setting',
+            'route' => 'status',
+        ],
         'var_key',
         'value',
          'creator.username',

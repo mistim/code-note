@@ -21,7 +21,12 @@ $gridConfig = [
         'id',
         'title:raw',
         'alias',
-        'status',
+        [
+            'class' => '\backend\widgets\grid\ICheckColumn',
+            'attribute' => 'status',
+            'modelName' => 'TextBlock',
+            'route' => 'text-block/status',
+        ],
         'creator.username',
         //'editor_id',
          'created_at:datetime',

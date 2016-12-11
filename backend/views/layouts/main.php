@@ -44,7 +44,7 @@ $userIdentity = Yii::$app->user->identity;
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only"><?= Yii::t('app', 'Toggle navigation') ?></span>
+                    <span class="sr-only"><?= Yii::t('admin', 'Toggle navigation') ?></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -66,7 +66,7 @@ $userIdentity = Yii::$app->user->identity;
                                 <!-- Menu Body -->
                                 <li class="user-body text-center">
                                     <p>
-                                        <?= Yii::t('app', 'Username') ?>: <strong><?= $userIdentity->username ?></strong><br>
+                                        <?= Yii::t('admin', 'Username') ?>: <strong><?= $userIdentity->username ?></strong><br>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
@@ -75,7 +75,7 @@ $userIdentity = Yii::$app->user->identity;
                                     </div>
                                     <div class="pull-right">
                                         <?= Html::a(
-                                            Yii::t('app', 'Sign out'),
+                                            Yii::t('admin', 'Sign out'),
                                             ['/site/logout'],
                                             ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
                                         ) ?>
@@ -112,7 +112,7 @@ $userIdentity = Yii::$app->user->identity;
                 <?= Breadcrumbs::widget(
                     [
                         'homeLink' => [
-                            'label' => '<i class="fa fa-dashboard"></i> ' . Yii::t('app', 'Home'),
+                            'label' => '<i class="fa fa-dashboard"></i> ' . Yii::t('admin', 'Home'),
                             'url' => '/'
                         ],
                         'encodeLabels' => false,

@@ -7,6 +7,7 @@ use Yii;
 use common\models\Category;
 use common\models\search\CategorySearch;
 use backend\controllers\BaseController;
+use yii\helpers\Json;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -104,6 +105,28 @@ class CategoryController extends BaseController
                 'meta_tag' => $meta_tag
             ]);
         }
+    }
+
+    /**
+     * @param $id
+     */
+    public function actionStatus($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $result = [
+                'status' => true,
+                'message' => Yii::t('app', 'Entry has been saved successfully!')
+            ];
+        } else {
+            $result = [
+                'status' => false,
+                'message' => Yii::t('app', 'Record can not be saved!')
+            ];
+        }
+
+        echo Json::encode($result);
     }
 
     /**

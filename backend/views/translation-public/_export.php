@@ -36,8 +36,8 @@ $model = new ExcelExchangeForm(['scenario' => 'export']);
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-flat btn-default pull-left" data-dismiss="modal"><?= Yii::t('app', 'Cancel') ?></button>
-                <button type="submit" class="btn btn-flat btn-primary anti-dc" form="export-form"><?= Yii::t('app', 'Run') ?></button>
+                <button type="button" class="btn btn-flat btn-default pull-left" data-dismiss="modal"><?= Yii::t('admin', 'Cancel') ?></button>
+                <button type="submit" class="btn btn-flat btn-primary anti-dc" form="export-form"><?= Yii::t('admin', 'Run') ?></button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

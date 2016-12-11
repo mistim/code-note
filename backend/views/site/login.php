@@ -59,7 +59,7 @@ $this->context->layout = '/guest';
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
                 <div class="col-sm-offset-3 col-sm-6">
-                    <?= Html::submitButton(Yii::t('app', 'Sign in'), [
+                    <?= Html::submitButton(Yii::t('admin', 'Sign in'), [
                         'class' => 'btn btn-success btn-flat btn-block'
                     ]) ?>
                 </div>

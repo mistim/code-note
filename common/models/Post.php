@@ -37,6 +37,8 @@ use yii\data\ActiveDataProvider;
  * @property PostTag[] $postTags
  * @property MetaTag   $meta_tag
  * @property Tag[]     $tags
+ *
+ * @method void setListTagID(array $tags)
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -270,7 +272,7 @@ class Post extends \yii\db\ActiveRecord
 	 * @throws \Exception
 	 * @throws \yii\db\Exception
 	 */
-	public function saveWithMetaKay(MetaTag $meta_tag)
+	public function saveWithMetaTag(MetaTag $meta_tag)
 	{
 		$transaction = self::getDb()->beginTransaction();
 

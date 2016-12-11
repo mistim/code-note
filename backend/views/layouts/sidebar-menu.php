@@ -22,7 +22,7 @@ echo Menu::widget(
         'activateParents' => true,
         'items' => [
             [
-                'label' => Yii::t('app', 'MAIN NAVIGATION'),
+                'label' => Yii::t('admin', 'MAIN NAVIGATION'),
                 'options' => ['class' => 'header']
             ],
             [

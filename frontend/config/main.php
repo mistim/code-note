@@ -8,7 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
-    //'catchAll' => ['/site/offline'],
+    'catchAll' => ['/site/offline'],
     'language'  => 'ru',
     'sourceLanguage' => 'en_US',
     'basePath' => dirname(__DIR__),

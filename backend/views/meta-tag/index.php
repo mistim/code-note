@@ -23,12 +23,10 @@ $gridConfig = [
         'id',
         'entity',
         [
+            'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
-            'format' => 'html',
-            'value' => function(MetaTag $model) {
-                return ToolsHelper::getStatusStr($model->status);
-            },
-            'filter' => ToolsHelper::getStatusStr()
+            'modelName' => 'MetaTag',
+            'route' => 'meta-tag/status',
         ],
         'link',
         'title',

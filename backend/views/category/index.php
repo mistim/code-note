@@ -24,12 +24,10 @@ $gridConfig = [
         'title',
         //'teaser',
         [
+            'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
-            'format' => 'html',
-            'value' => function(Category $model) {
-                return ToolsHelper::getStatusStr($model->status);
-            },
-            'filter' => ToolsHelper::getStatusStr()
+            'modelName' => 'Category',
+            'route' => 'category/status',
         ],
         'creator.username',
         // 'editor.username',

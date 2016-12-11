@@ -22,7 +22,12 @@ $gridConfig = [
         'id',
         'username',
         'email:email',
-        'status',
+        [
+            'class' => '\backend\widgets\grid\ICheckColumn',
+            'attribute' => 'status',
+            'modelName' => 'User',
+            'route' => 'administrator/status',
+        ],
         [
             'attribute' => 'status',
             'value' => function (User $data) {

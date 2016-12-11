@@ -9,6 +9,7 @@ use Yii;
 use common\models\Post;
 use common\models\search\PostSearch;
 use backend\controllers\BaseController;
+use yii\helpers\Json;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -75,7 +76,7 @@ class PostController extends BaseController
         if (
             $model->load(Yii::$app->request->post()) &&
             $meta_tag->load(Yii::$app->request->post()) &&
-            $model->saveWithMetaKay($meta_tag)
+            $model->saveWithMetaTag($meta_tag)
         )
         {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
@@ -112,7 +113,7 @@ class PostController extends BaseController
         if (
             $model->load(Yii::$app->request->post()) &&
             $meta_tag->load(Yii::$app->request->post()) &&
-            $model->saveWithMetaKay($meta_tag)
+            $model->saveWithMetaTag($meta_tag)
         )
         {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
@@ -129,6 +130,29 @@ class PostController extends BaseController
                 'meta_tag' => $meta_tag,
             ]);
         }
+    }
+
+    /**
+     * @param $id
+     */
+    public function actionStatus($id)
+    {
+        $model = $this->findModel($id);
+        $model->scenario = 'update';
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $result = [
+                'status' => true,
+                'message' => Yii::t('app', 'Entry has been saved successfully!')
+            ];
+        } else {
+            $result = [
+                'status' => false,
+                'message' => Yii::t('app', 'Record can not be saved!')
+            ];
+        }
+
+        echo Json::encode($result);
     }
 
     /**

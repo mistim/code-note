@@ -26,12 +26,10 @@ $gridConfig = [
         //'teaser',
         //'text:ntext',
         [
+            'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
-            'format' => 'html',
-            'value' => function(Note $model) {
-                return ToolsHelper::getStatusStr($model->status);
-            },
-            'filter' => ToolsHelper::getStatusStr()
+            'modelName' => 'Note',
+            'route' => 'note/status',
         ],
         'cnt_view',
         'posted_at:datetime',

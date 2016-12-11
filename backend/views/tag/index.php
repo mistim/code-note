@@ -24,12 +24,10 @@ $gridConfig = [
         'title',
         'alias',
         [
+            'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
-            'format' => 'html',
-            'value' => function(Tag $model) {
-                return ToolsHelper::getStatusStr($model->status);
-            },
-            'filter' => ToolsHelper::getStatusStr()
+            'modelName' => 'Tag',
+            'route' => 'tag/status',
         ],
     ],
 ];

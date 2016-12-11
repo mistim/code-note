@@ -16,10 +16,10 @@ class TagBehavior extends Behavior
 	/** @var array */
 	public $list_tag = [];
 
-	/**
-	 * @param $tags
-	 */
-	public function setListTagID($tags)
+    /**
+     * @param array $tags
+     */
+	public function setListTagID(array $tags)
 	{
 		foreach ($tags as $item)
 		{

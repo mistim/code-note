@@ -27,12 +27,10 @@ $gridConfig = [
         //'text:ntext',
         // 'image',
         [
+            'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
-            'format' => 'html',
-            'value' => function(Post $model) {
-                return ToolsHelper::getStatusStr($model->status);
-            },
-            'filter' => ToolsHelper::getStatusStr()
+            'modelName' => 'Post',
+            'route' => 'status',
         ],
         'cnt_view',
         'posted_at:datetime',
