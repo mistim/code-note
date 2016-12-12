@@ -10,20 +10,25 @@ $(document).ready(function() {
     $('.mobile-menu').sideNav();
     $('.mobile-sidebar').sideNav({
             menuWidth: 300, // Default is 240
-            edge: 'right', // Choose the horizontal origin
+            edge: 'right' // Choose the horizontal origin
             //closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
         }
     );
 
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
-            $('.go-up').animate({
-                right: '25px'
-            }, 100);
+        var goUp = $('.go-up');
+        if ($(this).scrollTop() > 700) {
+            if (goUp.css('right') !== '25px') {
+                goUp.animate({
+                    right: '25px'
+                }, 100);
+            }
         } else {
-            $('.go-up').animate({
-                right: '-60px'
-            }, 100);
+            if (goUp.css('right') !== '-60px') {
+                goUp.animate({
+                    right: '-60px'
+                }, 100);
+            }
         }
     });
     $('.go-up').click(function () {
