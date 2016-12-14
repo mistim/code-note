@@ -8,7 +8,7 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        /*'formatter' => [
+        'formatter' => [
             'dateFormat'             => 'dd.MM.yyyy',
             'datetimeFormat'         => 'dd.MM.yyyy HH:mm',
             'timeFormat'             => 'raw',
@@ -20,7 +20,7 @@ return [
                 NumberFormatter::MAX_FRACTION_DIGITS => 0,
             ],
             'nullDisplay'            => '',
-        ],*/
+        ],
         'cacheFrontend' => [
             'class' => 'yii\caching\FileCache',
             'cachePath' => Yii::getAlias('@frontend') . '/runtime/cache'

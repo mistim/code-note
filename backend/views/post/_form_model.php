@@ -46,8 +46,8 @@ $this->registerJs(
 
 <?= $form->field($model, 'list_tag')
 	->dropDownList(ArrayHelper::map($tags, 'title', 'title'), [
-		'prompt' => Yii::t('admin', 'Set tag'),
-		'multiple' => true
+        'prompt'   => Yii::t('admin', 'Set tag'),
+        'multiple' => true
 	]) ?>
 
 <?= $form->field($model, 'image')->widget(FileAPI::className(),
@@ -56,16 +56,16 @@ $this->registerJs(
 			'url' => ['fileapi-upload'],
 		],
 		'jcropSettings' => [
-			'bgColor' => '#ffffff',
-			'aspectRatio' => 960/300,
-			'maxSize' => [1920, 600],
-			'minSize' => [480, 150],
-			'keySupport' => false,
-			'selection' => '100%'
+            'bgColor'     => '#ffffff',
+            'aspectRatio' => 960 / 300,
+            'maxSize'     => [1920, 600],
+            'minSize'     => [480, 150],
+            'keySupport'  => false,
+            'selection'   => '100%'
 		],
 		'crop' => true,
-		'cropResizeWidth' => 960,
-		'cropResizeHeight' => 300
+        'cropResizeWidth'  => 960,
+        'cropResizeHeight' => 300
 	]
 ) ?>
 
@@ -75,5 +75,8 @@ $this->registerJs(
 	->widget(Widget::className())
 	->textarea(['class' => 'redactor char_counter', 'maxlength' => true]) ?>
 
-<?= $form->field($model, 'text')->widget(Widget::className())
+<?= $form->field($model, 'text', [
+    'template' => "{label}<div class='col-sm-12'>\n{input}\n{error}\n{hint}</div>"
+])
+	->widget(Widget::className())
 	->textarea(['class' => 'redactor']) ?>
