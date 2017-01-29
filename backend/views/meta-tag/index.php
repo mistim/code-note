@@ -4,8 +4,7 @@ use yii\helpers\Html;
 use backend\widgets\Box;
 use backend\widgets\grid\ActionColumn;
 use yii\grid\GridView;
-use common\models\MetaTag;
-use backend\helpers\ToolsHelper;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\MetaTagSearch */
@@ -26,7 +25,7 @@ $gridConfig = [
             'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
             'modelName' => 'MetaTag',
-            'route' => 'meta-tag/status',
+            'route' => Url::to(['/meta-tag/status']),
         ],
         'link',
         'title',

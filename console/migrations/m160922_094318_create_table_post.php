@@ -20,7 +20,7 @@ class m160922_094318_create_table_post extends Migration
             'editor_id'   => $this->integer(),
             'created_at'  => $this->dateTime()->notNull(),
             'updated_at'  => $this->dateTime()->null(),
-            'meta_tag'    => $this->integer()->null(),
+            'meta_tag_id' => $this->integer()->null(),
             'is_post'     => $this->boolean()->null(),
             'cnt_view'    => $this->integer()->null(),
         ]);

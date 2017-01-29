@@ -46,9 +46,11 @@ use frontend\helpers\ViewTools;
 				</span>
 			</div>
 		</div>
+        <?php if ($model->image): ?>
 		<div class="card-image">
 			<?= Html::img($model->urlAttribute('image')) ?>
 		</div>
+        <?php endif; ?>
 		<div class="card-content">
 			<?= $model->text ?>
 		</div>

@@ -232,7 +232,9 @@ class Note extends \yii\db\ActiveRecord
 			}
 		}
 
-		$this->clearCacheModel();
+		self::clearCacheModel();
+        Category::clearCacheModel();
+        Tag::clearCacheModel();
 	}
 
 	/**
@@ -276,7 +278,7 @@ class Note extends \yii\db\ActiveRecord
 		$this->scenario = 'update';
 		$this->cnt_view++;
 		$this->update();
-		$this->clearCacheModel();
+		self::clearCacheModel();
 	}
 
 	/**

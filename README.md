@@ -64,3 +64,13 @@ Gulp
 Assets 
 
     yii asset assets.php frontend/config/assets/assets-prod.php
+    
+Migrations: 
+
+    php yii migrate --migrationPath=@yii/i18n/migrations/
+    php yii migrate/up
+    php yii migrate/up --migrationPath=@backend/modules/rbac/migrations/
+    
+Admin
+
+    /admin_7a1M8O => admin@local.loc | 123

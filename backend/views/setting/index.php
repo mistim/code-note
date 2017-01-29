@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use backend\widgets\Box;
 use backend\widgets\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\SettingSearch */
@@ -23,7 +24,7 @@ $gridConfig = [
             'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
             'modelName' => 'Setting',
-            'route' => 'status',
+            'route' => Url::to(['/setting/status']),
         ],
         'var_key',
         'value',

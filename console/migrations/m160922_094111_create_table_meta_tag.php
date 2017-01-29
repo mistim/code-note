@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m160925_125702_create_table_meta_tag extends Migration
+class m160922_094111_create_table_meta_tag extends Migration
 {
     public function up()
     {

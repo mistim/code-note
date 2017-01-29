@@ -243,6 +243,7 @@ class Post extends \yii\db\ActiveRecord
 					$tag->title  = $val;
 					$tag->alias  = $val;
 					$tag->status = Tag::STATUS_ACTIVE;
+
 					if (!$tag->save()) {
 						var_dump($tag->getErrors());
 						exit;
@@ -260,10 +261,10 @@ class Post extends \yii\db\ActiveRecord
 			}
 		}
 
-		$this->clearCacheModel();
+		self::clearCacheModel();
+		Category::clearCacheModel();
+        Tag::clearCacheModel();
 	}
-
-
 
 	/**
 	 * @param MetaTag $meta_tag
@@ -306,7 +307,7 @@ class Post extends \yii\db\ActiveRecord
 		$this->scenario = 'update';
 		$this->cnt_view++;
 		$this->update();
-		$this->clearCacheModel();
+		self::clearCacheModel();
 	}
 
 	/**

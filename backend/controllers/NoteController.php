@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\MetaTag;
+use common\models\PostTag;
 use common\models\Tag;
 use Yii;
 use common\models\Note;
@@ -54,14 +55,15 @@ class NoteController extends BaseController
     {
         /** @var Note $model */
         $model = new Note();
+        $model->scenario = 'crud';
         /** @var Tag[] $tags */
         $tags = Tag::getAllActive();
         /** @var MetaTag $meta_tag */
         $meta_tag = new MetaTag();
 
         if (
-            $model->load(Yii::$app->request->post()) &&
-            $meta_tag->load(Yii::$app->request->post()) &&
+            $model->load(Yii::$app->request->post()) && $model->validate() &&
+            $meta_tag->load(Yii::$app->request->post()) && $meta_tag->validate() &&
             $model->saveWithMetaKay($meta_tag)
         )
         {
@@ -91,14 +93,15 @@ class NoteController extends BaseController
     {
         /** @var Note $model */
         $model = $this->findModel($id);
+        $model->scenario = 'crud';
         /** @var Tag[] $tags */
         $tags = $model->getTags()->all();
         /** @var MetaTag $meta_tag */
         $meta_tag = $model->getMeta_tag()->one();
 
         if (
-            $model->load(Yii::$app->request->post()) &&
-            $meta_tag->load(Yii::$app->request->post()) &&
+            $model->load(Yii::$app->request->post()) && $model->validate() &&
+            $meta_tag->load(Yii::$app->request->post()) && $meta_tag->validate() &&
             $model->saveWithMetaKay($meta_tag)
         )
         {
@@ -150,9 +153,12 @@ class NoteController extends BaseController
      */
     public function actionDelete($id)
     {
-        Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been deleted successfully!'));
+        $model = $this->findModel($id);
+        PostTag::deleteAll(['post_id' => $model->id]);
+        $model->delete();
+        $model->meta_tag->delete();
 
-        $this->findModel($id)->delete();
+        Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been deleted successfully!'));
 
         return $this->redirect(['index']);
     }

@@ -4,8 +4,7 @@ use yii\helpers\Html;
 use backend\widgets\Box;
 use backend\widgets\grid\ActionColumn;
 use yii\grid\GridView;
-use common\models\Post;
-use backend\helpers\ToolsHelper;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\PostSearch */
@@ -30,7 +29,7 @@ $gridConfig = [
             'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
             'modelName' => 'Post',
-            'route' => 'status',
+            'route' => Url::to(['/post/status']),
         ],
         'cnt_view',
         'posted_at:datetime',

@@ -16,12 +16,14 @@ Url::remember();
 	<div class="col s12">
 		<div class="card hoverable card-view">
 			<?php if ($model->is_post): ?>
-				<div class="card-head col-block">
+				<div class="<?= $model->image ? '' : 'note ' ?>card-head col-block">
 					<h3><?= Html::a($model->title, [$controller . '/' . $model->alias]) ?></h3>
 				</div>
+                <?php if ($model->image): ?>
 				<div class="card-image">
 					<?= Html::img($model->urlAttribute('image')) ?>
 				</div>
+                <?php endif; ?>
 			<?php else: ?>
 				<div class="note card-head col-block">
 					<h3><?= Html::a($model->title, [$controller . '/' . $model->alias]) ?></h3>

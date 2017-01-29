@@ -4,8 +4,7 @@ use yii\helpers\Html;
 use backend\widgets\Box;
 use backend\widgets\grid\ActionColumn;
 use yii\grid\GridView;
-use common\models\Note;
-use backend\helpers\ToolsHelper;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\NoteSearch */
@@ -29,7 +28,7 @@ $gridConfig = [
             'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
             'modelName' => 'Note',
-            'route' => 'note/status',
+            'route' => Url::to(['/note/status']),
         ],
         'cnt_view',
         'posted_at:datetime',

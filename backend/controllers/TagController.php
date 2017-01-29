@@ -119,9 +119,14 @@ class TagController extends BaseController
      */
     public function actionDelete($id)
     {
-        Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been deleted successfully!'));
+        $model = $this->findModel($id);
 
-        $this->findModel($id)->delete();
+        if ($model->posts) {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'This entry has post!'));
+        } else {
+            $model->delete();
+            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been deleted successfully!'));
+        }
 
         return $this->redirect(['index']);
     }

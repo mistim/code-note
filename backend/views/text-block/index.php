@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use backend\widgets\Box;
 use backend\widgets\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\TextBlockSearch */
@@ -25,7 +26,7 @@ $gridConfig = [
             'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
             'modelName' => 'TextBlock',
-            'route' => 'text-block/status',
+            'route' => Url::to(['/text-block/status']),
         ],
         'creator.username',
         //'editor_id',

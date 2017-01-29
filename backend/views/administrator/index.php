@@ -5,6 +5,7 @@ use backend\widgets\Box;
 use backend\widgets\grid\ActionColumn;
 use yii\grid\GridView;
 use backend\models\User;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\UserSearch */
@@ -26,7 +27,7 @@ $gridConfig = [
             'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
             'modelName' => 'User',
-            'route' => 'administrator/status',
+            'route' => Url::to(['/administrator/status']),
         ],
         [
             'attribute' => 'status',

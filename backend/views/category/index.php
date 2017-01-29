@@ -4,8 +4,7 @@ use yii\helpers\Html;
 use backend\widgets\Box;
 use backend\widgets\grid\ActionColumn;
 use yii\grid\GridView;
-use common\models\Category;
-use backend\helpers\ToolsHelper;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\CategorySearch */
@@ -27,7 +26,7 @@ $gridConfig = [
             'class' => '\backend\widgets\grid\ICheckColumn',
             'attribute' => 'status',
             'modelName' => 'Category',
-            'route' => 'category/status',
+            'route' => Url::to(['/category/status']),
         ],
         'creator.username',
         // 'editor.username',
