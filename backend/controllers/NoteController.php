@@ -67,7 +67,7 @@ class NoteController extends BaseController
             $model->saveWithMetaKay($meta_tag)
         )
         {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Entry has been saved successfully!'));
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -105,7 +105,7 @@ class NoteController extends BaseController
             $model->saveWithMetaKay($meta_tag)
         )
         {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Entry has been saved successfully!'));
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -133,12 +133,12 @@ class NoteController extends BaseController
             $model->clearCacheModel();
             $result = [
                 'status' => true,
-                'message' => Yii::t('app', 'Entry has been saved successfully!')
+                'message' => Yii::t('admin', 'Entry has been saved successfully!')
             ];
         } else {
             $result = [
                 'status' => false,
-                'message' => Yii::t('app', 'Record can not be saved!')
+                'message' => Yii::t('admin', 'Record can not be saved!')
             ];
         }
 
@@ -158,7 +158,7 @@ class NoteController extends BaseController
         $model->delete();
         $model->meta_tag->delete();
 
-        Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been deleted successfully!'));
+        Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Entry has been deleted successfully!'));
 
         return $this->redirect(['index']);
     }

@@ -73,7 +73,7 @@ class TextBlockController extends Controller
         }*/
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Entry has been saved successfully!'));
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -94,7 +94,7 @@ class TextBlockController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Entry has been saved successfully!'));
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -114,12 +114,12 @@ class TextBlockController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $result = [
                 'status' => true,
-                'message' => Yii::t('app', 'Entry has been saved successfully!')
+                'message' => Yii::t('admin', 'Entry has been saved successfully!')
             ];
         } else {
             $result = [
                 'status' => false,
-                'message' => Yii::t('app', 'Record can not be saved!')
+                'message' => Yii::t('admin', 'Record can not be saved!')
             ];
         }
 
@@ -134,7 +134,7 @@ class TextBlockController extends Controller
      */
     public function actionDelete($id)
     {
-        Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been deleted successfully!'));
+        Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Entry has been deleted successfully!'));
 
         $this->findModel($id)->delete();
 

@@ -57,7 +57,7 @@ class ExcelExchangeForm extends Model
     {
         return [
             'languages'  => Yii::t('admin', 'Languages'),
-            'is_rewrite' => Yii::t('app', 'Is rewrite'),
+            'is_rewrite' => Yii::t('admin', 'Is rewrite'),
         ];
     }
 

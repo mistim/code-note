@@ -47,8 +47,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         parent::init();
 
         self::$list_status = [
-            self::STATUS_IN_ACTIVE => Yii::t('app', 'Not active'),
-            self::STATUS_ACTIVE    => Yii::t('app', 'Active'),
+            self::STATUS_IN_ACTIVE => Yii::t('admin', 'Not active'),
+            self::STATUS_ACTIVE    => Yii::t('admin', 'Active'),
         ];
     }
 
@@ -107,7 +107,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function confirmPassword($attribute)
     {
         if ($this->password !== $this->confirm_password) {
-            $this->addError($attribute, Yii::t('app', 'Passwords do not match'));
+            $this->addError($attribute, Yii::t('admin', 'Passwords do not match'));
         }
     }
 
@@ -117,14 +117,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id'               => Yii::t('app', 'ID'),
-            'username'         => Yii::t('app', 'Username'),
-            'email'            => Yii::t('app', 'Email'),
-            'status'           => Yii::t('app', 'Status'),
-            'password'         => Yii::t('app', 'Password'),
-            'confirm_password' => Yii::t('app', 'Confirm password'),
-            'created_at'       => Yii::t('app', 'Date created'),
-            'updated_at'       => Yii::t('app', 'Date updated'),
+            'id'               => Yii::t('admin', 'ID'),
+            'username'         => Yii::t('admin', 'Username'),
+            'email'            => Yii::t('admin', 'Email'),
+            'status'           => Yii::t('admin', 'Status'),
+            'password'         => Yii::t('admin', 'Password'),
+            'confirm_password' => Yii::t('admin', 'Confirm password'),
+            'created_at'       => Yii::t('admin', 'Date created'),
+            'updated_at'       => Yii::t('admin', 'Date updated'),
         ];
     }
 

@@ -62,7 +62,7 @@ class CategoryController extends BaseController
             $model->saveWithMetaKay($meta_tag)
         )
         {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Entry has been saved successfully!'));
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -94,7 +94,7 @@ class CategoryController extends BaseController
             $model->saveWithMetaKay($meta_tag)
         )
         {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been saved successfully!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Entry has been saved successfully!'));
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -117,12 +117,12 @@ class CategoryController extends BaseController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $result = [
                 'status' => true,
-                'message' => Yii::t('app', 'Entry has been saved successfully!')
+                'message' => Yii::t('admin', 'Entry has been saved successfully!')
             ];
         } else {
             $result = [
                 'status' => false,
-                'message' => Yii::t('app', 'Record can not be saved!')
+                'message' => Yii::t('admin', 'Record can not be saved!')
             ];
         }
 
@@ -140,10 +140,10 @@ class CategoryController extends BaseController
         $model = $this->findModel($id);
 
         if ($model->posts) {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'This entry has post!'));
+            Yii::$app->session->setFlash('error', Yii::t('admin', 'This entry has post!'));
         } else {
             $model->delete();
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Entry has been deleted successfully!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Entry has been deleted successfully!'));
         }
 
         return $this->redirect(['index']);

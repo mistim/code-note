@@ -46,7 +46,7 @@ class TranslationExchangeController extends BaseController
 
             if ($model->upload()) {
                 if ( $model->export()) {
-                    Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Translations has been exported successfully!'));
+                    Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Translations has been exported successfully!'));
                 } else {
                     Yii::$app->getSession()->setFlash('danger', Yii::t('admin', 'Error export!'));
                 }
