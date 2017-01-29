@@ -214,3 +214,7 @@ input[type="checkbox"] {
 .redactor-modal-tab input[type="file"] {
     margin-top: 20px;
 }
+
+.char-total, .word-total {
+    padding-right: 10px;
+}

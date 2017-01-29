@@ -90,6 +90,13 @@ class MetaTag extends \yii\db\ActiveRecord
 			->where('entity = :entity', [':entity' => Note::className()]);
 	}
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        self::clearCacheModel();
+    }
+
 	/**
 	 * @return mixed|static[]
 	 */
@@ -133,7 +140,10 @@ class MetaTag extends \yii\db\ActiveRecord
 				'link'   => $link,
 			]);
 
-			Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+			Yii::$app->cacheFrontend->set(
+			    $keyCache, $data, self::CACHE_DURATION,
+                new TagDependency(['tags' => self::CACHE_KEY])
+            );
 		}
 
 		return $data;
