@@ -38,6 +38,24 @@ class Category extends \yii\db\ActiveRecord
 	public $cnt_post;
 	public $cnt_note;
 
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+
+        $this->setDefaultValues();
+    }
+
+    /**
+     * Set default values
+     */
+    protected function setDefaultValues()
+    {
+        $this->status = self::STATUS_ACTIVE;
+    }
+
 	/**
 	 * @inheritdoc
 	 */
@@ -54,6 +72,7 @@ class Category extends \yii\db\ActiveRecord
 		return [
 			[['title', 'status', 'alias'], 'required'],
 			[['status', 'creator_id', 'editor_id'], 'integer'],
+            [['status'], 'default', 'value'=> self::STATUS_ACTIVE],
 			[['created_at', 'updated_at'], 'safe'],
 			[['title', 'alias'], 'string', 'max' => 255],
 			['teaser', 'string', 'max' => 1000],

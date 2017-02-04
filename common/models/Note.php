@@ -47,6 +47,24 @@ class Note extends \yii\db\ActiveRecord
 
 	const IS_POST = 0;
 
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+
+        $this->setDefaultValues();
+    }
+
+    /**
+     * Set default values
+     */
+    protected function setDefaultValues()
+    {
+        $this->status = self::STATUS_ACTIVE;
+    }
+
 	public function behaviors()
 	{
 		return [
@@ -71,6 +89,7 @@ class Note extends \yii\db\ActiveRecord
 			[['title', 'alias', 'text', 'status', 'category_id'], 'required', 'on' => 'crud', 'except' => 'update'],
 			['cnt_view', 'integer', 'on' => 'update', 'except' => 'crud'],
 			[['text'], 'string'],
+            [['status'], 'default', 'value'=> self::STATUS_ACTIVE],
 			[['status', 'category_id', 'creator_id', 'editor_id', 'is_post'], 'integer'],
 			[['posted_at', 'created_at', 'updated_at', 'list_tag'], 'safe'],
 			[['title', 'alias'], 'string', 'max' => 255],

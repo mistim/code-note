@@ -14,7 +14,7 @@ use yii\caching\TagDependency;
  * @property integer   $status
  * @property integer   $meta_tag_id
  *
- * @property NoteTag[] $noteTags
+ * @property PostTag[] $noteTags
  * @property PostTag[] $postTags
  * @property Post[]    $posts
  * @property Note[]    $notes
@@ -28,6 +28,24 @@ class Tag extends \yii\db\ActiveRecord
 
 	const CACHE_KEY      = 'modelTag_';
 	const CACHE_DURATION = 0;
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+
+        $this->setDefaultValues();
+    }
+
+    /**
+     * Set default values
+     */
+    protected function setDefaultValues()
+    {
+        $this->status = self::STATUS_ACTIVE;
+    }
 
 	/**
 	 * @inheritdoc
@@ -46,6 +64,7 @@ class Tag extends \yii\db\ActiveRecord
 			[['title', 'alias', 'status'], 'required'],
 			//['alias', 'unique'],
 			[['status'], 'integer'],
+            [['status'], 'default', 'value'=> self::STATUS_ACTIVE],
 			[['title', 'alias'], 'string', 'max' => 255],
 		];
 	}

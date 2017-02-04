@@ -27,6 +27,24 @@ class MetaTag extends \yii\db\ActiveRecord
 	const CACHE_KEY      = 'modelMetaKey_';
 	const CACHE_DURATION = 0;
 
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+
+        $this->setDefaultValues();
+    }
+
+    /**
+     * Set default values
+     */
+    protected function setDefaultValues()
+    {
+        $this->status = self::STATUS_ACTIVE;
+    }
+
 	/**
 	 * @inheritdoc
 	 */
@@ -43,6 +61,7 @@ class MetaTag extends \yii\db\ActiveRecord
 		return [
 			[['status'], 'required'],
 			[['status'], 'integer'],
+            [['status'], 'default', 'value'=> self::STATUS_ACTIVE],
 			['link', 'unique'],
 			[['entity', 'title', 'keyword', 'description'], 'string', 'max' => 255],
 		];
