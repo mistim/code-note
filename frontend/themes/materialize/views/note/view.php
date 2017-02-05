@@ -23,7 +23,7 @@ use frontend\helpers\ViewTools;
 				</span>
 				<span class="post-info">
 					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="<?= Yii::t('app', 'date created') ?>">event_note</i>
-					<span class="post-info-text"><?= Yii::$app->formatter->format($model->posted_at, 'date') ?></span>
+					<span class="post-info-text"><?= Yii::$app->formatter->format($model->posted_at ?: $model->created_at, 'date') ?></span>
 				</span>
 				<span class="post-info">
 					<i class="material-icons blue-grey-text text-darken-2 tooltipped" data-position="top" data-delay="50" data-tooltip="<?= Yii::t('app', 'category') ?>">library_books</i>
