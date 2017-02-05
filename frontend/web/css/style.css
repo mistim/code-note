@@ -311,6 +311,7 @@ span.badge.badge-block {
 
 .card-head h1 {
     /*margin-bottom: 0;*/
+    font-size: 3rem;
 }
 
 .note.card-head h3 {
@@ -408,4 +409,26 @@ span.badge.badge-block {
 
 .side-nav {
     width: 280px;
+}
+
+.card-content img {
+    max-width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }

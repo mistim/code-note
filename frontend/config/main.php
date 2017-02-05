@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    // при включенном debug повторный вывод view
     //'catchAll' => ['/site/offline'],
     'language'  => 'ru',
     'sourceLanguage' => 'en_US',

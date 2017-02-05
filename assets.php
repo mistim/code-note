@@ -23,18 +23,22 @@ return [
 		'yii\validators\ValidationAsset',
 		'frontend\assets\MaterialDesignIconsAsset',
 		'frontend\assets\MaterializeAsset',
-		'frontend\assets\HighlightAsset',
 		'frontend\assets\AppAsset',
 	],
 	// Asset bundle for compression output:
 	'targets'       => [
 		'all' => [
-			'class'    => 'yii\web\AssetBundle',
-			'basePath' => '@webroot/assets/nimify',
-			'baseUrl'  => '@web/assets/nimify',
-			'js'       => 'all-{hash}.js',
-			'css'      => 'all-{hash}.css',
+            'class'    => 'yii\web\AssetBundle',
+            'basePath' => '@webroot/assets/nimify',
+            'baseUrl'  => '@web/assets/nimify',
+            'js'       => 'all-{hash}.js',
+            'css'      => 'all-{hash}.css',
 		],
+        // закомментировать при генерации assets
+        /*'frontend\assets\HighlightAsset' => [
+            'selector'   => '.hl-code',
+            'sourcePath' => '@frontend/web/plugins/highlight/',
+        ],*/
 	],
 	// Asset manager configuration:
 	'assetManager'  => [
