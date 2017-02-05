@@ -84,11 +84,11 @@ class CategorySearch extends Category
 		// grid filtering conditions
 		$query->andFilterWhere([
 			'id'         => $this->id,
-			'status'     => $this->status,
 			'creator_id' => $this->creator_id,
 			'editor_id'  => $this->editor_id,
 			'created_at' => $this->created_at,
 			'updated_at' => $this->updated_at,
+            'category.status' => $this->status,
 		]);
 
 		$query->andFilterWhere(['like', 'title', $this->title])
