@@ -17,19 +17,19 @@ use yii\widgets\ListView;
 
 <div id="list-post">
 	<?= ListView::widget([
-		'dataProvider' => $dataProvider,
-		'itemView' => '/common/_view',
-		'pager' => [
-			'firstPageLabel' => '<i class="material-icons">first_page</i>',
-			'lastPageLabel' => '<i class="material-icons">last_page</i>',
-			'prevPageLabel' => '<i class="material-icons">chevron_left</i>',
-			'nextPageLabel' => '<i class="material-icons">chevron_right</i>',
-			'activePageCssClass' => 'active cyan darken-2',
-			'options' => [
-				'tag' => 'div',
-				'class' => 'pagination center-align',
-				'id' => 'pager-container',
-			],
-		],
+        'dataProvider' => $dataProvider,
+        'itemView'     => '/common/_view',
+        'pager'        => [
+            'firstPageLabel'     => '<i class="material-icons">first_page</i>',
+            'lastPageLabel'      => '<i class="material-icons">last_page</i>',
+            'prevPageLabel'      => '<i class="material-icons">chevron_left</i>',
+            'nextPageLabel'      => '<i class="material-icons">chevron_right</i>',
+            'activePageCssClass' => 'active cyan darken-2',
+            'options'            => [
+                'tag'   => 'div',
+                'class' => 'pagination center-align',
+                'id'    => 'pager-container',
+            ],
+        ],
 	]); ?>
 </div>

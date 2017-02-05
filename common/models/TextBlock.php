@@ -30,8 +30,8 @@ class TextBlock extends \yii\db\ActiveRecord
 	const STATUS_ACTIVE    = 1;
 
 	const BLOCK_NOTES_CODE = 1;
-	const BLOCK_ID_GAS     = 2;
-	const BLOCK_ID_OIL     = 3;
+    const BLOCK_POSTS     = 2;
+	const BLOCK_NOTES     = 3;
 
 	const CACHE_KEY      = 'modelTextBlock_';
 	const CACHE_DURATION = 0;

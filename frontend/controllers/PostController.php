@@ -6,6 +6,7 @@ use common\models\Category;
 use common\models\Post;
 use common\models\search\PostSearch;
 use common\models\Tag;
+use common\models\TextBlock;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use Yii;
@@ -26,6 +27,7 @@ class PostController extends BaseController
 
 		return $this->render('index', [
 			'dataProvider' => $dataProvider,
+            'text_block'   => TextBlock::getActiveByID(TextBlock::BLOCK_POSTS, true),
 		]);
 	}
 

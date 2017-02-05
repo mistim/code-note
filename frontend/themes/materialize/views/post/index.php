@@ -3,6 +3,7 @@
 use yii\widgets\ListView;
 
 /* @var $model \common\models\Category|\common\models\Tag */
+/* @var $text_block \common\models\TextBlock */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 ?>
@@ -22,14 +23,7 @@ use yii\widgets\ListView;
 	<?php else: ?>
 		<h1 class="center-align"><?= Yii::t('app', 'Posts') ?></h1>
 		<div class="card-content">
-			Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur
-			adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-			Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Vestibulum ac diam sit amet
-			quam vehicula elementum sed sit amet dui. Praesent sapien massa, convallis a pellentesque nec, egestas non
-			nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit
-			neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Pellentesque in ipsum id orci porta
-			dapibus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vivamus suscipit tortor
-			eget felis porttitor volutpat. Donec sollicitudin molestie malesuada.
+            <?= $text_block->text ?>
 		</div>
 	<?php endif; ?>
 </div>
