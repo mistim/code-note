@@ -5,6 +5,28 @@ $(window).on('load', function () {
     $('#pl-page-wrapper').delay(1000).fadeOut('slow');
 });
 
+$(window).scroll(function () {
+    var sidebar = $('.bar-top');
+    var diff =  Math.round($(window).scrollTop()) - (Math.round($(document).height()) - Math.round($(window).height()));
+    diff = Math.abs(diff);
+
+    if (
+        //Math.round($(window).scrollTop()) === Math.round($(document).height()) - Math.round($(window).height()) ||
+        diff < 100
+    ) {
+        //Пользователь долистал до низа страницы
+        sidebar.css({'margin-top': '-99px'});
+    } else {
+        sidebar.css({'margin-top': '0'})
+    }
+
+    /*console.log(
+        Math.round($(window).scrollTop()),
+        Math.round($(document).height()) - Math.round($(window).height()),
+        diff
+    );*/
+});
+
 $(document).ready(function() {
 
     $('.mobile-menu').sideNav();
