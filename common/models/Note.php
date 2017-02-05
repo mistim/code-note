@@ -196,6 +196,10 @@ class Note extends \yii\db\ActiveRecord
 			if ($this->isNewRecord) {
 				$this->created_at = (new \DateTime())->format('Y-m-d H:i:s');
 				$this->creator_id = Yii::$app->user->getId();
+
+                if (!$this->posted_at) {
+                    $this->posted_at = $this->created_at;
+                }
 			} else {
 				$this->updated_at = (new \DateTime())->format('Y-m-d H:i:s');
 				$this->editor_id  = Yii::$app->user->getId();

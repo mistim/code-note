@@ -226,6 +226,10 @@ class Post extends \yii\db\ActiveRecord
 				$this->creator_id = Yii::$app->user->getId();
 				$this->is_post = self::IS_POST;
 				$this->cnt_view = 0;
+
+				if (!$this->posted_at) {
+				    $this->posted_at = $this->created_at;
+                }
 			} else {
 				$this->updated_at = (new \DateTime())->format('Y-m-d H:i:s');
 				$this->editor_id  = Yii::$app->user->getId();
