@@ -13,6 +13,9 @@
 </head>
 <body class="blue-grey lighten-5">
 
+<?= $this->render('/analytics/google') ?>
+<?= $this->render('/analytics/yandex') ?>
+
 <div id="pl-page-wrapper">
 	<div id="pl-page">
 		<div id="pl-text"><?= Yii::t('app', 'preloader text') ?></div>
