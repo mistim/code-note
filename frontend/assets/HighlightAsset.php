@@ -22,6 +22,7 @@ class HighlightAsset extends AssetBundle
 
 	public $js = [
 		'highlight.pack.js',
+        'highlightjs-line-numbers.js'
 	];
 
 	public $depends = [
@@ -67,11 +68,13 @@ class HighlightAsset extends AssetBundle
                 hljs.configure(' . $options . ');
                 jQuery(\'' . $configSelector . '\').each(function(i, block) {
                     hljs.highlightBlock(block);
+                    hljs.lineNumbersBlock(block);
                 });');
 		} else {
 			$view->registerJs('
                 hljs.configure(' . $options . ');
-                hljs.initHighlightingOnLoad();'
+                hljs.initHighlightingOnLoad();
+                hljs.initLineNumbersOnLoad();'
 			);
 		}
 

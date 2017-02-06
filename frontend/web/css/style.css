@@ -432,3 +432,30 @@ pre {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+.card>.card-title {
+    padding: 10px 20px;
+}
+
+.sidebar .card ul {
+    margin-bottom: 0;
+}
+
+pre.hljs {
+    /*border-radius: 0 4px 4px 0;*/
+    border-radius: 0;
+    border-left: none;
+}
+
+pre.hljs-line-numbers {
+    /*border-radius: 4px 0 0 4px;*/
+    text-align: right;
+    border-right: 1px solid #454d56;
+    color: #999;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
