@@ -204,7 +204,7 @@ class TextBlock extends \yii\db\ActiveRecord
 	 * @param           $alias
 	 * @param bool|true $use_cache
 	 *
-	 * @return null|Post
+     * @return null|TextBlock
 	 */
 	public static function getActiveByAlias($alias, $use_cache = false)
 	{
@@ -218,7 +218,10 @@ class TextBlock extends \yii\db\ActiveRecord
 				'alias'  => $alias,
 			]);
 
-			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+			$use_cache && Yii::$app->cacheFrontend->set(
+                $keyCache, $data, self::CACHE_DURATION,
+                new TagDependency(['tags' => self::CACHE_KEY])
+            );
 		}
 
 		return $data;
@@ -242,7 +245,10 @@ class TextBlock extends \yii\db\ActiveRecord
 				'id'     => $id,
 			]);
 
-			$use_cache && Yii::$app->cacheFrontend->set($keyCache, $data, self::CACHE_DURATION);
+			$use_cache && Yii::$app->cacheFrontend->set(
+                $keyCache, $data, self::CACHE_DURATION,
+                new TagDependency(['tags' => self::CACHE_KEY])
+            );
 		}
 
 		return $data;

@@ -41,32 +41,6 @@ class Category extends \yii\db\ActiveRecord
 	public $cnt_note;
 
     /**
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            'sitemap' => [
-                'class' => SitemapBehavior::className(),
-                'scope' => function ($model) {
-                    /** @var \yii\db\ActiveQuery $model */
-                    $model->select(['alias', 'updated_at']);
-                    $model->andWhere(['status' => self::STATUS_ACTIVE]);
-                },
-                'dataClosure' => function ($model) {
-                    /** @var self $model */
-                    return [
-                        'loc'        => Url::to(['/category/' . $model->alias], true),
-                        'lastmod'    => strtotime($model->updated_at),
-                        'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
-                        'priority'   => 0.8
-                    ];
-                }
-            ],
-        ];
-    }
-
-    /**
      * @inheritdoc
      */
     public function init()

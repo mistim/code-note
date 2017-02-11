@@ -3,11 +3,12 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\widgets\Box;
+use backend\helpers\ToolsHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\TextBlock */
 
-$this->title = $model->id;
+$this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Text Blocks'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -42,7 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'title:raw',
                     'alias',
                     'text:raw',
-                    'status',
+                    [
+                        'attribute' => 'status',
+                        'format' => 'html',
+                        'value' => ToolsHelper::getStatusStr($model->status)
+                    ],
                     [
                         'attribute' => 'creator.username',
                         'label' => Yii::t('admin', 'Creator')

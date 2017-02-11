@@ -71,23 +71,6 @@ class Note extends \yii\db\ActiveRecord
 	{
 		return [
 			TagBehavior::className(),
-            'sitemap' => [
-                'class' => SitemapBehavior::className(),
-                'scope' => function ($model) {
-                    /** @var \yii\db\ActiveQuery $model */
-                    $model->select(['alias', 'updated_at']);
-                    $model->andWhere(['status' => self::STATUS_ACTIVE]);
-                },
-                'dataClosure' => function ($model) {
-                    /** @var self $model */
-                    return [
-                        'loc'        => Url::to(['/note/' . $model->alias], true),
-                        'lastmod'    => strtotime($model->updated_at),
-                        'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
-                        'priority'   => 0.8
-                    ];
-                }
-            ],
 		];
 	}
 
