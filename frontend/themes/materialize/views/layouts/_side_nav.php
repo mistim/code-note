@@ -29,17 +29,20 @@ $tags = Tag::getAllActive(true);
 					<div class="col s12 without-padding">
 						<ul class="tabs">
 							<li class="tab">
-								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#categoryAllSB">
+								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2 tooltipped"
+                                   href="#categoryAllSB" data-position="bottom" data-delay="50" data-tooltip="<?= Yii::t('app', 'All') ?>">
 									<i class="material-icons dp48">view_module</i>
 								</a>
 							</li>
 							<li class="tab">
-								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#categoryPostsSB">
+								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2 tooltipped"
+                                   href="#categoryPostsSB" data-position="bottom" data-delay="50" data-tooltip="<?= Yii::t('app', 'Posts') ?>">
 									<i class="material-icons dp48">view_list</i>
 								</a>
 							</li>
 							<li class="tab">
-								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#categoryNotesSB">
+								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2 tooltipped"
+                                   href="#categoryNotesSB" data-position="bottom" data-delay="50" data-tooltip="<?= Yii::t('app', 'Notes') ?>">
 									<i class="material-icons dp48">reorder</i>
 								</a>
 							</li>
@@ -99,17 +102,20 @@ $tags = Tag::getAllActive(true);
 					<div class="col s12 without-padding">
 						<ul class="tabs">
 							<li class="tab">
-								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2" href="#tagAllSB">
+								<a class="<?= ViewTools::isActiveRoute('site') ?> blue-grey-text text-darken-2 tooltipped"
+                                   href="#tagAllSB" data-position="bottom" data-delay="50" data-tooltip="<?= Yii::t('app', 'All') ?>">
 									<i class="material-icons dp48">view_module</i>
 								</a>
 							</li>
 							<li class="tab ">
-								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2" href="#tagPostsSB">
+								<a class="<?= ViewTools::isActiveRoute('post') ?> blue-grey-text text-darken-2 tooltipped"
+                                   href="#tagPostsSB" data-position="bottom" data-delay="50" data-tooltip="<?= Yii::t('app', 'Posts') ?>">
 									<i class="material-icons dp48">view_list</i>
 								</a>
 							</li>
 							<li class="tab">
-								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2" href="#tagNotesSB">
+								<a class="<?= ViewTools::isActiveRoute('note') ?> blue-grey-text text-darken-2 tooltipped"
+                                   href="#tagNotesSB" data-position="bottom" data-delay="50" data-tooltip="<?= Yii::t('app', 'Notes') ?>">
 									<i class="material-icons dp48">reorder</i>
 								</a>
 							</li>
