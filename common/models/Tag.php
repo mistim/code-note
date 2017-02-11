@@ -2,8 +2,10 @@
 
 namespace common\models;
 
+use frontend\modules\sitemap\behaviors\SitemapBehavior;
 use Yii;
 use yii\caching\TagDependency;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "tag".
@@ -28,6 +30,32 @@ class Tag extends \yii\db\ActiveRecord
 
 	const CACHE_KEY      = 'modelTag_';
 	const CACHE_DURATION = 0;
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'sitemap' => [
+                'class' => SitemapBehavior::className(),
+                'scope' => function ($model) {
+                    /** @var \yii\db\ActiveQuery $model */
+                    $model->select(['alias']);
+                    $model->andWhere(['status' => self::STATUS_ACTIVE]);
+                },
+                'dataClosure' => function ($model) {
+                    /** @var self $model */
+                    return [
+                        'loc'        => Url::to(['/tag/' . $model->alias], true),
+                        'lastmod'    => null, //strtotime($model->updated_at),
+                        'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
+                        'priority'   => 0.8
+                    ];
+                }
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc

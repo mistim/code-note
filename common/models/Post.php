@@ -4,10 +4,12 @@ namespace common\models;
 
 use common\components\TagBehavior;
 use backend\widgets\fileapi\behaviors\UploadBehavior;
+use frontend\modules\sitemap\behaviors\SitemapBehavior;
 use Yii;
 use backend\models\User;
 use yii\caching\TagDependency;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "post".
@@ -70,7 +72,24 @@ class Post extends \yii\db\ActiveRecord
 					],
 				],
 			],
-			TagBehavior::className()
+			TagBehavior::className(),
+            'sitemap' => [
+                'class' => SitemapBehavior::className(),
+                'scope' => function ($model) {
+                    /** @var \yii\db\ActiveQuery $model */
+                    $model->select(['alias', 'updated_at']);
+                    $model->andWhere(['status' => self::STATUS_ACTIVE]);
+                },
+                'dataClosure' => function ($model) {
+                    /** @var self $model */
+                    return [
+                        'loc'        => Url::to(['/post/' . $model->alias], true),
+                        'lastmod'    => strtotime($model->updated_at),
+                        'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
+                        'priority'   => 0.8
+                    ];
+                }
+            ],
 		];
 	}
 
@@ -452,11 +471,11 @@ class Post extends \yii\db\ActiveRecord
 				'AND',
 				['status' => self::STATUS_ACTIVE],
 				['is_post' => self::IS_POST],
-				[
+				/*[
 					'OR',
-					['<', 'posted_at', date('Y-m-d 00:00:00')],
+					['>', 'posted_at', date('Y-m-d 00:00:00')],
 					['posted_at' => date('Y-m-d 00:00:00')]
-				]
+				]*/
 			]),
 			'pagination' => [
 				'pageSize' => 5,

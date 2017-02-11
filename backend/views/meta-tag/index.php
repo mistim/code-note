@@ -29,8 +29,8 @@ $gridConfig = [
         ],
         'link',
         'title',
-        'keyword',
-         'description',
+        //'keyword',
+        //'description',
     ],
 ];
 

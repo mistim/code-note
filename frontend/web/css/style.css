@@ -388,7 +388,7 @@ span.badge.badge-block {
 
 /*** Hightline.js ***/
 .hljs {
-    background: #002b36;
+    background: #002b36 !important;
 }
 
 .list-view .row {
@@ -458,4 +458,12 @@ pre.hljs-line-numbers {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+#sidenav-overlay {
+    height: 100%;
+}
+
+.page-footer {
+    min-width: 745px;
 }

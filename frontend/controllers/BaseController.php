@@ -72,14 +72,14 @@ class BaseController extends Controller
     public function setSeoByModel($model)
     {
         $this->setSeo(
-            $model->meta_tag->title
-                ? $model->meta_tag->status === MetaTag::STATUS_ACTIVE && $model->meta_tag->title
+            $model->meta_tag->title && $model->meta_tag->status === MetaTag::STATUS_ACTIVE
+                ? $model->meta_tag->title
                 : $model->title,
-            $model->meta_tag->keyword
-                ? $model->meta_tag->status === MetaTag::STATUS_ACTIVE && $model->meta_tag->keyword
+            $model->meta_tag->keyword && $model->meta_tag->status === MetaTag::STATUS_ACTIVE
+                ? $model->meta_tag->keyword
                 : $model->title,
-            $model->meta_tag->description
-                ? $model->meta_tag->status === MetaTag::STATUS_ACTIVE && $model->meta_tag->description
+            $model->meta_tag->description && $model->meta_tag->status === MetaTag::STATUS_ACTIVE
+                ? $model->meta_tag->description
                 : $model->title
         );
     }

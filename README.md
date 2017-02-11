@@ -73,4 +73,4 @@ Migrations:
     
 Admin
 
-    /admin_7a1M8O => admin@local.loc | 123
+    /admin_7a1M8O
