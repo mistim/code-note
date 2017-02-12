@@ -38,13 +38,11 @@ class I18nUrlManager extends UrlManager
      */
     public function init()
     {
-        if (is_callable($this->languages))
-        {
+        if (is_callable($this->languages)) {
             $this->languages = call_user_func($this->languages);
         }
 
-        if (empty($this->languages))
-        {
+        if (empty($this->languages)) {
             $this->languages = [Yii::$app->language => Yii::$app->language];
         }
 
@@ -58,26 +56,21 @@ class I18nUrlManager extends UrlManager
      */
     public function parseRequest($request)
     {
-        if ($this->enablePrettyUrl)
-        {
+        if ($this->enablePrettyUrl) {
             $pathInfo = $request->getPathInfo();
             $language = explode('/', $pathInfo);
             $locale = $this->getLocal($language[0], $request);
             $language = $this->languages[$locale];
 
-            if (in_array($language, $this->languages, true))
-            {
+            if (in_array($language, $this->languages, true)) {
                 $request->setPathInfo(substr_replace($pathInfo, '', 0, (strlen($locale) + 1)));
                 Yii::$app->language = $locale;
             }
-        }
-        else
-        {
+        } else {
             $params = $request->getQueryParams();
             $route = isset($params[$this->routeParam]) ? $params[$this->routeParam] : '';
 
-            if (is_array($route))
-            {
+            if (is_array($route)) {
                 $route = '';
             }
 
@@ -85,8 +78,7 @@ class I18nUrlManager extends UrlManager
             $locale = $this->getLocal($language, $request);
             $language = $this->languages[$locale];
 
-            if (in_array($language, $this->languages, true))
-            {
+            if (in_array($language, $this->languages, true)) {
                 $route = substr_replace($route, '', 0, (strlen($locale) + 1));
                 $params[$this->routeParam] = $route;
                 $request->setQueryParams($params);
@@ -106,24 +98,19 @@ class I18nUrlManager extends UrlManager
     {
         $params = (array)$params;
 
-        if (array_key_exists($this->languageParam, $params))
-        {
+        if (array_key_exists($this->languageParam, $params)) {
             $lang = $params[$this->languageParam];
 
             if (
                 (($lang !== Yii::$app->sourceLanguage && ArrayHelper::getValue($this->aliases, $lang) !== Yii::$app->sourceLanguage)
                     || $this->displaySourceLanguage) && !empty($lang)
-            )
-            {
+            ) {
                 $params[0] = $lang . '/' . ltrim($params[0], '/');
             }
 
             unset($params[$this->languageParam]);
-        }
-        else
-        {
-            if (Yii::$app->language !== Yii::$app->sourceLanguage || $this->displaySourceLanguage)
-            {
+        } else {
+            if (Yii::$app->language !== Yii::$app->sourceLanguage || $this->displaySourceLanguage) {
                 $params[0] = Yii::$app->language . '/' . ltrim($params[0], '/');
             }
         }
@@ -141,26 +128,21 @@ class I18nUrlManager extends UrlManager
     {
         $currentLanguage = $request->cookies->getValue('lang', Yii::$app->language);
 
-        if (!$language || empty($language))
-        {
+        if (!$language || empty($language)) {
             header('Location: /' . $currentLanguage);
             exit;
         }
 
-        if (array_key_exists($language, $this->languages))
-        {
-            if ($language !== $request->cookies->get('lang'))
-            {
+        if (array_key_exists($language, $this->languages)) {
+            if ($language !== $request->cookies->get('lang')) {
                 Yii::$app->response->cookies->add(new \yii\web\Cookie([
-                    'name' => 'lang',
+                    'name'  => 'lang',
                     'value' => $language,
                 ]));
             }
 
             return $language;
-        }
-        else
-        {
+        } else {
             header('Location: /' . $currentLanguage);
             exit;
         }
@@ -173,7 +155,7 @@ class I18nUrlManager extends UrlManager
     public function getSwitcher()
     {
         $data = [];
-        $currentURL = str_replace(Yii::$app->urlManager->getHostInfo() . '/' .  Yii::$app->language, '', Yii::$app->request->getPathInfo());
+        $currentURL = str_replace(Yii::$app->urlManager->getHostInfo() . '/' . Yii::$app->language, '', Yii::$app->request->getPathInfo());
 
         foreach (Yii::$app->urlManager->languages as $code => $language) {
             if (Yii::$app->language === $code) {
