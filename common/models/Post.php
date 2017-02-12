@@ -383,6 +383,7 @@ class Post extends \yii\db\ActiveRecord
 			$data = self::findOne([
 				'status' => self::STATUS_ACTIVE,
 				'alias'  => $alias,
+                'is_post' => self::IS_POST
 			]);
 
 			$use_cache && Yii::$app->cacheFrontend->set(

@@ -56,13 +56,13 @@ $(document).ready(function() {
         $('.logo-ln').toggleClass('hide-op');
     }, 500);
 
-    setTimeout(function() {
+    /*setTimeout(function() {
         var barTop = $('.bar-top');
         barTop.pushpin({
             offset: 81
         });
         barTop.outerWidth($('.sidebar').width());
-    }, 100);
+    }, 100);*/
 
     $('.tabs a').on('click', function(e) {
         e.preventDefault();

@@ -467,3 +467,7 @@ pre.hljs-line-numbers {
 .page-footer {
     min-width: 745px;
 }
+
+.card-content h2 {
+    font-size: 2.1rem;
+}
