@@ -22,12 +22,12 @@ return [
                     'scope' => function ($model) {
                         /** @var \yii\db\ActiveQuery $model */
                         $model->select(['alias', 'updated_at']);
-                        $model->andWhere(['status' => Post::STATUS_ACTIVE]);
+                        $model->andWhere(['status' => Post::STATUS_ACTIVE, 'is_post' => Post::IS_POST]);
                     },
                     'dataClosure' => function ($model) {
                         /** @var common\models\Post $model */
                         return [
-                            'loc' => Url::to($model->alias, true),
+                            'loc' => Url::to('/post/' . $model->alias, true),
                             'lastmod' => strtotime($model->updated_at),
                             'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
                             'priority' => 0.8
@@ -43,12 +43,12 @@ return [
                     'scope' => function ($model) {
                         /** @var \yii\db\ActiveQuery $model */
                         $model->select(['alias', 'updated_at']);
-                        $model->andWhere(['status' => Note::STATUS_ACTIVE]);
+                        $model->andWhere(['status' => Note::STATUS_ACTIVE, 'is_post' => Note::IS_POST]);
                     },
                     'dataClosure' => function ($model) {
                         /** @var common\models\Note $model */
                         return [
-                            'loc' => Url::to($model->alias, true),
+                            'loc' => Url::to('/note/' . $model->alias, true),
                             'lastmod' => strtotime($model->updated_at),
                             'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
                             'priority' => 0.8
@@ -69,7 +69,7 @@ return [
                     'dataClosure' => function ($model) {
                         /** @var common\models\Category $model */
                         return [
-                            'loc' => Url::to($model->alias, true),
+                            'loc' => Url::to('/category/' . $model->alias, true),
                             'lastmod' => strtotime($model->updated_at),
                             'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
                             'priority' => 0.8
@@ -90,7 +90,7 @@ return [
                     'dataClosure' => function ($model) {
                         /** @var common\models\Tag $model */
                         return [
-                            'loc' => Url::to($model->alias, true),
+                            'loc' => Url::to('/tag/' . $model->alias, true),
                             'lastmod' => null, //strtotime($model->updated_at),
                             'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
                             'priority' => 0.8
