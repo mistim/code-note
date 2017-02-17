@@ -21,7 +21,7 @@ $gridConfig = [
     'columns' => [
         'id',
         'title',
-        'alias',
+        //'alias',
         //'teaser',
         //'text:ntext',
         // 'image',
@@ -30,6 +30,9 @@ $gridConfig = [
             'attribute' => 'status',
             'modelName' => 'Post',
             'route' => Url::to(['/post/status']),
+            'headerOptions' => [
+                'style' => 'width: 120px;'
+            ]
         ],
         'cnt_view',
         'posted_at:datetime',
